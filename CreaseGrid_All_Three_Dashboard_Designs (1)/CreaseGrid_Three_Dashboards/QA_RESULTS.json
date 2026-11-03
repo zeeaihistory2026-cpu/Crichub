@@ -1,0 +1,68 @@
+[
+  {
+    "role": "admin",
+    "device": "desktop",
+    "errors": [],
+    "scrollWidth": 1600,
+    "innerWidth": 1600,
+    "scrollHeight": 1469,
+    "heading": "Platform overview.",
+    "bodyHeight": 1469,
+    "path": "/mnt/data/CreaseGrid_Three_Dashboards/screens/desktop/admin_desktop.png"
+  },
+  {
+    "role": "admin",
+    "device": "mobile",
+    "errors": [],
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "scrollHeight": 2360,
+    "heading": "Platform overview.",
+    "bodyHeight": 2360,
+    "path": "/mnt/data/CreaseGrid_Three_Dashboards/screens/mobile/admin_mobile.png"
+  },
+  {
+    "role": "organizer",
+    "device": "desktop",
+    "errors": [],
+    "scrollWidth": 1600,
+    "innerWidth": 1600,
+    "scrollHeight": 1466,
+    "heading": "City Champions Cup 2026",
+    "bodyHeight": 1466,
+    "path": "/mnt/data/CreaseGrid_Three_Dashboards/screens/desktop/organizer_desktop.png"
+  },
+  {
+    "role": "organizer",
+    "device": "mobile",
+    "errors": [],
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "scrollHeight": 2532,
+    "heading": "City Champions Cup 2026",
+    "bodyHeight": 2532,
+    "path": "/mnt/data/CreaseGrid_Three_Dashboards/screens/mobile/organizer_mobile.png"
+  },
+  {
+    "role": "user",
+    "device": "desktop",
+    "errors": [],
+    "scrollWidth": 1600,
+    "innerWidth": 1600,
+    "scrollHeight": 1520,
+    "heading": "Good morning, Ayaan \u2733",
+    "bodyHeight": 1520,
+    "path": "/mnt/data/CreaseGrid_Three_Dashboards/screens/desktop/user_desktop.png"
+  },
+  {
+    "role": "user",
+    "device": "mobile",
+    "errors": [],
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "scrollHeight": 2465,
+    "heading": "Good morning, Ayaan \u2733",
+    "bodyHeight": 2465,
+    "path": "/mnt/data/CreaseGrid_Three_Dashboards/screens/mobile/user_mobile.png"
+  }
+]

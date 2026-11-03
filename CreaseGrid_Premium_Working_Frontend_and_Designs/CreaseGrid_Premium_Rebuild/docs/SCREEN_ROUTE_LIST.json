@@ -1,0 +1,219 @@
+[
+  {
+    "name": "Homepage",
+    "route": "/",
+    "desktop": "screens/desktop/01_home.png",
+    "mobile": "screens/mobile/01_home.png",
+    "category": "Core Page"
+  },
+  {
+    "name": "News & Analysis",
+    "route": "/news",
+    "desktop": "screens/desktop/02_news.png",
+    "mobile": "screens/mobile/02_news.png",
+    "category": "Core Page"
+  },
+  {
+    "name": "News Article",
+    "route": "/news/pakistan-squad",
+    "desktop": "screens/desktop/03_article.png",
+    "mobile": "screens/mobile/03_article.png",
+    "category": "Core Page"
+  },
+  {
+    "name": "Match Centre",
+    "route": "/matches/pakistan-new-zealand",
+    "desktop": "screens/desktop/04_match.png",
+    "mobile": "screens/mobile/04_match.png",
+    "category": "Core Page"
+  },
+  {
+    "name": "All Matches",
+    "route": "/matches",
+    "desktop": "screens/desktop/05_match-list.png",
+    "mobile": "screens/mobile/05_match-list.png",
+    "category": "Core Page"
+  },
+  {
+    "name": "India vs South Africa",
+    "route": "/matches/india-south-africa",
+    "desktop": "screens/desktop/06_india-match.png",
+    "mobile": "screens/mobile/06_india-match.png",
+    "category": "Core Page"
+  },
+  {
+    "name": "Australia vs England",
+    "route": "/matches/australia-england",
+    "desktop": "screens/desktop/07_aus-match.png",
+    "mobile": "screens/mobile/07_aus-match.png",
+    "category": "Core Page"
+  },
+  {
+    "name": "Tournament Centre",
+    "route": "/tournaments",
+    "desktop": "screens/desktop/08_tournaments.png",
+    "mobile": "screens/mobile/08_tournaments.png",
+    "category": "Core Page"
+  },
+  {
+    "name": "Player Profile",
+    "route": "/player",
+    "desktop": "screens/desktop/09_player.png",
+    "mobile": "screens/mobile/09_player.png",
+    "category": "Core Page"
+  },
+  {
+    "name": "Tools Directory",
+    "route": "/tools",
+    "desktop": "screens/desktop/10_tools.png",
+    "mobile": "screens/mobile/10_tools.png",
+    "category": "Core Page"
+  },
+  {
+    "name": "Qualification Lab",
+    "route": "/qualification",
+    "desktop": "screens/desktop/11_qualification.png",
+    "mobile": "screens/mobile/11_qualification.png",
+    "category": "Core Page"
+  },
+  {
+    "name": "Local Cricket",
+    "route": "/local",
+    "desktop": "screens/desktop/12_local.png",
+    "mobile": "screens/mobile/12_local.png",
+    "category": "Core Page"
+  },
+  {
+    "name": "Organizer Dashboard",
+    "route": "/organizer",
+    "desktop": "screens/desktop/13_organizer.png",
+    "mobile": "screens/mobile/13_organizer.png",
+    "category": "Dashboard"
+  },
+  {
+    "name": "Phone-First Scoring",
+    "route": "/organizer/scoring",
+    "desktop": "screens/desktop/14_scoring.png",
+    "mobile": "screens/mobile/14_scoring.png",
+    "category": "Core Page"
+  },
+  {
+    "name": "Admin Dashboard",
+    "route": "/admin",
+    "desktop": "screens/desktop/15_admin.png",
+    "mobile": "screens/mobile/15_admin.png",
+    "category": "Dashboard"
+  },
+  {
+    "name": "User Dashboard",
+    "route": "/my-cricket",
+    "desktop": "screens/desktop/16_my-cricket.png",
+    "mobile": "screens/mobile/16_my-cricket.png",
+    "category": "Dashboard"
+  },
+  {
+    "name": "Stats & Records",
+    "route": "/stats",
+    "desktop": "screens/desktop/17_stats.png",
+    "mobile": "screens/mobile/17_stats.png",
+    "category": "Core Page"
+  },
+  {
+    "name": "Player Comparison",
+    "route": "/compare",
+    "desktop": "screens/desktop/18_compare.png",
+    "mobile": "screens/mobile/18_compare.png",
+    "category": "Core Page"
+  },
+  {
+    "name": "Global Search",
+    "route": "/search",
+    "desktop": "screens/desktop/19_search.png",
+    "mobile": "screens/mobile/19_search.png",
+    "category": "Core Page"
+  },
+  {
+    "name": "Run Rate",
+    "route": "/tools/run-rate",
+    "desktop": "screens/desktop/20_tool-run-rate.png",
+    "mobile": "screens/mobile/20_tool-run-rate.png",
+    "category": "Calculator"
+  },
+  {
+    "name": "Required Run Rate",
+    "route": "/tools/required-run-rate",
+    "desktop": "screens/desktop/21_tool-required-run-rate.png",
+    "mobile": "screens/mobile/21_tool-required-run-rate.png",
+    "category": "Calculator"
+  },
+  {
+    "name": "Net Run Rate",
+    "route": "/tools/net-run-rate",
+    "desktop": "screens/desktop/22_tool-net-run-rate.png",
+    "mobile": "screens/mobile/22_tool-net-run-rate.png",
+    "category": "Calculator"
+  },
+  {
+    "name": "Batting Average",
+    "route": "/tools/batting-average",
+    "desktop": "screens/desktop/23_tool-batting-average.png",
+    "mobile": "screens/mobile/23_tool-batting-average.png",
+    "category": "Calculator"
+  },
+  {
+    "name": "Batting Strike Rate",
+    "route": "/tools/batting-strike-rate",
+    "desktop": "screens/desktop/24_tool-batting-strike-rate.png",
+    "mobile": "screens/mobile/24_tool-batting-strike-rate.png",
+    "category": "Calculator"
+  },
+  {
+    "name": "Bowling Average",
+    "route": "/tools/bowling-average",
+    "desktop": "screens/desktop/25_tool-bowling-average.png",
+    "mobile": "screens/mobile/25_tool-bowling-average.png",
+    "category": "Calculator"
+  },
+  {
+    "name": "Bowling Economy",
+    "route": "/tools/bowling-economy",
+    "desktop": "screens/desktop/26_tool-bowling-economy.png",
+    "mobile": "screens/mobile/26_tool-bowling-economy.png",
+    "category": "Calculator"
+  },
+  {
+    "name": "Bowling Strike Rate",
+    "route": "/tools/bowling-strike-rate",
+    "desktop": "screens/desktop/27_tool-bowling-strike-rate.png",
+    "mobile": "screens/mobile/27_tool-bowling-strike-rate.png",
+    "category": "Calculator"
+  },
+  {
+    "name": "Overs Converter",
+    "route": "/tools/overs-converter",
+    "desktop": "screens/desktop/28_tool-overs-converter.png",
+    "mobile": "screens/mobile/28_tool-overs-converter.png",
+    "category": "Calculator"
+  },
+  {
+    "name": "Target",
+    "route": "/tools/target",
+    "desktop": "screens/desktop/29_tool-target.png",
+    "mobile": "screens/mobile/29_tool-target.png",
+    "category": "Calculator"
+  },
+  {
+    "name": "Projected Score",
+    "route": "/tools/projected-score",
+    "desktop": "screens/desktop/30_tool-projected-score.png",
+    "mobile": "screens/mobile/30_tool-projected-score.png",
+    "category": "Calculator"
+  },
+  {
+    "name": "Partnership",
+    "route": "/tools/partnership",
+    "desktop": "screens/desktop/31_tool-partnership.png",
+    "mobile": "screens/mobile/31_tool-partnership.png",
+    "category": "Calculator"
+  }
+]

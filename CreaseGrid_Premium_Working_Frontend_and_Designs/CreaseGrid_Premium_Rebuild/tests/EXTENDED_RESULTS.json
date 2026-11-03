@@ -1,0 +1,120 @@
+{
+  "checks": 21,
+  "passed": 21,
+  "viewports": [
+    320,
+    375,
+    390,
+    768,
+    1024,
+    1440
+  ],
+  "failures": [],
+  "check_results": [
+    [
+      "run rate",
+      true,
+      "8.06"
+    ],
+    [
+      "required rate",
+      true,
+      "9.55"
+    ],
+    [
+      "net run rate",
+      true,
+      "+0.833"
+    ],
+    [
+      "batting average",
+      true,
+      "39.68"
+    ],
+    [
+      "batting strike rate",
+      true,
+      "158.14"
+    ],
+    [
+      "bowling average",
+      true,
+      "24.44"
+    ],
+    [
+      "bowling economy",
+      true,
+      "9.50"
+    ],
+    [
+      "bowling strike rate",
+      true,
+      "18.86"
+    ],
+    [
+      "over converter",
+      true,
+      "106"
+    ],
+    [
+      "target",
+      true,
+      "177"
+    ],
+    [
+      "projected score",
+      true,
+      "154"
+    ],
+    [
+      "partnership",
+      true,
+      "102"
+    ],
+    [
+      "invalid overs rejected",
+      true,
+      "Enter overs in cricket notation, such as 17.4 (not decimal 17.6)."
+    ],
+    [
+      "zero wickets N/A",
+      true,
+      "N/A"
+    ],
+    [
+      "6 legal balls = 1.0 overs",
+      true,
+      "1.0 / 20.0 overs"
+    ],
+    [
+      "2 illegal balls do not increment over",
+      true,
+      "1.0 / 20.0 overs"
+    ],
+    [
+      "8 runs with extras",
+      true,
+      "8/0"
+    ],
+    [
+      "new tournament name",
+      true,
+      "Home\nLocal Cricket\nOrganizer Workspace\nOrganizer Workspace\nNAVIGATION\nOverview\nMy Tournaments\nTeams & Players\nFixtures\nL"
+    ],
+    [
+      "no undefined teams",
+      true,
+      "False"
+    ],
+    [
+      "score blocked without teams",
+      true,
+      "Register teams first\n\nAt least two teams are required to begin scoring.\n\nReturn to organizer"
+    ],
+    [
+      "scoring enabled after 2 teams",
+      true,
+      "Home\nOrganizer\nMobile Scoring\nLOCAL SCORING \u00b7 INTERACTIVE DEMO\nBall-by-Ball Scoring\n\nNorth Cricket Club batting \u00b7 10 ove"
+    ]
+  ]
+}

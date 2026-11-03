@@ -1,0 +1,441 @@
+{
+  "routes_tested": 31,
+  "screens": 62,
+  "failures": [],
+  "screens_data": [
+    {
+      "type": "desktop",
+      "page": "home",
+      "path": "screens/desktop/01_home.png",
+      "overflow": 0,
+      "chars": 2018
+    },
+    {
+      "type": "desktop",
+      "page": "news",
+      "path": "screens/desktop/02_news.png",
+      "overflow": 0,
+      "chars": 2327
+    },
+    {
+      "type": "desktop",
+      "page": "article",
+      "path": "screens/desktop/03_article.png",
+      "overflow": 0,
+      "chars": 1872
+    },
+    {
+      "type": "desktop",
+      "page": "match",
+      "path": "screens/desktop/04_match.png",
+      "overflow": 0,
+      "chars": 860
+    },
+    {
+      "type": "desktop",
+      "page": "match-list",
+      "path": "screens/desktop/05_match-list.png",
+      "overflow": 0,
+      "chars": 365
+    },
+    {
+      "type": "desktop",
+      "page": "india-match",
+      "path": "screens/desktop/06_india-match.png",
+      "overflow": 0,
+      "chars": 435
+    },
+    {
+      "type": "desktop",
+      "page": "aus-match",
+      "path": "screens/desktop/07_aus-match.png",
+      "overflow": 0,
+      "chars": 438
+    },
+    {
+      "type": "desktop",
+      "page": "tournaments",
+      "path": "screens/desktop/08_tournaments.png",
+      "overflow": 0,
+      "chars": 773
+    },
+    {
+      "type": "desktop",
+      "page": "player",
+      "path": "screens/desktop/09_player.png",
+      "overflow": 0,
+      "chars": 705
+    },
+    {
+      "type": "desktop",
+      "page": "tools",
+      "path": "screens/desktop/10_tools.png",
+      "overflow": 0,
+      "chars": 1498
+    },
+    {
+      "type": "desktop",
+      "page": "qualification",
+      "path": "screens/desktop/11_qualification.png",
+      "overflow": 0,
+      "chars": 1201
+    },
+    {
+      "type": "desktop",
+      "page": "local",
+      "path": "screens/desktop/12_local.png",
+      "overflow": 0,
+      "chars": 553
+    },
+    {
+      "type": "desktop",
+      "page": "organizer",
+      "path": "screens/desktop/13_organizer.png",
+      "overflow": 0,
+      "chars": 1147
+    },
+    {
+      "type": "desktop",
+      "page": "scoring",
+      "path": "screens/desktop/14_scoring.png",
+      "overflow": 0,
+      "chars": 639
+    },
+    {
+      "type": "desktop",
+      "page": "admin",
+      "path": "screens/desktop/15_admin.png",
+      "overflow": 0,
+      "chars": 1321
+    },
+    {
+      "type": "desktop",
+      "page": "my-cricket",
+      "path": "screens/desktop/16_my-cricket.png",
+      "overflow": 0,
+      "chars": 979
+    },
+    {
+      "type": "desktop",
+      "page": "stats",
+      "path": "screens/desktop/17_stats.png",
+      "overflow": 0,
+      "chars": 496
+    },
+    {
+      "type": "desktop",
+      "page": "compare",
+      "path": "screens/desktop/18_compare.png",
+      "overflow": 0,
+      "chars": 461
+    },
+    {
+      "type": "desktop",
+      "page": "search",
+      "path": "screens/desktop/19_search.png",
+      "overflow": 0,
+      "chars": 1171
+    },
+    {
+      "type": "desktop",
+      "page": "tool-run-rate",
+      "path": "screens/desktop/20_tool-run-rate.png",
+      "overflow": 0,
+      "chars": 815
+    },
+    {
+      "type": "desktop",
+      "page": "tool-required-run-rate",
+      "path": "screens/desktop/21_tool-required-run-rate.png",
+      "overflow": 0,
+      "chars": 818
+    },
+    {
+      "type": "desktop",
+      "page": "tool-net-run-rate",
+      "path": "screens/desktop/22_tool-net-run-rate.png",
+      "overflow": 0,
+      "chars": 949
+    },
+    {
+      "type": "desktop",
+      "page": "tool-batting-average",
+      "path": "screens/desktop/23_tool-batting-average.png",
+      "overflow": 0,
+      "chars": 771
+    },
+    {
+      "type": "desktop",
+      "page": "tool-batting-strike-rate",
+      "path": "screens/desktop/24_tool-batting-strike-rate.png",
+      "overflow": 0,
+      "chars": 748
+    },
+    {
+      "type": "desktop",
+      "page": "tool-bowling-average",
+      "path": "screens/desktop/25_tool-bowling-average.png",
+      "overflow": 0,
+      "chars": 761
+    },
+    {
+      "type": "desktop",
+      "page": "tool-bowling-economy",
+      "path": "screens/desktop/26_tool-bowling-economy.png",
+      "overflow": 0,
+      "chars": 833
+    },
+    {
+      "type": "desktop",
+      "page": "tool-bowling-strike-rate",
+      "path": "screens/desktop/27_tool-bowling-strike-rate.png",
+      "overflow": 0,
+      "chars": 781
+    },
+    {
+      "type": "desktop",
+      "page": "tool-overs-converter",
+      "path": "screens/desktop/28_tool-overs-converter.png",
+      "overflow": 0,
+      "chars": 834
+    },
+    {
+      "type": "desktop",
+      "page": "tool-target",
+      "path": "screens/desktop/29_tool-target.png",
+      "overflow": 0,
+      "chars": 875
+    },
+    {
+      "type": "desktop",
+      "page": "tool-projected-score",
+      "path": "screens/desktop/30_tool-projected-score.png",
+      "overflow": 0,
+      "chars": 853
+    },
+    {
+      "type": "desktop",
+      "page": "tool-partnership",
+      "path": "screens/desktop/31_tool-partnership.png",
+      "overflow": 0,
+      "chars": 843
+    },
+    {
+      "type": "mobile",
+      "page": "home",
+      "path": "screens/mobile/01_home.png",
+      "overflow": 0,
+      "chars": 1955
+    },
+    {
+      "type": "mobile",
+      "page": "news",
+      "path": "screens/mobile/02_news.png",
+      "overflow": 0,
+      "chars": 2106
+    },
+    {
+      "type": "mobile",
+      "page": "article",
+      "path": "screens/mobile/03_article.png",
+      "overflow": 0,
+      "chars": 1315
+    },
+    {
+      "type": "mobile",
+      "page": "match",
+      "path": "screens/mobile/04_match.png",
+      "overflow": 0,
+      "chars": 860
+    },
+    {
+      "type": "mobile",
+      "page": "match-list",
+      "path": "screens/mobile/05_match-list.png",
+      "overflow": 0,
+      "chars": 365
+    },
+    {
+      "type": "mobile",
+      "page": "india-match",
+      "path": "screens/mobile/06_india-match.png",
+      "overflow": 0,
+      "chars": 435
+    },
+    {
+      "type": "mobile",
+      "page": "aus-match",
+      "path": "screens/mobile/07_aus-match.png",
+      "overflow": 0,
+      "chars": 438
+    },
+    {
+      "type": "mobile",
+      "page": "tournaments",
+      "path": "screens/mobile/08_tournaments.png",
+      "overflow": 0,
+      "chars": 773
+    },
+    {
+      "type": "mobile",
+      "page": "player",
+      "path": "screens/mobile/09_player.png",
+      "overflow": 0,
+      "chars": 705
+    },
+    {
+      "type": "mobile",
+      "page": "tools",
+      "path": "screens/mobile/10_tools.png",
+      "overflow": 0,
+      "chars": 1337
+    },
+    {
+      "type": "mobile",
+      "page": "qualification",
+      "path": "screens/mobile/11_qualification.png",
+      "overflow": 0,
+      "chars": 1201
+    },
+    {
+      "type": "mobile",
+      "page": "local",
+      "path": "screens/mobile/12_local.png",
+      "overflow": 0,
+      "chars": 553
+    },
+    {
+      "type": "mobile",
+      "page": "organizer",
+      "path": "screens/mobile/13_organizer.png",
+      "overflow": 0,
+      "chars": 1103
+    },
+    {
+      "type": "mobile",
+      "page": "scoring",
+      "path": "screens/mobile/14_scoring.png",
+      "overflow": 0,
+      "chars": 639
+    },
+    {
+      "type": "mobile",
+      "page": "admin",
+      "path": "screens/mobile/15_admin.png",
+      "overflow": 0,
+      "chars": 1277
+    },
+    {
+      "type": "mobile",
+      "page": "my-cricket",
+      "path": "screens/mobile/16_my-cricket.png",
+      "overflow": 0,
+      "chars": 944
+    },
+    {
+      "type": "mobile",
+      "page": "stats",
+      "path": "screens/mobile/17_stats.png",
+      "overflow": 0,
+      "chars": 496
+    },
+    {
+      "type": "mobile",
+      "page": "compare",
+      "path": "screens/mobile/18_compare.png",
+      "overflow": 0,
+      "chars": 461
+    },
+    {
+      "type": "mobile",
+      "page": "search",
+      "path": "screens/mobile/19_search.png",
+      "overflow": 0,
+      "chars": 1171
+    },
+    {
+      "type": "mobile",
+      "page": "tool-run-rate",
+      "path": "screens/mobile/20_tool-run-rate.png",
+      "overflow": 0,
+      "chars": 815
+    },
+    {
+      "type": "mobile",
+      "page": "tool-required-run-rate",
+      "path": "screens/mobile/21_tool-required-run-rate.png",
+      "overflow": 0,
+      "chars": 818
+    },
+    {
+      "type": "mobile",
+      "page": "tool-net-run-rate",
+      "path": "screens/mobile/22_tool-net-run-rate.png",
+      "overflow": 0,
+      "chars": 949
+    },
+    {
+      "type": "mobile",
+      "page": "tool-batting-average",
+      "path": "screens/mobile/23_tool-batting-average.png",
+      "overflow": 0,
+      "chars": 771
+    },
+    {
+      "type": "mobile",
+      "page": "tool-batting-strike-rate",
+      "path": "screens/mobile/24_tool-batting-strike-rate.png",
+      "overflow": 0,
+      "chars": 748
+    },
+    {
+      "type": "mobile",
+      "page": "tool-bowling-average",
+      "path": "screens/mobile/25_tool-bowling-average.png",
+      "overflow": 0,
+      "chars": 761
+    },
+    {
+      "type": "mobile",
+      "page": "tool-bowling-economy",
+      "path": "screens/mobile/26_tool-bowling-economy.png",
+      "overflow": 0,
+      "chars": 833
+    },
+    {
+      "type": "mobile",
+      "page": "tool-bowling-strike-rate",
+      "path": "screens/mobile/27_tool-bowling-strike-rate.png",
+      "overflow": 0,
+      "chars": 781
+    },
+    {
+      "type": "mobile",
+      "page": "tool-overs-converter",
+      "path": "screens/mobile/28_tool-overs-converter.png",
+      "overflow": 0,
+      "chars": 834
+    },
+    {
+      "type": "mobile",
+      "page": "tool-target",
+      "path": "screens/mobile/29_tool-target.png",
+      "overflow": 0,
+      "chars": 875
+    },
+    {
+      "type": "mobile",
+      "page": "tool-projected-score",
+      "path": "screens/mobile/30_tool-projected-score.png",
+      "overflow": 0,
+      "chars": 853
+    },
+    {
+      "type": "mobile",
+      "page": "tool-partnership",
+      "path": "screens/mobile/31_tool-partnership.png",
+      "overflow": 0,
+      "chars": 843
+    }
+  ]
+}
