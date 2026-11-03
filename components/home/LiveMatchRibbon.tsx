@@ -1,33 +1,16 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import TeamFlag from '@/components/ui/TeamFlag';
 import { REAL_MATCHES } from '@/data/recent-matches';
 
-interface LiveMatchItem {
-  id: string;
-  slug: string;
-  type: 'live' | 'upcoming' | 'completed';
-  badge: string;
-  badgeType: 'live' | 'upcoming' | 'completed';
-  series: string;
-  teamA: {
-    code: string;
-    score?: string;
-    overs?: string;
-  };
-  teamB: {
-    code: string;
-    score?: string;
-    overs?: string;
-  };
-  statusText: string;
-  highlightStatus?: boolean;
-}
+import type { RibbonItem } from '@/lib/live';
 
-const MATCHES: LiveMatchItem[] = REAL_MATCHES.map((m) => {
+type LiveMatchItem = RibbonItem;
+
+const RESULTS: LiveMatchItem[] = REAL_MATCHES.map((m) => {
   const split = (raw: string) => {
     const mm = raw.match(/^(.*?)\s*(\(.*\))?$/);
     return { score: mm?.[1], overs: mm?.[2] };
@@ -37,6 +20,7 @@ const MATCHES: LiveMatchItem[] = REAL_MATCHES.map((m) => {
   return {
     id: m.id,
     slug: m.slug,
+    href: `/matches/${m.slug}`,
     type: 'completed' as const,
     badge: 'RESULT',
     badgeType: 'completed' as const,
@@ -50,6 +34,31 @@ const MATCHES: LiveMatchItem[] = REAL_MATCHES.map((m) => {
 
 export default function LiveMatchRibbon() {
   const [filter, setFilter] = useState<'all' | 'live' | 'upcoming' | 'results'>('all');
+  const [liveItems, setLiveItems] = useState<LiveMatchItem[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const res = await fetch('/api/live');
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!cancelled && Array.isArray(data.live)) setLiveItems(data.live);
+      } catch {
+        /* feed unavailable - results ribbon stays */
+      }
+    };
+    load();
+    const t = setInterval(load, 120000);
+    return () => {
+      cancelled = true;
+      clearInterval(t);
+    };
+  }, []);
+
+  const allItems: LiveMatchItem[] = [...liveItems, ...RESULTS];
+  const liveCount = liveItems.filter((m) => m.type === 'live').length;
+  const upcomingCount = liveItems.filter((m) => m.type === 'upcoming').length;
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: 'left' | 'right') => {
@@ -59,7 +68,7 @@ export default function LiveMatchRibbon() {
     }
   };
 
-  const filteredMatches = MATCHES.filter((m) => {
+  const filteredMatches = allItems.filter((m) => {
     if (filter === 'all') return true;
     if (filter === 'live') return m.type === 'live';
     if (filter === 'upcoming') return m.type === 'upcoming';
@@ -74,19 +83,25 @@ export default function LiveMatchRibbon() {
         <div className="flex items-center gap-3 flex-wrap">
           {/* Live Indicator Heading */}
           <div className="flex items-center gap-2">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-alert opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-alert" />
-            </span>
+{liveCount > 0 ? (
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-alert opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-alert" />
+              </span>
+            ) : (
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-tealAccent" />
+            )}
             <span className="text-sm sm:text-base font-extrabold font-display text-ink tracking-tight">
-              Live Cricket Matches
+              {liveCount > 0 ? 'Live Cricket Matches' : 'Live & Latest Matches'}
             </span>
           </div>
 
           {/* Filter Pills matching Image 2 */}
           <div className="flex items-center gap-1.5 p-1 rounded-full bg-surface-alt border border-line">
             {[
-              { id: 'all', label: `All (${REAL_MATCHES.length})` },
+              { id: 'all', label: `All (${allItems.length})` },
+              ...(liveCount > 0 ? [{ id: 'live', label: `Live (${liveCount})` }] : []),
+              ...(upcomingCount > 0 ? [{ id: 'upcoming', label: `Upcoming (${upcomingCount})` }] : []),
               { id: 'results', label: 'Results' },
             ].map((tab) => {
               const active = filter === tab.id;
