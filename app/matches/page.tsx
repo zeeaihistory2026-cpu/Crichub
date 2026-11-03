@@ -29,12 +29,11 @@ export default function MatchesPage() {
               <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
               Latest Results · Updated {RESULTS_UPDATED_LABEL}
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-navy tracking-tight mt-1">
+<h1 className="text-[30px] leading-[38px] sm:text-[40px] sm:leading-[48px] lg:text-[44px] lg:leading-[52px] font-extrabold text-ink font-display tracking-tight mt-1">
               Match Centre
             </h1>
-            <p className="text-xs sm:text-sm text-slate-500 mt-0.5 max-w-2xl">
-              Recent international results, verified from published reports. A live scores feed is
-              not connected yet, so this page shows completed results only — never demo scores.
+            <p className="text-sm sm:text-base text-ink-muted mt-1.5 font-normal leading-relaxed">
+              Follow real-time ball trajectories, chase equations, and complete innings scorecards.
             </p>
           </div>
 

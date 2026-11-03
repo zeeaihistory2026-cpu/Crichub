@@ -30,23 +30,23 @@ export default function ToolsPage() {
           <span className="font-bold text-ink font-display">Tools</span>
         </div>
 
-        {/* Heading */}
+        {/* Heading (PRD Page H1 44px desktop / 32px mobile) */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="text-xs font-mono font-bold text-tealAccent uppercase tracking-wider">
               MATHEMATICALLY VALIDATED SUITE
             </div>
-            <h1 className="text-2xl sm:text-4xl font-extrabold text-ink font-display tracking-tight mt-1">
+            <h1 className="text-[30px] leading-[38px] sm:text-[40px] sm:leading-[48px] lg:text-[44px] lg:leading-[52px] font-extrabold text-ink font-display tracking-tight mt-1">
               Cricket Tools &amp; Calculators
             </h1>
-            <p className="text-xs sm:text-sm text-ink-muted mt-1 font-normal">
+            <p className="text-sm sm:text-base text-ink-muted mt-1.5 font-normal leading-relaxed">
               Twelve working calculators built with integer legal-ball precision and transparent worked examples.
             </p>
           </div>
 
           <Link
             href="/qualification"
-            className="bg-brand text-white hover:bg-brand-hover dark:bg-lime dark:text-canvas dark:hover:bg-lime-hover font-bold text-xs px-5 py-2.5 rounded-full transition shadow-xs flex items-center gap-2 self-start sm:self-auto btn-tactile"
+            className="bg-brand text-white hover:bg-brand-hover dark:bg-lime dark:text-canvas dark:hover:bg-lime-hover font-bold text-xs sm:text-[13px] px-5 py-2.5 rounded-full transition shadow-xs flex items-center gap-2 self-start sm:self-auto btn-tactile"
           >
             <Trophy className="w-4 h-4 text-amber-300 dark:text-canvas" />
             <span>Open Qualification Lab</span>
@@ -60,7 +60,7 @@ export default function ToolsPage() {
               <button
                 key={cat}
                 onClick={() => setSelectedCat(cat)}
-                className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-tight transition shrink-0 btn-tactile ${
+                className={`px-4 py-1.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight transition shrink-0 btn-tactile ${
                   selectedCat === cat
                     ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold shadow-xs'
                     : 'bg-surface text-ink-muted hover:text-ink hover:bg-surface-alt border border-line'
@@ -78,7 +78,7 @@ export default function ToolsPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search calculator (e.g. NRR, target)..."
-              className="w-full bg-surface text-ink text-xs pl-10 pr-4 py-2.5 rounded-full border border-line outline-hidden focus:border-tealAccent transition placeholder:text-ink-muted font-medium"
+              className="w-full bg-surface text-ink text-xs sm:text-[13px] pl-10 pr-4 py-2.5 rounded-full border border-line outline-hidden focus:border-tealAccent transition placeholder:text-ink-muted font-medium"
             />
           </div>
         </div>
@@ -101,10 +101,10 @@ export default function ToolsPage() {
                   </span>
                 </div>
 
-                <h3 className="text-base font-bold text-ink font-display group-hover:text-tealAccent transition">
+                <h3 className="text-base sm:text-lg font-bold text-ink font-display group-hover:text-tealAccent transition leading-snug">
                   {t.name}
                 </h3>
-                <p className="text-xs text-ink-muted mt-2 leading-relaxed font-normal">{t.desc}</p>
+                <p className="text-xs sm:text-sm text-ink-muted mt-2 leading-relaxed font-normal">{t.desc}</p>
               </div>
 
               <div className="mt-6 pt-3.5 border-t border-line flex items-center justify-between text-xs font-bold text-tealAccent">

@@ -60,11 +60,11 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
         <BrandLogo />
 
         {/* Center: Desktop Navigation Bar matching Image 2 */}
-        <nav className="hidden lg:flex items-center gap-1.5 xl:gap-2" aria-label="Main Navigation">
+        <nav className="hidden lg:flex items-center gap-1 xl:gap-2" aria-label="Main Navigation">
           {/* 1. Home Link (Active pill matching Image 2) */}
           <Link
             href="/"
-            className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-bold tracking-tight transition flex items-center gap-1.5 ${
+            className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13.5px] font-bold tracking-tight transition flex items-center gap-1.5 ${
               pathname === '/'
                 ? 'bg-brand text-white dark:bg-lime dark:text-canvas shadow-xs'
                 : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
@@ -77,7 +77,7 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
           {/* 2. Live Scores */}
           <Link
             href="/matches"
-            className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight transition flex items-center gap-1.5 ${
+            className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13.5px] font-semibold tracking-tight transition flex items-center gap-1.5 ${
               pathname === '/matches'
                 ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold shadow-xs'
                 : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
@@ -93,7 +93,7 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
           {/* 3. Matches */}
           <Link
             href="/matches"
-            className="px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight text-ink-muted hover:text-ink hover:bg-surface-alt transition flex items-center gap-1.5"
+            className="px-3.5 py-1.5 rounded-full text-xs sm:text-[13.5px] font-semibold tracking-tight text-ink-muted hover:text-ink hover:bg-surface-alt transition flex items-center gap-1.5"
           >
             <Calendar className="w-3.5 h-3.5 opacity-70" />
             <span>Matches</span>
@@ -107,7 +107,7 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
           >
             <Link
               href="/tools"
-              className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight transition flex items-center gap-1 ${
+              className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13.5px] font-semibold tracking-tight transition flex items-center gap-1 ${
                 pathname.startsWith('/tools')
                   ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold shadow-xs'
                   : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
@@ -124,7 +124,7 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
                     key={item.name}
                     href={item.href}
                     onClick={() => setToolsOpen(false)}
-                    className="block px-4 py-2 text-xs text-ink-muted hover:text-ink hover:bg-surface-alt transition font-medium"
+                    className="block px-4 py-2 text-xs sm:text-[13px] text-ink-muted hover:text-ink hover:bg-surface-alt transition font-medium"
                   >
                     {item.name}
                   </Link>
@@ -136,7 +136,7 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
           {/* 5. Qualification Lab */}
           <Link
             href="/qualification"
-            className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight transition flex items-center gap-1.5 ${
+            className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13.5px] font-semibold tracking-tight transition flex items-center gap-1.5 ${
               pathname === '/qualification'
                 ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold shadow-xs'
                 : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
@@ -153,7 +153,7 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
             onMouseLeave={() => setMoreOpen(false)}
           >
             <button
-              className="px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight text-ink-muted hover:text-ink hover:bg-surface-alt transition flex items-center gap-1"
+              className="px-3.5 py-1.5 rounded-full text-xs sm:text-[13.5px] font-semibold tracking-tight text-ink-muted hover:text-ink hover:bg-surface-alt transition flex items-center gap-1"
               aria-label="More navigation options"
             >
               <span>More</span>

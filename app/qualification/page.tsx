@@ -182,10 +182,10 @@ export default function QualificationPage() {
               <Trophy className="w-3.5 h-3.5" />
               <span>SIGNATURE FLAGSHIP SIMULATOR · MCC COMPLIANT</span>
             </span>
-            <h1 className="text-2xl sm:text-4xl font-extrabold font-display text-white tracking-tight">
+            <h1 className="text-[30px] leading-[38px] sm:text-[40px] sm:leading-[48px] lg:text-[44px] lg:leading-[52px] font-extrabold font-display text-white tracking-tight">
               Tournament Qualification Lab
             </h1>
-            <p className="text-xs sm:text-sm text-slate-200 dark:text-slate-300 font-normal leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-200 dark:text-slate-300 font-normal leading-relaxed">
               Model hypothetical fixtures, all-out collapses, and exact margin thresholds to see real-time shifts in table positions and cumulative Net Run Rate.
             </p>
           </div>

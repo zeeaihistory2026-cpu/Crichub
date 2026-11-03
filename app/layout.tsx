@@ -7,14 +7,14 @@ const manrope = Manrope({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-display',
-  weight: ['500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700', '800'],
 });
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-body',
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700', '800'],
 });
 
 export const metadata: Metadata = {

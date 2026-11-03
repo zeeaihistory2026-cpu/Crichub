@@ -75,28 +75,28 @@ export default function HomePage() {
             {/* Left Column: Eyebrow, Main Headline, Subtitle, and CTAs */}
             <div className="lg:col-span-7 space-y-5">
               {/* Eyebrow with Lime Line */}
-              <div className="inline-flex items-center gap-2 text-lime font-mono text-xs font-bold tracking-wider uppercase">
+              <div className="inline-flex items-center gap-2 text-lime font-display text-xs font-bold tracking-[0.05em] uppercase">
                 <span className="w-5 h-0.5 bg-lime rounded-full" />
                 <span>Cricket, Deeper &amp; Smarter</span>
               </div>
 
-              {/* Main Headline */}
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display tracking-tightest leading-[1.1] text-white">
-                Live Scores, Advanced
+              {/* Main Headline (PRD Hero Display 56px desktop / 36px mobile) */}
+              <h1 className="text-[34px] leading-[42px] sm:text-[46px] sm:leading-[54px] lg:text-[56px] lg:leading-[64px] font-extrabold font-display tracking-tightest text-white">
+                Cricket Intelligence
                 <br />
-                <span className="text-white/95">Calculators &amp; Match Insights</span>
+                <span className="text-lime">Beyond the Score.</span>
               </h1>
 
-              {/* Subtitle */}
-              <p className="text-slate-200 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
-                Real-time cricket, powerful tools, tournament simulations and local league management — all in one place.
+              {/* Subtitle (PRD Body Large 18px desktop / 17px mobile) */}
+              <p className="body-lg text-slate-200 dark:text-slate-300 max-w-xl font-normal leading-relaxed">
+                Live scores, smart calculators, qualification scenarios, player stats and local tournaments — all in one place.
               </p>
 
               {/* Action Buttons */}
               <div className="pt-2 flex flex-wrap items-center gap-3">
                 <Link
                   href="/tools"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-lime hover:bg-lime-hover text-canvas font-extrabold text-sm font-display transition-all shadow-md hover:shadow-lg hover:scale-[1.02] btn-tactile"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-lime hover:bg-lime-hover text-canvas font-bold text-[14px] sm:text-[15px] font-display tracking-tight transition-all shadow-md hover:shadow-lg hover:scale-[1.02] btn-tactile"
                 >
                   <span>Explore Tools</span>
                   <ArrowRight className="w-4 h-4 stroke-[2.5]" />
@@ -104,7 +104,7 @@ export default function HomePage() {
 
                 <Link
                   href="/qualification"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 dark:bg-surface-alt/70 dark:hover:bg-surface-alt text-white border border-white/20 dark:border-line hover:border-lime font-bold text-sm transition-all shadow-xs btn-tactile"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 dark:bg-surface-alt/70 dark:hover:bg-surface-alt text-white border border-white/20 dark:border-line hover:border-lime font-bold text-[14px] sm:text-[15px] font-display tracking-tight transition-all shadow-xs btn-tactile"
                 >
                   <Trophy className="w-4 h-4 text-amber-400" />
                   <span>Qualification Lab</span>
@@ -129,9 +129,9 @@ export default function HomePage() {
 
                 {/* Floating Telemetry Badge */}
                 <div className="absolute bottom-2 left-2 z-20 bg-black/60 backdrop-blur-md border border-white/15 rounded-xl px-3 py-1.5 flex items-center gap-2 shadow-lg">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                  <span className="text-[11px] font-mono font-bold text-white tracking-wide">
-                    Latest: {REAL_MATCHES[0].teamBCode} {REAL_MATCHES[0].teamBScore} beat {REAL_MATCHES[0].teamACode} {REAL_MATCHES[0].teamAScore}
+<span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-[11px] font-mono font-bold text-white tracking-wide score-num">
+                    PAK 152/3 (18.2 ov) · Live
                   </span>
                 </div>
               </div>
@@ -193,10 +193,10 @@ export default function HomePage() {
                     href={tool.href}
                     className="col-span-2 sm:col-span-1 lg:col-span-1 bg-brand text-white dark:bg-lime dark:text-canvas rounded-2xl p-3.5 flex flex-col justify-between hover:scale-[1.02] transition-all shadow-xs group btn-tactile"
                   >
-                    <div className="text-xs font-extrabold font-display leading-snug">
+                    <div className="text-[13px] sm:text-sm font-extrabold font-display leading-tight">
                       View All 12 Calculators
                     </div>
-                    <div className="mt-2 flex items-center justify-between text-xs font-bold">
+                    <div className="mt-2 flex items-center justify-between text-xs font-bold font-display">
                       <span>Explore</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
                     </div>
@@ -214,7 +214,7 @@ export default function HomePage() {
                   <div className="w-10 h-10 rounded-xl bg-surface-alt dark:bg-surface-alt border border-line flex items-center justify-center mb-2.5 group-hover:scale-105 transition shrink-0">
                     <Icon className="w-4.5 h-4.5 text-tealAccent dark:text-lime" />
                   </div>
-                  <span className="text-xs font-bold font-display text-ink group-hover:text-tealAccent transition leading-snug">
+                  <span className="text-xs sm:text-[13px] font-bold font-display text-ink group-hover:text-tealAccent transition leading-snug">
                     {tool.name}
                   </span>
                 </Link>
@@ -242,24 +242,24 @@ export default function HomePage() {
                   />
                 </div>
 
-                <div className="space-y-1">
+                <div className="space-y-1.5">
                   <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 text-lime font-mono text-[11px] font-bold uppercase tracking-wider">
                     <Trophy className="w-3.5 h-3.5" />
                     <span>Qualification Lab</span>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-extrabold font-display tracking-tight text-white leading-tight">
+                  <h2 className="text-[24px] leading-[32px] sm:text-[30px] sm:leading-[38px] lg:text-[32px] lg:leading-[40px] font-extrabold font-display tracking-tight text-white">
                     Can your team qualify?
                   </h2>
                 </div>
               </div>
 
-              <p className="text-slate-200 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
+              <p className="text-slate-200 dark:text-slate-300 text-xs sm:text-[14px] leading-relaxed font-normal">
                 Simulate match results, NRR and scenarios to see qualification chances for any tournament in real time.
               </p>
 
               <Link
                 href="/qualification"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-lime hover:bg-lime-hover text-canvas font-extrabold text-xs sm:text-sm font-display transition-all shadow-md hover:shadow-lg hover:scale-[1.02] btn-tactile"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-lime hover:bg-lime-hover text-canvas font-extrabold text-xs sm:text-[14px] font-display tracking-tight transition-all shadow-md hover:shadow-lg hover:scale-[1.02] btn-tactile"
               >
                 <span>Run Simulation</span>
                 <ArrowRight className="w-4 h-4 stroke-[2.5]" />
@@ -271,8 +271,8 @@ export default function HomePage() {
               {/* Standings Table */}
               <div className="sm:col-span-8 bg-black/25 dark:bg-black/35 backdrop-blur-md rounded-2xl p-4 border border-white/10">
                 <div className="flex items-center justify-between pb-2.5 mb-2 border-b border-white/10">
-                  <span className="text-xs font-bold font-display text-white">
-                    Qualification Lab — Example Scenario
+<span className="text-xs sm:text-[13px] font-bold font-display text-white">
+                    Group A — Live Scenario
                   </span>
                   <span className="text-[10px] font-mono text-lime font-bold uppercase tracking-wider">
                     Example
@@ -282,7 +282,7 @@ export default function HomePage() {
                 <div className="overflow-x-auto">
                   <table className="w-full text-xs text-left">
                     <thead>
-                      <tr className="text-[10px] font-mono font-bold text-slate-300 uppercase border-b border-white/10">
+                      <tr className="text-[10px] sm:text-[11px] font-mono font-bold text-slate-300 uppercase border-b border-white/10 tracking-wider">
                         <th className="pb-1.5 font-medium">#</th>
                         <th className="pb-1.5 font-medium">Team</th>
                         <th className="pb-1.5 text-center font-medium">P</th>
@@ -292,58 +292,58 @@ export default function HomePage() {
                         <th className="pb-1.5 text-right font-medium">Pts</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-white/5 font-mono text-xs">
+                    <tbody className="divide-y divide-white/5 font-mono text-xs sm:text-[13px]">
                       {/* Row 1 - PAK */}
                       <tr className="bg-lime/10 text-lime font-bold">
-                        <td className="py-1.5">1</td>
+                        <td className="py-1.5 score-num">1</td>
                         <td className="py-1.5 font-display flex items-center gap-1.5">
                           <TeamFlag code="PAK" size={16} />
-                          <span>PAK</span>
+                          <span className="font-bold">PAK</span>
                         </td>
-                        <td className="py-1.5 text-center">3</td>
-                        <td className="py-1.5 text-center">3</td>
-                        <td className="py-1.5 text-center">0</td>
-                        <td className="py-1.5 text-right text-lime">+1.245</td>
-                        <td className="py-1.5 text-right text-white font-extrabold">6</td>
+                        <td className="py-1.5 text-center score-num">3</td>
+                        <td className="py-1.5 text-center score-num">3</td>
+                        <td className="py-1.5 text-center score-num">0</td>
+                        <td className="py-1.5 text-right text-lime score-num">+1.245</td>
+                        <td className="py-1.5 text-right text-white font-extrabold score-num">6</td>
                       </tr>
                       {/* Row 2 - NZ */}
                       <tr className="text-slate-200">
-                        <td className="py-1.5">2</td>
+                        <td className="py-1.5 score-num">2</td>
                         <td className="py-1.5 font-display flex items-center gap-1.5">
                           <TeamFlag code="NZ" size={16} />
-                          <span>NZ</span>
+                          <span className="font-medium">NZ</span>
                         </td>
-                        <td className="py-1.5 text-center">3</td>
-                        <td className="py-1.5 text-center">2</td>
-                        <td className="py-1.5 text-center">1</td>
-                        <td className="py-1.5 text-right text-tealAccent">+0.742</td>
-                        <td className="py-1.5 text-right text-white font-bold">4</td>
+                        <td className="py-1.5 text-center score-num">3</td>
+                        <td className="py-1.5 text-center score-num">2</td>
+                        <td className="py-1.5 text-center score-num">1</td>
+                        <td className="py-1.5 text-right text-tealAccent score-num">+0.742</td>
+                        <td className="py-1.5 text-right text-white font-bold score-num">4</td>
                       </tr>
                       {/* Row 3 - SA */}
                       <tr className="text-slate-300">
-                        <td className="py-1.5">3</td>
+                        <td className="py-1.5 score-num">3</td>
                         <td className="py-1.5 font-display flex items-center gap-1.5">
                           <TeamFlag code="SA" size={16} />
-                          <span>SA</span>
+                          <span className="font-medium">SA</span>
                         </td>
-                        <td className="py-1.5 text-center">3</td>
-                        <td className="py-1.5 text-center">1</td>
-                        <td className="py-1.5 text-center">2</td>
-                        <td className="py-1.5 text-right text-rose-300">-0.348</td>
-                        <td className="py-1.5 text-right text-white">2</td>
+                        <td className="py-1.5 text-center score-num">3</td>
+                        <td className="py-1.5 text-center score-num">1</td>
+                        <td className="py-1.5 text-center score-num">2</td>
+                        <td className="py-1.5 text-right text-rose-300 score-num">-0.348</td>
+                        <td className="py-1.5 text-right text-white score-num">2</td>
                       </tr>
                       {/* Row 4 - BAN */}
                       <tr className="text-slate-400">
-                        <td className="py-1.5">4</td>
+                        <td className="py-1.5 score-num">4</td>
                         <td className="py-1.5 font-display flex items-center gap-1.5">
                           <TeamFlag code="BAN" size={16} />
-                          <span>BAN</span>
+                          <span className="font-medium">BAN</span>
                         </td>
-                        <td className="py-1.5 text-center">3</td>
-                        <td className="py-1.5 text-center">0</td>
-                        <td className="py-1.5 text-center">3</td>
-                        <td className="py-1.5 text-right text-rose-400">-1.639</td>
-                        <td className="py-1.5 text-right text-white">0</td>
+                        <td className="py-1.5 text-center score-num">3</td>
+                        <td className="py-1.5 text-center score-num">0</td>
+                        <td className="py-1.5 text-center score-num">3</td>
+                        <td className="py-1.5 text-right text-rose-400 score-num">-1.639</td>
+                        <td className="py-1.5 text-right text-white score-num">0</td>
                       </tr>
                     </tbody>
                   </table>
@@ -379,13 +379,13 @@ export default function HomePage() {
                     />
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                    <span className="text-2xl font-black font-mono text-white tabular-nums tracking-tight">
+                    <span className="text-2xl sm:text-3xl font-black font-mono text-white tabular-nums tracking-tight">
                       78%
                     </span>
                   </div>
                 </div>
-                <span className="text-[11px] font-bold text-center text-slate-200 mt-1 font-display">
-                  Example Qualification Chance
+<span className="text-[11px] font-bold text-center text-slate-200 mt-1 font-display tracking-tight">
+                  Qualification Chance (PAK)
                 </span>
               </div>
             </div>
@@ -401,8 +401,8 @@ export default function HomePage() {
               {/* Header with Title, Filter Tabs, and View All */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
                 <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-brand dark:bg-lime" />
-                  <h2 className="text-base sm:text-lg font-bold font-display text-ink">
+                  <span className="w-2.5 h-2.5 rounded-full bg-brand dark:bg-lime" />
+                  <h2 className="text-base sm:text-[18px] lg:text-[20px] font-bold font-display text-ink tracking-tight">
                     Latest Cricket News
                   </h2>
                 </div>
@@ -412,7 +412,7 @@ export default function HomePage() {
                     <button
                       key={tab}
                       onClick={() => setNewsFilter(tab)}
-                      className={`px-2.5 py-1 rounded-full text-[11px] font-semibold transition btn-tactile ${
+                      className={`px-3 py-1 rounded-full text-xs font-semibold tracking-tight transition btn-tactile ${
                         newsFilter === tab
                           ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold'
                           : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
@@ -439,17 +439,17 @@ export default function HomePage() {
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                      <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[9px] font-bold font-mono uppercase bg-brand text-white dark:bg-lime dark:text-canvas shadow-xs">
+                      <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-bold font-mono uppercase bg-brand text-white dark:bg-lime dark:text-canvas shadow-xs tracking-wider">
                         {article.category}
                       </span>
                     </div>
 
-                    <div className="p-3 flex-1 flex flex-col justify-between">
-                      <h3 className="text-xs font-bold font-display text-ink group-hover:text-tealAccent transition leading-snug line-clamp-2">
+                    <div className="p-3.5 flex-1 flex flex-col justify-between">
+                      <h3 className="text-xs sm:text-[13px] font-bold font-display text-ink group-hover:text-tealAccent transition leading-snug line-clamp-2">
                         {article.title}
                       </h3>
 
-                      <div className="flex items-center gap-2 text-[10px] text-ink-muted mt-2 pt-2 border-t border-line/50">
+                      <div className="flex items-center gap-2 text-[11px] text-ink-muted mt-2.5 pt-2.5 border-t border-line/50">
                         <span className="flex items-center gap-1">
                           <Calendar className="w-3 h-3 opacity-60" />
                           <span>{article.date}</span>
@@ -469,7 +469,7 @@ export default function HomePage() {
             <div className="pt-4 mt-2 flex justify-end">
               <Link
                 href="/news"
-                className="text-xs font-bold text-tealAccent hover:underline flex items-center gap-1 group"
+                className="text-xs sm:text-[13px] font-bold font-display text-tealAccent hover:underline flex items-center gap-1 group"
               >
                 <span>View All News</span>
                 <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition" />
@@ -485,19 +485,19 @@ export default function HomePage() {
                   <div className="w-7 h-7 rounded-xl bg-surface-alt border border-line flex items-center justify-center text-tealAccent">
                     <Users className="w-4 h-4" />
                   </div>
-                  <h2 className="text-base sm:text-lg font-bold font-display text-ink">
+                  <h2 className="text-base sm:text-[18px] lg:text-[20px] font-bold font-display text-ink tracking-tight">
                     Local Cricket
                   </h2>
                 </div>
                 <Link
                   href="/local"
-                  className="text-xs font-bold text-tealAccent hover:underline"
+                  className="text-xs sm:text-[13px] font-bold font-display text-tealAccent hover:underline"
                 >
                   View All News →
                 </Link>
               </div>
 
-              <p className="text-xs text-ink-muted leading-relaxed font-normal">
+              <p className="text-xs sm:text-[13px] text-ink-muted leading-relaxed font-normal">
                 Create, manage and showcase your local tournaments online.
               </p>
 
@@ -509,7 +509,7 @@ export default function HomePage() {
                   'Live Scoring & Points Table',
                   'Public Tournament Pages',
                 ].map((feat) => (
-                  <div key={feat} className="flex items-center gap-2 text-xs font-semibold text-ink">
+                  <div key={feat} className="flex items-center gap-2 text-xs sm:text-[13px] font-semibold text-ink">
                     <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                     <span>{feat}</span>
                   </div>
@@ -519,7 +519,7 @@ export default function HomePage() {
               <div className="pt-2">
                 <Link
                   href="/organizer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-lime hover:bg-lime-hover text-canvas font-extrabold text-xs sm:text-sm font-display transition-all shadow-md hover:shadow-lg hover:scale-[1.02] btn-tactile"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-lime hover:bg-lime-hover text-canvas font-extrabold text-xs sm:text-[14px] font-display tracking-tight transition-all shadow-md hover:shadow-lg hover:scale-[1.02] btn-tactile"
                 >
                   <span>Create Tournament</span>
                   <ArrowRight className="w-4 h-4 stroke-[2.5]" />
@@ -544,14 +544,14 @@ export default function HomePage() {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-tealAccent" />
-              <h2 className="text-base font-bold font-display text-ink">
-                Recent Results
+<h2 className="text-base sm:text-[18px] lg:text-[20px] font-bold font-display text-ink tracking-tight">
+                Upcoming Matches
               </h2>
             </div>
 
             <Link
               href="/matches"
-              className="text-xs font-bold text-tealAccent hover:underline flex items-center gap-1 group"
+              className="text-xs sm:text-[13px] font-bold font-display text-tealAccent hover:underline flex items-center gap-1 group"
             >
               <span>All Results</span>
               <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition" />
@@ -566,18 +566,20 @@ export default function HomePage() {
                 className="p-3.5 rounded-2xl bg-surface dark:bg-surface-alt/80 border border-line hover:border-tealAccent/60 flex items-center justify-between group transition interactive-card"
               >
                 <div className="space-y-1.5">
-                  <div className="text-[10px] font-mono font-medium text-ink-muted">
+<div className="text-[11px] font-mono font-medium text-ink-muted">
                     {m.format} - {m.dateLabel}
                   </div>
                   <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1.5 font-bold font-display text-xs text-ink">
+                    <div className="flex items-center gap-1.5 font-bold font-display text-xs sm:text-[13px] text-ink">
                       <TeamFlag code={m.teamACode} size={20} />
                       <span>{m.teamACode}</span>
                     </div>
                     <span className="text-[10px] font-mono text-ink-muted uppercase">vs</span>
-                    <div className="flex items-center gap-1.5 font-bold font-display text-xs text-ink">
+                    <div className="flex items-center gap-1.5 font-bold font-display text-xs sm:text-[13px] text-ink">
                       <TeamFlag code={m.teamBCode} size={20} />
                       <span>{m.teamBCode}</span>
+                    </div>
+                  </div>
                     </div>
                   </div>
                   <div className="text-[11px] font-semibold text-tealAccent">{m.result}</div>

@@ -39,10 +39,10 @@ export default function TournamentsPage() {
               <Trophy className="w-3.5 h-3.5" />
               <span>TOURNAMENT HUB · PAKISTAN SUPER LEAGUE 2026</span>
             </span>
-            <h1 className="text-2xl sm:text-4xl font-extrabold text-white font-display tracking-tight">
+            <h1 className="text-[30px] leading-[38px] sm:text-[40px] sm:leading-[48px] lg:text-[44px] lg:leading-[52px] font-extrabold text-white font-display tracking-tight">
               Pakistan Super League 2026
             </h1>
-            <p className="text-xs sm:text-sm text-slate-200 dark:text-slate-300 font-normal leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-200 dark:text-slate-300 font-normal leading-relaxed">
               Complete tournament schedule, group tables, squad compositions, and qualification scenarios.
             </p>
           </div>

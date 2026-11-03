@@ -50,10 +50,10 @@ export default function NewsPage() {
               <Newspaper className="w-3.5 h-3.5" />
               <span>CREASEGRID EDITORIAL DESK</span>
             </span>
-            <h1 className="text-2xl sm:text-4xl font-extrabold text-white font-display tracking-tight">
+            <h1 className="text-[30px] leading-[38px] sm:text-[40px] sm:leading-[48px] lg:text-[44px] lg:leading-[52px] font-extrabold text-white font-display tracking-tight">
               Cricket News &amp; Analysis
             </h1>
-            <p className="text-xs sm:text-sm text-slate-200 dark:text-slate-300 font-normal leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-200 dark:text-slate-300 font-normal leading-relaxed">
               Clear reporting, tactical explainers, and statistical narratives originating in Pakistan and across the cricket world — text-first, zero noise.
             </p>
           </div>
