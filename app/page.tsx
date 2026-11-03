@@ -71,8 +71,8 @@ export default function HomePage() {
       {/* Search Modal */}
       <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
 
-      {/* Main Content Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-9 pb-16 space-y-8 sm:space-y-10">
+      {/* Main Content Container with spacious breathing room below navbar */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10 pb-16 space-y-8 sm:space-y-10">
         
         {/* 2. Top-of-Page Live Cricket Matches Ribbon (P0 Requirement: Directly BELOW Header, ABOVE Hero) */}
         <LiveMatchRibbon />
@@ -164,42 +164,36 @@ export default function HomePage() {
                 name: 'NRR Calculator',
                 href: '/tools/net-run-rate',
                 icon: Calculator,
-                accentColor: 'text-emerald-500 dark:text-lime',
               },
               {
                 id: 'rrr',
                 name: 'Required RR Calculator',
                 href: '/tools/required-run-rate',
                 icon: Gauge,
-                accentColor: 'text-tealAccent',
               },
               {
                 id: 'win-prob',
                 name: 'Win Probability Calculator',
                 href: '/tools/run-rate',
                 icon: TrendingUp,
-                accentColor: 'text-amber-500',
               },
               {
                 id: 'overs-conv',
                 name: 'Overs to Balls Converter',
                 href: '/tools/overs-converter',
                 icon: RefreshCw,
-                accentColor: 'text-sky-500',
               },
               {
                 id: 'points-table',
                 name: 'Points Table Generator',
                 href: '/tournaments',
                 icon: Trophy,
-                accentColor: 'text-amber-400',
               },
               {
                 id: 'partnership',
                 name: 'Partnership Calculator',
                 href: '/tools/partnership',
                 icon: Users,
-                accentColor: 'text-violet-500',
               },
               {
                 id: 'view-all',
@@ -233,8 +227,8 @@ export default function HomePage() {
                   href={tool.href}
                   className="bg-surface dark:bg-surface border border-line hover:border-tealAccent/60 rounded-2xl p-3.5 flex flex-col items-center justify-center text-center hover:shadow-cardHover transition-all duration-200 group interactive-card"
                 >
-                  <div className="w-9 h-9 rounded-xl bg-surface-alt dark:bg-surface-alt border border-line/60 flex items-center justify-center mb-2 group-hover:scale-110 transition shrink-0">
-                    <Icon className={`w-4 h-4 ${tool.accentColor}`} />
+                  <div className="w-10 h-10 rounded-xl bg-surface-alt dark:bg-surface-alt border border-line flex items-center justify-center mb-2.5 group-hover:scale-105 transition shrink-0">
+                    <Icon className="w-4.5 h-4.5 text-tealAccent dark:text-lime" />
                   </div>
                   <span className="text-xs font-bold font-display text-ink group-hover:text-tealAccent transition leading-snug">
                     {tool.name}
@@ -452,7 +446,7 @@ export default function HomePage() {
                   <Link
                     key={article.id}
                     href={article.href}
-                    className="bg-surface-alt dark:bg-surface-alt/70 border border-line hover:border-tealAccent/60 rounded-2xl overflow-hidden flex flex-col justify-between group transition-all hover:shadow-md interactive-card"
+                    className="bg-surface dark:bg-surface-alt/80 border border-line hover:border-tealAccent/60 rounded-2xl overflow-hidden flex flex-col justify-between group transition-all hover:shadow-md interactive-card"
                   >
                     <div className="relative h-32 w-full overflow-hidden bg-black/10">
                       <Image
@@ -604,7 +598,7 @@ export default function HomePage() {
               <Link
                 key={fixture.id}
                 href="/matches"
-                className="p-3.5 rounded-2xl bg-surface-alt dark:bg-surface-alt/70 border border-line hover:border-tealAccent/60 flex items-center justify-between group transition interactive-card"
+                className="p-3.5 rounded-2xl bg-surface dark:bg-surface-alt/80 border border-line hover:border-tealAccent/60 flex items-center justify-between group transition interactive-card"
               >
                 <div className="space-y-1.5">
                   <div className="text-[10px] font-mono font-medium text-ink-muted">

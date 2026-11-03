@@ -2,8 +2,22 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, X, Calculator, Newspaper, Radio, Trophy, User, ArrowRight } from 'lucide-react';
-import { SEED_ARTICLES, SEED_MATCHES, SEED_TOOLS, SEED_BABAR_AZAM } from '@/data/seed-data';
+import {
+  Search,
+  X,
+  Calculator,
+  Newspaper,
+  Radio,
+  User,
+  ArrowRight,
+  Trophy,
+} from 'lucide-react';
+import {
+  SEED_TOOLS,
+  SEED_ARTICLES,
+  SEED_MATCHES,
+  SEED_BABAR_AZAM,
+} from '@/data/seed-data';
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -18,11 +32,16 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
       if (e.key === 'Escape') onClose();
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        if (isOpen) onClose();
       }
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    if (isOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
@@ -44,22 +63,22 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const isBabarMatch = q && 'babar azam pakistan batter'.includes(q);
 
   return (
-    <div className="fixed inset-0 z-50 bg-navy/60 backdrop-blur-xs flex items-start justify-center p-4 pt-16 sm:pt-24 animate-fade-in">
-      <div className="bg-white rounded-2xl w-full max-w-2xl border border-slate-200 shadow-2xl overflow-hidden flex flex-col max-h-[80vh]">
+    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-start justify-center p-4 pt-16 sm:pt-24 animate-fade-in">
+      <div className="bg-surface dark:bg-surface rounded-2xl w-full max-w-2xl border border-line shadow-2xl overflow-hidden flex flex-col max-h-[80vh]">
         {/* Search Input Bar */}
-        <div className="p-4 border-b border-slate-100 flex items-center gap-3">
-          <Search className="w-5 h-5 text-brand-600 shrink-0" />
+        <div className="p-4 border-b border-line flex items-center gap-3">
+          <Search className="w-5 h-5 text-tealAccent shrink-0" />
           <input
             type="text"
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search players, calculators, tournaments, news (e.g., NRR, Babar, T20)..."
-            className="w-full text-sm sm:text-base outline-hidden text-navy placeholder-slate-400 font-medium"
+            className="w-full text-sm sm:text-base outline-hidden text-ink placeholder:text-ink-muted bg-transparent font-medium"
           />
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-slate-400 hover:text-navy hover:bg-slate-100 transition"
+            className="p-1 rounded-lg text-ink-muted hover:text-ink hover:bg-surface-alt transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -69,37 +88,37 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
         <div className="p-4 overflow-y-auto space-y-6">
           {!q ? (
             <div className="space-y-4">
-              <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+              <div className="text-xs font-bold text-ink-muted uppercase tracking-wider">
                 POPULAR SEARCHES
               </div>
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <Link
                   href="/qualification"
                   onClick={onClose}
-                  className="p-3 rounded-xl bg-slate-50 hover:bg-brand-50 hover:text-brand-600 transition flex items-center gap-2 border border-slate-100 font-medium"
+                  className="p-3 rounded-xl bg-surface-alt hover:border-tealAccent transition flex items-center gap-2 border border-line font-medium text-ink"
                 >
-                  <Trophy className="w-4 h-4 text-brand-600" /> Qualification Lab
+                  <Trophy className="w-4 h-4 text-amber-500" /> Qualification Lab
                 </Link>
                 <Link
                   href="/tools/net-run-rate"
                   onClick={onClose}
-                  className="p-3 rounded-xl bg-slate-50 hover:bg-brand-50 hover:text-brand-600 transition flex items-center gap-2 border border-slate-100 font-medium"
+                  className="p-3 rounded-xl bg-surface-alt hover:border-tealAccent transition flex items-center gap-2 border border-line font-medium text-ink"
                 >
-                  <Calculator className="w-4 h-4 text-blue-600" /> NRR Calculator
+                  <Calculator className="w-4 h-4 text-tealAccent" /> NRR Calculator
                 </Link>
                 <Link
                   href="/players/babar-azam"
                   onClick={onClose}
-                  className="p-3 rounded-xl bg-slate-50 hover:bg-brand-50 hover:text-brand-600 transition flex items-center gap-2 border border-slate-100 font-medium"
+                  className="p-3 rounded-xl bg-surface-alt hover:border-tealAccent transition flex items-center gap-2 border border-line font-medium text-ink"
                 >
-                  <User className="w-4 h-4 text-emerald-600" /> Babar Azam Profile
+                  <User className="w-4 h-4 text-emerald-500" /> Babar Azam Profile
                 </Link>
                 <Link
                   href="/matches"
                   onClick={onClose}
-                  className="p-3 rounded-xl bg-slate-50 hover:bg-brand-50 hover:text-brand-600 transition flex items-center gap-2 border border-slate-100 font-medium"
+                  className="p-3 rounded-xl bg-surface-alt hover:border-tealAccent transition flex items-center gap-2 border border-line font-medium text-ink"
                 >
-                  <Radio className="w-4 h-4 text-red-600" /> Live Match Centre
+                  <Radio className="w-4 h-4 text-alert" /> Live Match Centre
                 </Link>
               </div>
             </div>
@@ -108,8 +127,8 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               {/* Calculators & Tools */}
               {matchingTools.length > 0 && (
                 <div>
-                  <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
-                    CALCULATORS & TOOLS
+                  <div className="text-xs font-bold text-ink-muted uppercase tracking-wider mb-2">
+                    CALCULATORS &amp; TOOLS
                   </div>
                   <div className="space-y-1.5">
                     {matchingTools.map((t) => (
@@ -117,20 +136,20 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         key={t.id}
                         href={`/tools/${t.id}`}
                         onClick={onClose}
-                        className="flex items-center justify-between p-2.5 rounded-xl hover:bg-brand-50 group transition"
+                        className="flex items-center justify-between p-2.5 rounded-xl hover:bg-surface-alt group transition"
                       >
                         <div className="flex items-center gap-2.5">
-                          <span className="p-1.5 rounded-lg bg-blue-50 text-brand-600">
+                          <span className="p-1.5 rounded-lg bg-tealAccent/15 text-tealAccent">
                             <Calculator className="w-4 h-4" />
                           </span>
                           <div>
-                            <div className="text-xs font-bold text-navy group-hover:text-brand-600 transition">
+                            <div className="text-xs font-bold text-ink group-hover:text-tealAccent transition">
                               {t.name}
                             </div>
-                            <div className="text-[11px] text-slate-400">{t.desc}</div>
+                            <div className="text-[11px] text-ink-muted">{t.desc}</div>
                           </div>
                         </div>
-                        <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-brand-600 group-hover:translate-x-0.5 transition" />
+                        <ArrowRight className="w-3.5 h-3.5 text-ink-muted group-hover:text-tealAccent group-hover:translate-x-0.5 transition" />
                       </Link>
                     ))}
                   </div>
@@ -140,8 +159,8 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               {/* News & Stories */}
               {matchingArticles.length > 0 && (
                 <div>
-                  <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
-                    ARTICLES & ANALYSIS
+                  <div className="text-xs font-bold text-ink-muted uppercase tracking-wider mb-2">
+                    ARTICLES &amp; ANALYSIS
                   </div>
                   <div className="space-y-1.5">
                     {matchingArticles.map((a) => (
@@ -149,22 +168,22 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         key={a.id}
                         href={`/news/${a.id}`}
                         onClick={onClose}
-                        className="flex items-center justify-between p-2.5 rounded-xl hover:bg-brand-50 group transition"
+                        className="flex items-center justify-between p-2.5 rounded-xl hover:bg-surface-alt group transition"
                       >
                         <div className="flex items-center gap-2.5">
-                          <span className="p-1.5 rounded-lg bg-emerald-50 text-emerald-600">
+                          <span className="p-1.5 rounded-lg bg-lime/20 text-brand dark:text-lime">
                             <Newspaper className="w-4 h-4" />
                           </span>
                           <div>
-                            <div className="text-xs font-bold text-navy group-hover:text-brand-600 transition">
+                            <div className="text-xs font-bold text-ink group-hover:text-tealAccent transition">
                               {a.title}
                             </div>
-                            <div className="text-[11px] text-slate-400">
+                            <div className="text-[11px] text-ink-muted">
                               {a.category} · {a.minutes} min read
                             </div>
                           </div>
                         </div>
-                        <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-brand-600 group-hover:translate-x-0.5 transition" />
+                        <ArrowRight className="w-3.5 h-3.5 text-ink-muted group-hover:text-tealAccent group-hover:translate-x-0.5 transition" />
                       </Link>
                     ))}
                   </div>
@@ -174,7 +193,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               {/* Matches */}
               {matchingMatches.length > 0 && (
                 <div>
-                  <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+                  <div className="text-xs font-bold text-ink-muted uppercase tracking-wider mb-2">
                     MATCHES
                   </div>
                   <div className="space-y-1.5">
@@ -183,20 +202,20 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         key={m.id}
                         href={`/matches/${m.slug}`}
                         onClick={onClose}
-                        className="flex items-center justify-between p-2.5 rounded-xl hover:bg-brand-50 group transition"
+                        className="flex items-center justify-between p-2.5 rounded-xl hover:bg-surface-alt group transition"
                       >
                         <div className="flex items-center gap-2.5">
-                          <span className="p-1.5 rounded-lg bg-red-50 text-red-600">
+                          <span className="p-1.5 rounded-lg bg-alert/15 text-alert">
                             <Radio className="w-4 h-4" />
                           </span>
                           <div>
-                            <div className="text-xs font-bold text-navy group-hover:text-brand-600 transition">
+                            <div className="text-xs font-bold text-ink group-hover:text-tealAccent transition">
                               {m.name}
                             </div>
-                            <div className="text-[11px] text-slate-400">{m.detail}</div>
+                            <div className="text-[11px] text-ink-muted">{m.detail}</div>
                           </div>
                         </div>
-                        <span className="text-xs font-bold text-navy tabular-nums">{m.teamAScore}</span>
+                        <span className="text-xs font-bold text-ink tabular-nums">{m.teamAScore}</span>
                       </Link>
                     ))}
                   </div>
@@ -206,34 +225,34 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               {/* Player Profile Match */}
               {isBabarMatch && (
                 <div>
-                  <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+                  <div className="text-xs font-bold text-ink-muted uppercase tracking-wider mb-2">
                     PLAYERS
                   </div>
                   <Link
                     href="/players/babar-azam"
                     onClick={onClose}
-                    className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 hover:bg-brand-50 group transition border border-slate-100"
+                    className="flex items-center justify-between p-2.5 rounded-xl bg-surface-alt hover:border-tealAccent group transition border border-line"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="w-8 h-8 rounded-full bg-brand-600 text-white font-bold text-xs flex items-center justify-center">
+                      <span className="w-8 h-8 rounded-full bg-brand text-white dark:bg-lime dark:text-canvas font-bold text-xs flex items-center justify-center">
                         BA
                       </span>
                       <div>
-                        <div className="text-xs font-bold text-navy group-hover:text-brand-600 transition flex items-center gap-1">
-                          {SEED_BABAR_AZAM.name} <span className="text-brand-600">✓</span>
+                        <div className="text-xs font-bold text-ink group-hover:text-tealAccent transition flex items-center gap-1">
+                          {SEED_BABAR_AZAM.name} <span className="text-tealAccent">✓</span>
                         </div>
-                        <div className="text-[11px] text-slate-400">
+                        <div className="text-[11px] text-ink-muted">
                           {SEED_BABAR_AZAM.country} · {SEED_BABAR_AZAM.role}
                         </div>
                       </div>
                     </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-brand-600 group-hover:translate-x-0.5 transition" />
+                    <ArrowRight className="w-3.5 h-3.5 text-ink-muted group-hover:text-tealAccent group-hover:translate-x-0.5 transition" />
                   </Link>
                 </div>
               )}
 
               {matchingTools.length === 0 && matchingArticles.length === 0 && matchingMatches.length === 0 && !isBabarMatch && (
-                <div className="text-center py-8 text-slate-400 text-xs">
+                <div className="text-center py-8 text-ink-muted text-xs">
                   No matching results found for &ldquo;{query}&rdquo;.
                 </div>
               )}
@@ -242,7 +261,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
         </div>
 
         {/* Footer info */}
-        <div className="p-3 bg-slate-50 border-t border-slate-100 text-[11px] text-slate-400 flex items-center justify-between">
+        <div className="p-3 bg-surface-alt border-t border-line text-[11px] text-ink-muted flex items-center justify-between">
           <span>Press ESC to close</span>
           <span>CreaseGrid Cricket Knowledge Engine</span>
         </div>
@@ -250,4 +269,3 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     </div>
   );
 }
-

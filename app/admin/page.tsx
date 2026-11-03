@@ -16,7 +16,6 @@ import {
   Zap,
   Plus,
   ExternalLink,
-  ChevronRight,
   ArrowRight,
   MoreVertical,
   CheckCircle2,
@@ -129,14 +128,14 @@ export default function AdminDashboardPage() {
         <>
           <Link
             href="/"
-            className="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 transition flex items-center gap-1.5 shadow-xs btn-tactile"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold text-ink bg-surface border border-line hover:bg-surface-alt transition flex items-center gap-1.5 shadow-xs btn-tactile"
           >
             <ExternalLink className="w-3.5 h-3.5" />
             <span>View website</span>
           </Link>
           <button
             onClick={() => setModalOpen(true)}
-            className="px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 transition flex items-center gap-1.5 shadow-xs btn-tactile"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-brand hover:bg-brand-hover dark:bg-lime dark:text-canvas transition flex items-center gap-1.5 shadow-xs btn-tactile"
           >
             <Plus className="w-4 h-4" />
             <span>New article</span>
@@ -146,7 +145,7 @@ export default function AdminDashboardPage() {
     >
       {/* Toast popup */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-navy text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold flex items-center gap-2 border border-slate-700 animate-fade-in">
+        <div className="fixed bottom-6 right-6 z-50 bg-surface dark:bg-surface-alt text-ink px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold flex items-center gap-2 border border-line animate-fade-in">
           <CheckCircle2 className="w-4 h-4 text-emerald-400" />
           {toastMessage}
         </div>
@@ -201,29 +200,29 @@ export default function AdminDashboardPage() {
         {/* Left Stack (8 Cols) */}
         <div className="lg:col-span-8 space-y-6">
           {/* Audience Growth Chart Panel */}
-          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-card space-y-4">
+          <div className="bg-surface rounded-3xl p-5 sm:p-6 border border-line shadow-xs space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-base font-extrabold text-navy font-display">Audience Growth</h2>
-                <div className="text-xs text-slate-400 mt-0.5 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-brand-600"></span>
+                <h2 className="text-base font-extrabold text-ink font-display">Audience Growth</h2>
+                <div className="text-xs text-ink-muted mt-0.5 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-brand dark:bg-lime"></span>
                   <span className="font-mono">Page views trajectory</span>
                 </div>
               </div>
-              <span className="text-xs text-slate-500 font-mono font-bold bg-slate-50 px-2.5 py-1 rounded-xl border border-slate-200">
+              <span className="text-xs text-ink-muted font-mono font-bold bg-surface-alt px-2.5 py-1 rounded-xl border border-line">
                 Last 12 months
               </span>
             </div>
 
             <div className="flex flex-wrap items-baseline gap-3">
-              <span className="text-2xl sm:text-3xl font-extrabold text-navy font-display tabular-nums tracking-tightest">
+              <span className="text-2xl sm:text-3xl font-extrabold text-ink font-display tabular-nums tracking-tightest">
                 4,932,110
               </span>
-              <span className="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full flex items-center gap-1">
-                <TrendingUp className="w-3 h-3 text-emerald-600" />
+              <span className="text-xs font-mono font-bold text-emerald-500 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                <TrendingUp className="w-3 h-3 text-emerald-500" />
                 +18.7%
               </span>
-              <span className="text-xs text-slate-400">
+              <span className="text-xs text-ink-muted">
                 {activeMonthHover !== null
                   ? `Selected: ${chartPoints[activeMonthHover].month} (${chartPoints[activeMonthHover].views} views)`
                   : 'Hover over data points to inspect month metrics'}
@@ -240,11 +239,11 @@ export default function AdminDashboardPage() {
               >
                 <defs>
                   <linearGradient id="adminGrad" x1="0" x2="0" y1="0" y2="1">
-                    <stop stopColor="#2563eb" stopOpacity="0.22" />
-                    <stop offset="1" stopColor="#2563eb" stopOpacity="0.0" />
+                    <stop stopColor="#0B513E" stopOpacity="0.25" />
+                    <stop offset="1" stopColor="#0B513E" stopOpacity="0.0" />
                   </linearGradient>
                 </defs>
-                <path d="M14 38H652M14 83H652M14 128H652M14 176H652" stroke="#e2e8f0" strokeDasharray="3 6" />
+                <path d="M14 38H652M14 83H652M14 128H652M14 176H652" stroke="currentColor" strokeOpacity="0.15" strokeDasharray="3 6" />
                 <path
                   d="M 14 155 L 72 141 L 130 148 L 188 115 L 246 120 L 304 100 L 362 113 L 420 83 L 478 86 L 536 51 L 594 63 L 652 27 L 652 176 L 14 176 Z"
                   fill="url(#adminGrad)"
@@ -252,7 +251,7 @@ export default function AdminDashboardPage() {
                 <path
                   d="M 14 155 L 72 141 L 130 148 L 188 115 L 246 120 L 304 100 L 362 113 L 420 83 L 478 86 L 536 51 L 594 63 L 652 27"
                   fill="none"
-                  stroke="#2563eb"
+                  stroke="#48DAC0"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="3.6"
@@ -263,19 +262,19 @@ export default function AdminDashboardPage() {
                     cx={pt.x}
                     cy={pt.y}
                     r={activeMonthHover === i ? 6.5 : 4.5}
-                    fill={activeMonthHover === i ? '#2563eb' : '#ffffff'}
-                    stroke="#2563eb"
+                    fill={activeMonthHover === i ? '#48DAC0' : 'var(--surface)'}
+                    stroke="#48DAC0"
                     strokeWidth="3"
                     className="cursor-pointer transition-all duration-150"
                     onMouseEnter={() => setActiveMonthHover(i)}
                   />
                 ))}
               </svg>
-              <div className="flex justify-between text-[11px] text-slate-400 font-mono font-semibold pt-2">
+              <div className="flex justify-between text-[11px] text-ink-muted font-mono font-semibold pt-2">
                 {chartPoints.map((pt, i) => (
                   <span
                     key={pt.month}
-                    className={`cursor-pointer transition ${activeMonthHover === i ? 'text-brand-600 font-bold' : ''}`}
+                    className={`cursor-pointer transition ${activeMonthHover === i ? 'text-tealAccent dark:text-lime font-bold' : ''}`}
                     onClick={() => setActiveMonthHover(i)}
                   >
                     {pt.month}
@@ -286,13 +285,13 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Latest Newsroom Activity Table */}
-          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-card space-y-4">
+          <div className="bg-surface rounded-3xl p-5 sm:p-6 border border-line shadow-xs space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-base font-extrabold text-navy font-display flex items-center gap-2">
-                <Newspaper className="w-4 h-4 text-brand-600" />
+              <h2 className="text-base font-extrabold text-ink font-display flex items-center gap-2">
+                <Newspaper className="w-4 h-4 text-tealAccent" />
                 Latest Newsroom Activity
               </h2>
-              <Link href="/news" className="text-xs font-bold text-brand-600 hover:underline">
+              <Link href="/news" className="text-xs font-bold text-tealAccent dark:text-lime hover:underline">
                 All articles →
               </Link>
             </div>
@@ -300,7 +299,7 @@ export default function AdminDashboardPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-slate-200 text-slate-400 font-mono font-bold uppercase text-[10px] tracking-wider">
+                  <tr className="border-b border-line text-ink-muted font-mono font-bold uppercase text-[10px] tracking-wider">
                     <th className="pb-3 pl-2">ARTICLE</th>
                     <th className="pb-3">CATEGORY</th>
                     <th className="pb-3">STATUS</th>
@@ -309,15 +308,15 @@ export default function AdminDashboardPage() {
                     <th className="pb-3 text-right pr-2">ACTION</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-line/60">
                   {articles.map((row) => (
-                    <tr key={row.id} className="hover:bg-slate-50/80 transition">
+                    <tr key={row.id} className="hover:bg-surface-alt/70 transition">
                       <td className="py-3 pl-2">
-                        <div className="font-bold text-navy font-display">{row.title}</div>
-                        <div className="text-[10px] text-slate-400 font-mono">{row.byline}</div>
+                        <div className="font-bold text-ink font-display">{row.title}</div>
+                        <div className="text-[10px] text-ink-muted font-mono">{row.byline}</div>
                       </td>
                       <td className="py-3">
-                        <span className="text-[10px] font-mono font-bold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-lg border border-slate-200">
+                        <span className="text-[10px] font-mono font-bold text-ink bg-surface-alt px-2 py-0.5 rounded-lg border border-line">
                           {row.category}
                         </span>
                       </td>
@@ -325,25 +324,25 @@ export default function AdminDashboardPage() {
                         <span
                           className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full ${
                             row.status === 'Published'
-                              ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                              ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'
                               : row.status === 'In review'
-                              ? 'bg-amber-50 text-amber-700 border border-amber-200'
-                              : 'bg-blue-50 text-blue-700 border border-blue-200'
+                              ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20'
+                              : 'bg-blue-500/10 text-blue-500 border border-blue-500/20'
                           }`}
                         >
                           {row.status}
                         </span>
                       </td>
-                      <td className="py-3 text-right tabular-nums font-mono text-slate-700 font-bold">
+                      <td className="py-3 text-right tabular-nums font-mono text-ink font-bold">
                         {row.views}
                       </td>
-                      <td className="py-3 text-right text-slate-400 font-mono text-[11px]">
+                      <td className="py-3 text-right text-ink-muted font-mono text-[11px]">
                         {row.updated}
                       </td>
                       <td className="py-3 text-right pr-2">
                         <button
                           onClick={() => triggerToast(`Managing article "${row.title}"`)}
-                          className="p-1 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-navy transition ml-auto"
+                          className="p-1 rounded-lg hover:bg-surface-alt text-ink-muted hover:text-ink transition ml-auto"
                           title="Article options"
                         >
                           <MoreVertical className="w-4 h-4" />
@@ -360,29 +359,29 @@ export default function AdminDashboardPage() {
         {/* Right Stack (4 Cols) */}
         <div className="lg:col-span-4 space-y-6">
           {/* Editorial Workflow */}
-          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-card space-y-4">
+          <div className="bg-surface rounded-3xl p-5 sm:p-6 border border-line shadow-xs space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-base font-extrabold text-navy font-display">Editorial Workflow</h2>
+              <h2 className="text-base font-extrabold text-ink font-display">Editorial Workflow</h2>
               <span
                 onClick={() => triggerToast('Opening full editorial moderation queue...')}
-                className="text-xs font-bold text-brand-600 hover:underline cursor-pointer"
+                className="text-xs font-bold text-tealAccent dark:text-lime hover:underline cursor-pointer"
               >
                 Manage →
               </span>
             </div>
 
             {!alertDismissed && (
-              <div className="p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200/80 flex items-center justify-between">
+              <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
-                  <FileClock className="w-5 h-5 text-amber-600 shrink-0" />
+                  <FileClock className="w-5 h-5 text-amber-500 shrink-0" />
                   <div>
-                    <div className="text-xs font-bold text-amber-900 font-display">12 stories need review</div>
-                    <div className="text-[10px] text-amber-700 font-normal">Keep the editorial newsroom moving</div>
+                    <div className="text-xs font-bold text-ink font-display">12 stories need review</div>
+                    <div className="text-[10px] text-ink-muted font-normal">Keep the editorial newsroom moving</div>
                   </div>
                 </div>
                 <button
                   onClick={() => setAlertDismissed(true)}
-                  className="p-1 text-amber-600 hover:text-amber-900 text-xs font-bold"
+                  className="p-1 text-ink-muted hover:text-ink text-xs font-bold"
                   title="Dismiss alert"
                 >
                   ✕
@@ -391,35 +390,35 @@ export default function AdminDashboardPage() {
             )}
 
             <div className="space-y-2 text-xs">
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50/80 border border-slate-100">
-                <span className="flex items-center gap-2 font-semibold text-slate-700">
-                  <span className="w-2 h-2 rounded-full bg-blue-600"></span> Published today
+              <div className="flex items-center justify-between p-2.5 rounded-xl bg-surface-alt border border-line">
+                <span className="flex items-center gap-2 font-semibold text-ink">
+                  <span className="w-2 h-2 rounded-full bg-teal-500"></span> Published today
                 </span>
-                <strong className="text-navy tabular-nums font-mono text-sm">18</strong>
+                <strong className="text-ink tabular-nums font-mono text-sm">18</strong>
               </div>
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50/80 border border-slate-100">
-                <span className="flex items-center gap-2 font-semibold text-slate-700">
+              <div className="flex items-center justify-between p-2.5 rounded-xl bg-surface-alt border border-line">
+                <span className="flex items-center gap-2 font-semibold text-ink">
                   <span className="w-2 h-2 rounded-full bg-amber-500"></span> Pending review
                 </span>
-                <strong className="text-navy tabular-nums font-mono text-sm">12</strong>
+                <strong className="text-ink tabular-nums font-mono text-sm">12</strong>
               </div>
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50/80 border border-slate-100">
-                <span className="flex items-center gap-2 font-semibold text-slate-700">
-                  <span className="w-2 h-2 rounded-full bg-slate-400"></span> Scheduled
+              <div className="flex items-center justify-between p-2.5 rounded-xl bg-surface-alt border border-line">
+                <span className="flex items-center gap-2 font-semibold text-ink">
+                  <span className="w-2 h-2 rounded-full bg-line"></span> Scheduled
                 </span>
-                <strong className="text-navy tabular-nums font-mono text-sm">07</strong>
+                <strong className="text-ink tabular-nums font-mono text-sm">07</strong>
               </div>
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50/80 border border-slate-100">
-                <span className="flex items-center gap-2 font-semibold text-slate-700">
+              <div className="flex items-center justify-between p-2.5 rounded-xl bg-surface-alt border border-line">
+                <span className="flex items-center gap-2 font-semibold text-ink">
                   <span className="w-2 h-2 rounded-full bg-purple-500"></span> Drafts
                 </span>
-                <strong className="text-navy tabular-nums font-mono text-sm">34</strong>
+                <strong className="text-ink tabular-nums font-mono text-sm">34</strong>
               </div>
             </div>
 
             <button
               onClick={() => triggerToast('Editorial queue opened.')}
-              className="w-full py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-xs font-bold text-slate-700 transition flex items-center justify-center gap-1.5 btn-tactile"
+              className="w-full py-2.5 rounded-xl border border-line hover:bg-surface-alt text-xs font-bold text-ink transition flex items-center justify-center gap-1.5 btn-tactile"
             >
               <span>Open editorial queue</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -427,42 +426,42 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Match Operations Live Monitoring */}
-          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-card space-y-4">
+          <div className="bg-surface rounded-3xl p-5 sm:p-6 border border-line shadow-xs space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-base font-extrabold text-navy font-display flex items-center gap-1.5">
-                <Radio className="w-4 h-4 text-rose-600" />
+              <h2 className="text-base font-extrabold text-ink font-display flex items-center gap-1.5">
+                <Radio className="w-4 h-4 text-alert" />
                 Match Operations
               </h2>
-              <Link href="/matches" className="text-xs font-bold text-brand-600 hover:underline">
+              <Link href="/matches" className="text-xs font-bold text-tealAccent dark:text-lime hover:underline">
                 Match center →
               </Link>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-50/80 border border-slate-100 space-y-2.5">
-              <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase text-rose-600">
-                <span className="w-2 h-2 rounded-full bg-rose-600 live-pulse-glow"></span>
+            <div className="p-4 rounded-2xl bg-surface-alt border border-line space-y-2.5">
+              <div className="flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase text-alert">
+                <span className="w-2 h-2 rounded-full bg-alert animate-pulse"></span>
                 LIVE · LOCAL MATCH OPERATION
               </div>
               <div className="flex items-center justify-between text-xs">
-                <span className="font-bold text-navy flex items-center gap-1.5 font-display">
+                <span className="font-bold text-ink flex items-center gap-1.5 font-display">
                   <span>🏏</span> Lahore Strikers
                 </span>
-                <span className="font-mono font-bold text-navy tabular-nums">154/6 (18.4 ov)</span>
+                <span className="font-mono font-bold text-ink tabular-nums">154/6 (18.4 ov)</span>
               </div>
               <div className="flex items-center justify-between text-xs">
-                <span className="font-bold text-slate-500 flex items-center gap-1.5 font-display">
+                <span className="font-bold text-ink-muted flex items-center gap-1.5 font-display">
                   <span>🏏</span> City Warriors
                 </span>
-                <span className="font-mono text-slate-500 tabular-nums">168/7 (20.0 ov)</span>
+                <span className="font-mono text-ink-muted tabular-nums">168/7 (20.0 ov)</span>
               </div>
-              <div className="text-[11px] text-slate-500 pt-2 border-t border-slate-200/70 font-medium">
+              <div className="text-[11px] text-ink-muted pt-2 border-t border-line font-medium">
                 15 runs needed from 8 legal balls · Target 169
               </div>
             </div>
 
             <Link
               href="/organizer/scoring"
-              className="w-full py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-xs font-bold text-slate-700 transition flex items-center justify-center gap-1.5 btn-tactile"
+              className="w-full py-2.5 rounded-xl border border-line hover:bg-surface-alt text-xs font-bold text-ink transition flex items-center justify-center gap-1.5 btn-tactile"
             >
               <span>Open live scoring pad</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -470,38 +469,38 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Quick Actions Grid */}
-          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-card space-y-3">
-            <h2 className="text-base font-extrabold text-navy font-display flex items-center gap-1.5">
+          <div className="bg-surface rounded-3xl p-5 sm:p-6 border border-line shadow-xs space-y-3">
+            <h2 className="text-base font-extrabold text-ink font-display flex items-center gap-1.5">
               <Zap className="w-4 h-4 text-amber-500" />
               Quick Actions
             </h2>
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() => setModalOpen(true)}
-                className="p-3 rounded-2xl bg-slate-50/80 hover:bg-brand-50 hover:text-brand-600 text-xs font-bold text-slate-700 transition flex flex-col items-center gap-1 border border-slate-100 interactive-card"
+                className="p-3 rounded-2xl bg-surface-alt hover:bg-surface text-xs font-bold text-ink transition flex flex-col items-center gap-1 border border-line interactive-card"
               >
-                <Newspaper className="w-4 h-4 text-brand-600" />
+                <Newspaper className="w-4 h-4 text-tealAccent" />
                 <span className="font-display">Write article</span>
               </button>
               <Link
                 href="/organizer"
-                className="p-3 rounded-2xl bg-slate-50/80 hover:bg-brand-50 hover:text-brand-600 text-xs font-bold text-slate-700 transition flex flex-col items-center gap-1 border border-slate-100 interactive-card"
+                className="p-3 rounded-2xl bg-surface-alt hover:bg-surface text-xs font-bold text-ink transition flex flex-col items-center gap-1 border border-line interactive-card"
               >
-                <Trophy className="w-4 h-4 text-amber-600" />
+                <Trophy className="w-4 h-4 text-amber-500" />
                 <span className="font-display">Add tournament</span>
               </Link>
               <Link
                 href="/players"
-                className="p-3 rounded-2xl bg-slate-50/80 hover:bg-brand-50 hover:text-brand-600 text-xs font-bold text-slate-700 transition flex flex-col items-center gap-1 border border-slate-100 interactive-card"
+                className="p-3 rounded-2xl bg-surface-alt hover:bg-surface text-xs font-bold text-ink transition flex flex-col items-center gap-1 border border-line interactive-card"
               >
-                <Users className="w-4 h-4 text-blue-600" />
+                <Users className="w-4 h-4 text-tealAccent" />
                 <span className="font-display">Add player</span>
               </Link>
               <Link
                 href="/organizer/scoring"
-                className="p-3 rounded-2xl bg-slate-50/80 hover:bg-brand-50 hover:text-brand-600 text-xs font-bold text-slate-700 transition flex flex-col items-center gap-1 border border-slate-100 interactive-card"
+                className="p-3 rounded-2xl bg-surface-alt hover:bg-surface text-xs font-bold text-ink transition flex flex-col items-center gap-1 border border-line interactive-card"
               >
-                <Radio className="w-4 h-4 text-rose-600" />
+                <Radio className="w-4 h-4 text-alert" />
                 <span className="font-display">Update score</span>
               </Link>
             </div>
@@ -511,39 +510,39 @@ export default function AdminDashboardPage() {
 
       {/* New Article Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 bg-navy/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
           <form
             onSubmit={handleCreateArticle}
-            className="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4 animate-fade-in"
+            className="bg-surface rounded-3xl max-w-md w-full p-6 shadow-2xl border border-line space-y-4 animate-fade-in"
           >
-            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-              <h3 className="text-lg font-extrabold text-navy font-display">Draft New Article</h3>
+            <div className="flex items-center justify-between pb-2 border-b border-line">
+              <h3 className="text-lg font-extrabold text-ink font-display">Draft New Article</h3>
               <button
                 type="button"
                 onClick={() => setModalOpen(false)}
-                className="text-slate-400 hover:text-navy text-sm font-bold"
+                className="text-ink-muted hover:text-ink text-sm font-bold"
               >
                 ✕
               </button>
             </div>
             <div className="space-y-3">
               <div>
-                <label className="text-xs font-bold text-slate-700">Article Title</label>
+                <label className="text-xs font-bold text-ink">Article Title</label>
                 <input
                   type="text"
                   required
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
                   placeholder="e.g. Pakistan middle-overs spin strategy..."
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs text-navy font-semibold mt-1 outline-hidden focus:border-brand-500 focus:bg-white transition"
+                  className="w-full bg-surface-alt border border-line rounded-xl p-2.5 text-xs text-ink font-semibold mt-1 outline-hidden focus:border-brand focus:bg-surface transition"
                 />
               </div>
               <div>
-                <label className="text-xs font-bold text-slate-700">Category</label>
+                <label className="text-xs font-bold text-ink">Category</label>
                 <select
                   value={newCategory}
                   onChange={(e) => setNewCategory(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs text-navy font-semibold mt-1 outline-hidden"
+                  className="w-full bg-surface-alt border border-line rounded-xl p-2.5 text-xs text-ink font-semibold mt-1 outline-hidden"
                 >
                   <option>Analysis</option>
                   <option>Breaking</option>
@@ -557,13 +556,13 @@ export default function AdminDashboardPage() {
               <button
                 type="button"
                 onClick={() => setModalOpen(false)}
-                className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 transition"
+                className="px-4 py-2 rounded-xl text-xs font-bold text-ink-muted hover:bg-surface-alt transition"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 rounded-xl text-xs font-bold bg-brand-600 text-white hover:bg-brand-700 transition shadow-xs btn-tactile"
+                className="px-4 py-2 rounded-xl text-xs font-bold bg-brand text-white hover:bg-brand-hover dark:bg-lime dark:text-canvas transition shadow-xs btn-tactile"
               >
                 Create Draft
               </button>

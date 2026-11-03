@@ -11,9 +11,6 @@ import {
   Download,
   ArrowLeft,
   CheckCircle2,
-  Radio,
-  Flame,
-  AlertTriangle,
   Info,
 } from 'lucide-react';
 
@@ -189,7 +186,7 @@ export default function MobileScoringPage() {
       actions={
         <Link
           href="/organizer"
-          className="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 transition flex items-center gap-1.5 shadow-xs btn-tactile"
+          className="px-3.5 py-2 rounded-xl text-xs font-bold text-ink bg-surface border border-line hover:bg-surface-alt transition flex items-center gap-1.5 shadow-xs btn-tactile"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Organizer Dashboard</span>
@@ -198,7 +195,7 @@ export default function MobileScoringPage() {
     >
       {/* Toast Alert */}
       {toast && (
-        <div className="fixed bottom-6 right-6 z-50 bg-navy text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold flex items-center gap-2 border border-slate-700 animate-fade-in">
+        <div className="fixed bottom-6 right-6 z-50 bg-surface dark:bg-surface-alt text-ink px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold flex items-center gap-2 border border-line animate-fade-in">
           <CheckCircle2 className="w-4 h-4 text-emerald-400" />
           {toast}
         </div>
@@ -208,13 +205,13 @@ export default function MobileScoringPage() {
         {/* Left Column: Scoring Pad & Big Score Display (7 Cols) */}
         <div className="lg:col-span-7 space-y-6">
           {/* Big Broadcast Score Display Card */}
-          <div className="bg-gradient-to-br from-navy via-navy-deep to-[#091224] text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-navy-border space-y-5">
-            <div className="flex items-center justify-between text-xs text-slate-400">
+          <div className="bg-gradient-to-br from-brand via-[#0B513E] to-[#063327] dark:from-[#122B34] dark:via-[#0E232B] dark:to-[#091820] text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-line space-y-5">
+            <div className="flex items-center justify-between text-xs text-slate-300">
               <span className="font-mono font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 green-pulse-glow"></span>
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                 <span>{teamName} Batting</span>
               </span>
-              <span className="font-mono text-slate-400 bg-white/10 px-2.5 py-0.5 rounded-full border border-white/10">
+              <span className="font-mono text-lime bg-white/10 px-2.5 py-0.5 rounded-full border border-white/10 text-[11px] font-bold">
                 Innings 1 of 2
               </span>
             </div>
@@ -223,20 +220,20 @@ export default function MobileScoringPage() {
               <div>
                 <div className="text-5xl sm:text-7xl font-black text-white tabular-nums tracking-tightest font-mono">
                   {runs}
-                  <span className="text-3xl sm:text-4xl text-slate-400 font-light">/{wickets}</span>
+                  <span className="text-3xl sm:text-4xl text-slate-300 font-light">/{wickets}</span>
                 </div>
-                <div className="text-sm font-semibold text-slate-300 mt-1 flex items-center gap-2">
+                <div className="text-sm font-semibold text-slate-200 mt-1 flex items-center gap-2">
                   <span className="font-mono font-bold text-white text-base">{oversDisplay}</span>
-                  <span className="text-xs text-slate-400 font-mono">/ {oversLimit}.0 overs</span>
-                  <span className="text-[11px] text-brand-300 font-mono">({legalBalls} legal balls)</span>
+                  <span className="text-xs text-slate-300 font-mono">/ {oversLimit}.0 overs</span>
+                  <span className="text-[11px] text-lime font-mono">({legalBalls} legal balls)</span>
                 </div>
               </div>
 
               <div className="text-right flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 pt-2 sm:pt-0 border-white/10">
-                <div className="text-2xl sm:text-3xl font-black text-brand-400 tabular-nums font-mono">
+                <div className="text-2xl sm:text-3xl font-black text-lime tabular-nums font-mono">
                   {formatTwoDecimals(currentRR)}
                 </div>
-                <div className="text-[10px] uppercase font-mono font-bold text-slate-400 tracking-wider">
+                <div className="text-[10px] uppercase font-mono font-bold text-slate-300 tracking-wider">
                   Current Run Rate (RPO)
                 </div>
               </div>
@@ -244,24 +241,25 @@ export default function MobileScoringPage() {
 
             {/* Current Over Deliveries Strip */}
             <div className="pt-3 border-t border-white/10">
-              <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400 mb-2">
+              <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-300 mb-2">
                 CURRENT OVER DELIVERIES
               </div>
               <div className="flex items-center gap-2 flex-wrap">
                 {currentOverBalls.length === 0 ? (
-                  <span className="text-xs text-slate-500 font-mono">Over starting...</span>
+                  <span className="text-xs text-slate-400 font-mono">Over starting...</span>
                 ) : (
                   currentOverBalls.map((b, idx) => (
                     <span
                       key={b.id || idx}
-                      className={`w-8 h-8 rounded-xl flex items-center justify-center font-mono font-bold text-xs shadow-xs ${b.kind === 'W'
+                      className={`w-8 h-8 rounded-xl flex items-center justify-center font-mono font-bold text-xs shadow-xs ${
+                        b.kind === 'W'
                           ? 'bg-rose-600 text-white font-extrabold'
                           : b.kind === '4' || b.kind === '6'
-                            ? 'bg-brand-600 text-white font-extrabold'
+                            ? 'bg-lime text-canvas font-extrabold'
                             : b.kind === 'Wd' || b.kind === 'Nb'
                               ? 'bg-amber-500 text-white'
-                              : 'bg-white/15 text-white'
-                        }`}
+                              : 'bg-white/20 text-white'
+                      }`}
                     >
                       {b.kind}
                     </span>
@@ -275,7 +273,7 @@ export default function MobileScoringPage() {
               <button
                 onClick={undoLastBall}
                 disabled={events.length === 0}
-                className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-bold text-slate-200 transition flex items-center gap-1.5 btn-tactile"
+                className="px-3.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 disabled:opacity-40 disabled:cursor-not-allowed text-xs font-bold text-white transition flex items-center gap-1.5 btn-tactile"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Undo Delivery</span>
@@ -283,7 +281,7 @@ export default function MobileScoringPage() {
 
               <button
                 onClick={resetInnings}
-                className="px-3.5 py-1.5 rounded-xl bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 text-xs font-bold transition btn-tactile"
+                className="px-3.5 py-1.5 rounded-xl bg-rose-600/30 hover:bg-rose-600/50 text-rose-200 text-xs font-bold transition btn-tactile"
               >
                 Reset Innings
               </button>
@@ -291,30 +289,30 @@ export default function MobileScoringPage() {
           </div>
 
           {/* Thumb-Zone Scoring Buttons */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-card space-y-4">
+          <div className="bg-surface rounded-3xl p-6 sm:p-8 border border-line shadow-xs space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-extrabold text-navy font-display">Record Delivery Event</h3>
-              <span className="text-[10px] font-mono font-bold text-brand-600 uppercase bg-brand-50 px-2 py-0.5 rounded-full border border-brand-200">
+              <h3 className="text-sm font-extrabold text-ink font-display">Record Delivery Event</h3>
+              <span className="text-[10px] font-mono font-bold text-tealAccent dark:text-lime uppercase bg-surface-alt px-2 py-0.5 rounded-full border border-line">
                 TACTILE SCORING PAD
               </span>
             </div>
 
             <div className="grid grid-cols-3 gap-3">
               {[
-                { kind: '0', label: 'Dot (0)', bg: 'bg-slate-100 hover:bg-slate-200 text-navy' },
-                { kind: '1', label: '1 Run', bg: 'bg-slate-100 hover:bg-slate-200 text-navy' },
-                { kind: '2', label: '2 Runs', bg: 'bg-slate-100 hover:bg-slate-200 text-navy' },
-                { kind: '3', label: '3 Runs', bg: 'bg-slate-100 hover:bg-slate-200 text-navy' },
-                { kind: '4', label: 'Four (4)', bg: 'bg-blue-50 hover:bg-blue-100 text-brand-700 font-black border-blue-200' },
-                { kind: '6', label: 'Six (6)', bg: 'bg-purple-50 hover:bg-purple-100 text-purple-700 font-black border-purple-200' },
-                { kind: 'W', label: 'Wicket (W)', bg: 'bg-rose-50 hover:bg-rose-100 text-rose-600 font-black border-rose-200' },
-                { kind: 'Wd', label: 'Wide (+1)', bg: 'bg-amber-50 hover:bg-amber-100 text-amber-700 font-bold border-amber-200' },
-                { kind: 'Nb', label: 'No Ball (+1)', bg: 'bg-amber-50 hover:bg-amber-100 text-amber-700 font-bold border-amber-200' },
+                { kind: '0', label: 'Dot (0)', bg: 'bg-surface-alt hover:bg-surface text-ink' },
+                { kind: '1', label: '1 Run', bg: 'bg-surface-alt hover:bg-surface text-ink' },
+                { kind: '2', label: '2 Runs', bg: 'bg-surface-alt hover:bg-surface text-ink' },
+                { kind: '3', label: '3 Runs', bg: 'bg-surface-alt hover:bg-surface text-ink' },
+                { kind: '4', label: 'Four (4)', bg: 'bg-teal-500/10 hover:bg-teal-500/20 text-tealAccent dark:text-lime font-black border-tealAccent/30' },
+                { kind: '6', label: 'Six (6)', bg: 'bg-purple-500/10 hover:bg-purple-500/20 text-purple-600 dark:text-purple-400 font-black border-purple-500/30' },
+                { kind: 'W', label: 'Wicket (W)', bg: 'bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 font-black border-rose-500/30' },
+                { kind: 'Wd', label: 'Wide (+1)', bg: 'bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 font-bold border-amber-500/30' },
+                { kind: 'Nb', label: 'No Ball (+1)', bg: 'bg-amber-500/10 hover:bg-amber-500/20 text-amber-600 font-bold border-amber-500/30' },
               ].map((btn) => (
                 <button
                   key={btn.kind}
                   onClick={() => applyBall(btn.kind as any)}
-                  className={`h-16 sm:h-20 rounded-2xl flex flex-col items-center justify-center border border-slate-200/90 shadow-2xs keypad-btn ${btn.bg}`}
+                  className={`h-16 sm:h-20 rounded-2xl flex flex-col items-center justify-center border border-line shadow-2xs keypad-btn ${btn.bg}`}
                 >
                   <span className="text-xl sm:text-2xl font-black font-mono">{btn.kind}</span>
                   <span className="text-[10px] font-semibold opacity-75">{btn.label}</span>
@@ -322,8 +320,8 @@ export default function MobileScoringPage() {
               ))}
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 text-[11px] text-slate-500 flex items-start gap-2">
-              <Info className="w-4 h-4 text-brand-600 shrink-0 mt-0.5" />
+            <div className="p-3.5 rounded-2xl bg-surface-alt border border-line text-[11px] text-ink-muted flex items-start gap-2">
+              <Info className="w-4 h-4 text-tealAccent shrink-0 mt-0.5" />
               <span>
                 <b>Official Cricket Rule:</b> Wides and No Balls award 1 penalty run and do NOT consume a legal delivery, ensuring over counts strictly adhere to MCC Playing Conditions.
               </span>
@@ -333,12 +331,12 @@ export default function MobileScoringPage() {
 
         {/* Right Column: Recent Deliveries & Audit Log (5 Cols) */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card space-y-4">
+          <div className="bg-surface rounded-3xl p-6 border border-line shadow-xs space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-extrabold text-navy font-display">Recent Deliveries Log</h3>
+              <h3 className="text-sm font-extrabold text-ink font-display">Recent Deliveries Log</h3>
               <button
                 onClick={exportCSV}
-                className="text-xs font-bold text-brand-600 hover:underline flex items-center gap-1.5 btn-tactile"
+                className="text-xs font-bold text-tealAccent dark:text-lime hover:underline flex items-center gap-1.5 btn-tactile"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Export CSV</span>
@@ -347,7 +345,7 @@ export default function MobileScoringPage() {
 
             <div className="space-y-2 max-h-96 overflow-y-auto pr-1">
               {events.length === 0 ? (
-                <p className="text-xs text-slate-400 py-8 text-center font-mono">
+                <p className="text-xs text-ink-muted py-8 text-center font-mono">
                   No deliveries recorded yet. Tap buttons on the left to start scoring!
                 </p>
               ) : (
@@ -357,29 +355,30 @@ export default function MobileScoringPage() {
                   .map((evt, idx) => (
                     <div
                       key={evt.id || idx}
-                      className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100 text-xs interactive-card"
+                      className="flex items-center justify-between p-3 rounded-2xl bg-surface-alt border border-line text-xs interactive-card"
                     >
                       <div className="flex items-center gap-2.5">
                         <span
-                          className={`w-7 h-7 rounded-xl flex items-center justify-center font-bold font-mono text-xs shadow-2xs ${evt.kind === 'W'
+                          className={`w-7 h-7 rounded-xl flex items-center justify-center font-bold font-mono text-xs shadow-2xs ${
+                            evt.kind === 'W'
                               ? 'bg-rose-600 text-white'
                               : evt.kind === '4' || evt.kind === '6'
-                                ? 'bg-brand-600 text-white'
+                                ? 'bg-brand dark:bg-lime text-white dark:text-canvas'
                                 : evt.kind === 'Wd' || evt.kind === 'Nb'
                                   ? 'bg-amber-500 text-white'
-                                  : 'bg-slate-200 text-navy'
-                            }`}
+                                  : 'bg-surface text-ink border border-line'
+                          }`}
                         >
                           {evt.kind}
                         </span>
                         <div>
-                          <span className="font-bold text-navy font-display">{evt.label}</span>
-                          <div className="text-[10px] text-slate-400 font-mono">
+                          <span className="font-bold text-ink font-display">{evt.label}</span>
+                          <div className="text-[10px] text-ink-muted font-mono">
                             Over {evt.overNumber}.{evt.ballInOver}
                           </div>
                         </div>
                       </div>
-                      <span className="text-[10px] text-slate-400 font-mono">
+                      <span className="text-[10px] text-ink-muted font-mono">
                         Ball #{events.length - idx}
                       </span>
                     </div>

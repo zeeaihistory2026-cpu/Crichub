@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import PublicHeader from '@/components/layout/PublicHeader';
 import PublicFooter from '@/components/layout/PublicFooter';
-import { GitCompare, ArrowLeft, ArrowRight, ShieldCheck, Sparkles, Trophy } from 'lucide-react';
 
 export default function ComparePage() {
   const [format, setFormat] = useState<'T20I' | 'ODI' | 'Test'>('T20I');
@@ -38,42 +37,42 @@ export default function ComparePage() {
   }[format];
 
   return (
-    <>
+    <div className="min-h-screen bg-canvas text-ink flex flex-col font-body transition-colors duration-200">
       <PublicHeader />
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         {/* Breadcrumb */}
-        <div className="text-xs text-slate-500 flex items-center gap-1.5 font-medium">
-          <Link href="/" className="hover:text-brand-600">Home</Link>
+        <div className="text-xs text-ink-muted flex items-center gap-1.5 font-medium">
+          <Link href="/" className="hover:text-tealAccent">Home</Link>
           <span>/</span>
-          <Link href="/stats" className="hover:text-brand-600">Stats</Link>
+          <Link href="/stats" className="hover:text-tealAccent">Stats</Link>
           <span>/</span>
-          <span className="font-bold text-navy font-display">Player Comparison Lab</span>
+          <span className="font-bold text-ink font-display">Player Comparison Lab</span>
         </div>
 
         {/* Heading */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="text-xs font-mono font-bold text-brand-600 uppercase tracking-wider">
+            <div className="text-xs font-mono font-bold text-tealAccent dark:text-lime uppercase tracking-wider">
               HEAD-TO-HEAD INTELLIGENCE
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black text-navy font-display tracking-tightest mt-1">
+            <h1 className="text-2xl sm:text-3xl font-black text-ink font-display tracking-tightest mt-1">
               Player Comparison Lab
             </h1>
-            <p className="text-xs sm:text-sm text-slate-500 mt-0.5 font-normal">
+            <p className="text-xs sm:text-sm text-ink-muted mt-0.5 font-normal">
               Side-by-side format-scoped statistical evaluation with proportional dual-track benchmarks.
             </p>
           </div>
 
           {/* Format selector */}
-          <div className="flex items-center gap-1 bg-white p-1 rounded-2xl border border-slate-200 shadow-2xs">
+          <div className="flex items-center gap-1 bg-surface p-1 rounded-2xl border border-line shadow-2xs">
             {(['T20I', 'ODI', 'Test'] as const).map((fmt) => (
               <button
                 key={fmt}
                 onClick={() => setFormat(fmt)}
                 className={`px-4 py-1.5 rounded-xl text-xs font-bold transition btn-tactile ${
                   format === fmt
-                    ? 'bg-navy text-white shadow-xs'
-                    : 'text-slate-600 hover:bg-slate-100'
+                    ? 'bg-brand text-white dark:bg-lime dark:text-canvas shadow-xs font-bold'
+                    : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
                 }`}
               >
                 {fmt}
@@ -85,44 +84,44 @@ export default function ComparePage() {
         {/* Player Profile Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* Player A */}
-          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-card flex items-center gap-4 interactive-card">
-            <div className="relative w-20 h-20 rounded-2xl overflow-hidden shrink-0 border border-slate-200 shadow-xs">
+          <div className="bg-surface rounded-3xl p-5 sm:p-6 border border-line shadow-xs flex items-center gap-4 interactive-card">
+            <div className="relative w-20 h-20 rounded-2xl overflow-hidden shrink-0 border border-line shadow-xs">
               <Image src="/assets/profile.webp" alt="Babar Azam" fill className="object-cover" />
             </div>
             <div>
-              <span className="text-[10px] font-mono font-bold uppercase text-brand-600 bg-brand-50 px-2 py-0.5 rounded-md border border-brand-200">
+              <span className="text-[10px] font-mono font-bold uppercase text-tealAccent dark:text-lime bg-surface-alt px-2 py-0.5 rounded-md border border-line">
                 PLAYER A
               </span>
-              <h2 className="text-lg font-black text-navy mt-1 font-display">Babar Azam</h2>
-              <div className="text-xs text-slate-500 font-medium">🇵🇰 Pakistan · Top Order Batter</div>
+              <h2 className="text-lg font-black text-ink mt-1 font-display">Babar Azam</h2>
+              <div className="text-xs text-ink-muted font-medium">🇵🇰 Pakistan · Top Order Batter</div>
             </div>
           </div>
 
           {/* Player B */}
-          <div className="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/80 shadow-card flex items-center gap-4 interactive-card">
-            <div className="relative w-20 h-20 rounded-2xl overflow-hidden shrink-0 border border-slate-200 shadow-xs">
+          <div className="bg-surface rounded-3xl p-5 sm:p-6 border border-line shadow-xs flex items-center gap-4 interactive-card">
+            <div className="relative w-20 h-20 rounded-2xl overflow-hidden shrink-0 border border-line shadow-xs">
               <Image src="/assets/player2.webp" alt="Mohammad Rizwan" fill className="object-cover" />
             </div>
             <div>
-              <span className="text-[10px] font-mono font-bold uppercase text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
+              <span className="text-[10px] font-mono font-bold uppercase text-amber-500 bg-surface-alt px-2 py-0.5 rounded-md border border-line">
                 PLAYER B
               </span>
-              <h2 className="text-lg font-black text-navy mt-1 font-display">Mohammad Rizwan</h2>
-              <div className="text-xs text-slate-500 font-medium">🇵🇰 Pakistan · Wicketkeeper Batter</div>
+              <h2 className="text-lg font-black text-ink mt-1 font-display">Mohammad Rizwan</h2>
+              <div className="text-xs text-ink-muted font-medium">🇵🇰 Pakistan · Wicketkeeper Batter</div>
             </div>
           </div>
         </div>
 
         {/* Dual-Track Metric Comparison */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-card space-y-6">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-            <span className="text-xs font-mono font-bold text-brand-600 uppercase tracking-wider">
+        <div className="bg-surface rounded-3xl p-6 sm:p-8 border border-line shadow-xs space-y-6">
+          <div className="flex items-center justify-between pb-3 border-b border-line">
+            <span className="text-xs font-mono font-bold text-tealAccent dark:text-lime uppercase tracking-wider">
               Babar Azam
             </span>
-            <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">
+            <span className="text-xs font-mono font-bold text-ink-muted uppercase tracking-wider">
               CAREER BENCHMARK ({format})
             </span>
-            <span className="text-xs font-mono font-bold text-amber-600 uppercase tracking-wider">
+            <span className="text-xs font-mono font-bold text-amber-500 uppercase tracking-wider">
               Mohammad Rizwan
             </span>
           </div>
@@ -136,18 +135,18 @@ export default function ComparePage() {
 
               return (
                 <div key={row.metric} className="space-y-2">
-                  <div className="flex items-center justify-between text-xs font-bold text-slate-600">
+                  <div className="flex items-center justify-between text-xs font-bold text-ink-muted">
                     <span
                       className={`tabular-nums font-mono text-sm ${
-                        aIsBetter ? 'text-brand-600 font-black' : 'text-slate-500'
+                        aIsBetter ? 'text-tealAccent dark:text-lime font-black' : 'text-ink-muted'
                       }`}
                     >
                       {row.a}
                     </span>
-                    <span className="text-navy text-xs font-extrabold font-display">{row.metric}</span>
+                    <span className="text-ink text-xs font-extrabold font-display">{row.metric}</span>
                     <span
                       className={`tabular-nums font-mono text-sm ${
-                        !aIsBetter ? 'text-amber-600 font-black' : 'text-slate-500'
+                        !aIsBetter ? 'text-amber-500 font-black' : 'text-ink-muted'
                       }`}
                     >
                       {row.b}
@@ -157,20 +156,20 @@ export default function ComparePage() {
                   {/* Dual Bar Proportional Visual Track */}
                   <div className="grid grid-cols-2 gap-2">
                     {/* Left Track (Reversed direction for Player A) */}
-                    <div className="h-3 bg-slate-100 rounded-full overflow-hidden flex justify-end">
+                    <div className="h-3 bg-surface-alt rounded-full overflow-hidden flex justify-end">
                       <div
                         className={`h-full rounded-full transition-all duration-500 ${
-                          aIsBetter ? 'bg-brand-600' : 'bg-slate-300'
+                          aIsBetter ? 'bg-brand dark:bg-lime' : 'bg-line'
                         }`}
                         style={{ width: `${pctA}%` }}
                       />
                     </div>
 
                     {/* Right Track (Normal direction for Player B) */}
-                    <div className="h-3 bg-slate-100 rounded-full overflow-hidden flex justify-start">
+                    <div className="h-3 bg-surface-alt rounded-full overflow-hidden flex justify-start">
                       <div
                         className={`h-full rounded-full transition-all duration-500 ${
-                          !aIsBetter ? 'bg-amber-500' : 'bg-slate-300'
+                          !aIsBetter ? 'bg-amber-500' : 'bg-line'
                         }`}
                         style={{ width: `${pctB}%` }}
                       />
@@ -181,9 +180,9 @@ export default function ComparePage() {
             })}
           </div>
 
-          <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400">
+          <div className="pt-4 border-t border-line flex items-center justify-between text-xs text-ink-muted">
             <span className="font-mono text-[11px]">Official ICC career databases synchronized</span>
-            <Link href="/players" className="text-brand-600 font-bold hover:underline">
+            <Link href="/players" className="text-tealAccent dark:text-lime font-bold hover:underline">
               View individual player profile →
             </Link>
           </div>
@@ -191,6 +190,6 @@ export default function ComparePage() {
       </main>
 
       <PublicFooter />
-    </>
+    </div>
   );
 }

@@ -4,9 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import PublicHeader from '@/components/layout/PublicHeader';
 import PublicFooter from '@/components/layout/PublicFooter';
-import SectionHeader from '@/components/ui/SectionHeader';
 import { SEED_TOOLS } from '@/data/seed-data';
-import { Calculator, Search, ArrowRight, Trophy, Zap, Shield, Target, Sparkles } from 'lucide-react';
+import { Calculator, Search, ArrowRight, Trophy } from 'lucide-react';
 
 export default function ToolsPage() {
   const [selectedCat, setSelectedCat] = useState('All Tools');
@@ -21,50 +20,50 @@ export default function ToolsPage() {
   });
 
   return (
-    <>
+    <div className="min-h-screen bg-canvas text-ink flex flex-col font-body transition-colors duration-200">
       <PublicHeader />
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-7 sm:pt-9 pb-16 space-y-7">
         {/* Breadcrumb */}
-        <div className="text-xs text-slate-500 flex items-center gap-1.5 font-medium">
-          <Link href="/" className="hover:text-brand-600">Home</Link>
+        <div className="text-xs text-ink-muted flex items-center gap-1.5 font-medium">
+          <Link href="/" className="hover:text-tealAccent">Home</Link>
           <span>/</span>
-          <span className="font-bold text-navy font-display">Tools</span>
+          <span className="font-bold text-ink font-display">Tools</span>
         </div>
 
         {/* Heading */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="text-xs font-mono font-bold text-brand-600 uppercase tracking-wider">
+            <div className="text-xs font-mono font-bold text-tealAccent uppercase tracking-wider">
               MATHEMATICALLY VALIDATED SUITE
             </div>
-            <h1 className="text-2xl sm:text-4xl font-black text-navy font-display tracking-tightest mt-1">
-              Cricket Tools & Calculators
+            <h1 className="text-2xl sm:text-4xl font-extrabold text-ink font-display tracking-tight mt-1">
+              Cricket Tools &amp; Calculators
             </h1>
-            <p className="text-xs sm:text-sm text-slate-500 mt-0.5 font-normal">
+            <p className="text-xs sm:text-sm text-ink-muted mt-1 font-normal">
               Twelve working calculators built with integer legal-ball precision and transparent worked examples.
             </p>
           </div>
 
           <Link
             href="/qualification"
-            className="bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition shadow-xs flex items-center gap-1.5 self-start sm:self-auto btn-tactile"
+            className="bg-brand text-white hover:bg-brand-hover dark:bg-lime dark:text-canvas dark:hover:bg-lime-hover font-bold text-xs px-5 py-2.5 rounded-full transition shadow-xs flex items-center gap-2 self-start sm:self-auto btn-tactile"
           >
-            <Trophy className="w-4 h-4 text-amber-300" />
+            <Trophy className="w-4 h-4 text-amber-300 dark:text-canvas" />
             <span>Open Qualification Lab</span>
           </Link>
         </div>
 
         {/* Toolbar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-line pb-4">
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCat(cat)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition shrink-0 btn-tactile ${
+                className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-tight transition shrink-0 btn-tactile ${
                   selectedCat === cat
-                    ? 'bg-navy text-white shadow-xs'
-                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
+                    ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold shadow-xs'
+                    : 'bg-surface text-ink-muted hover:text-ink hover:bg-surface-alt border border-line'
                 }`}
               >
                 {cat}
@@ -73,13 +72,13 @@ export default function ToolsPage() {
           </div>
 
           <div className="relative w-full sm:w-72">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-ink-muted absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search calculator (e.g. NRR, target)..."
-              className="w-full bg-white text-xs pl-9 pr-3.5 py-2 rounded-xl border border-slate-200 outline-hidden focus:border-brand-500 transition text-navy font-medium"
+              className="w-full bg-surface text-ink text-xs pl-10 pr-4 py-2.5 rounded-full border border-line outline-hidden focus:border-tealAccent transition placeholder:text-ink-muted font-medium"
             />
           </div>
         </div>
@@ -90,27 +89,27 @@ export default function ToolsPage() {
             <Link
               key={t.id}
               href={`/tools/${t.id}`}
-              className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card hover:border-brand-300 hover:shadow-cardHover transition flex flex-col justify-between group interactive-card"
+              className="bg-surface dark:bg-surface rounded-2xl p-6 border border-line hover:border-tealAccent/60 shadow-xs hover:shadow-md transition-all duration-200 flex flex-col justify-between group interactive-card"
             >
               <div>
-                <div className="flex items-center justify-between mb-3.5">
-                  <span className="w-9 h-9 rounded-xl bg-blue-50 text-brand-600 flex items-center justify-center group-hover:scale-110 transition shadow-2xs">
-                    <Calculator className="w-4.5 h-4.5" />
+                <div className="flex items-center justify-between mb-4">
+                  <span className="w-10 h-10 rounded-xl bg-surface-alt border border-line text-tealAccent flex items-center justify-center group-hover:scale-105 transition shadow-2xs">
+                    <Calculator className="w-5 h-5" />
                   </span>
-                  <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider bg-slate-50 px-2 py-0.5 rounded-md border border-slate-200">
+                  <span className="text-[10px] font-mono font-bold text-ink-muted uppercase tracking-wider bg-surface-alt px-2.5 py-1 rounded-full border border-line">
                     {t.category}
                   </span>
                 </div>
 
-                <h3 className="text-base font-extrabold text-navy font-display group-hover:text-brand-600 transition">
+                <h3 className="text-base font-bold text-ink font-display group-hover:text-tealAccent transition">
                   {t.name}
                 </h3>
-                <p className="text-xs text-slate-500 mt-1.5 leading-relaxed font-normal">{t.desc}</p>
+                <p className="text-xs text-ink-muted mt-2 leading-relaxed font-normal">{t.desc}</p>
               </div>
 
-              <div className="mt-5 pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-brand-600">
-                <span className="font-mono text-[11px] font-semibold text-slate-400">Formula & Calculator</span>
-                <span className="flex items-center gap-1 group-hover:translate-x-1 transition">
+              <div className="mt-6 pt-3.5 border-t border-line flex items-center justify-between text-xs font-bold text-tealAccent">
+                <span className="font-mono text-[11px] font-medium text-ink-muted">Formula &amp; Calculator</span>
+                <span className="flex items-center gap-1 group-hover:translate-x-1 transition font-display">
                   Launch <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </div>
@@ -118,29 +117,29 @@ export default function ToolsPage() {
           ))}
         </div>
 
-        {/* Signature Tool Promo Banner */}
-        <div className="bg-gradient-to-r from-navy via-navy-deep to-brand-900 text-white rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-2xl border border-navy-border">
+        {/* Signature Qualification Lab Banner */}
+        <div className="bg-gradient-to-r from-[#0B513E] to-[#06392C] dark:from-[#122B34] dark:to-[#0A1A22] text-white rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6 shadow-xl border border-tealAccent/25 dark:border-line">
           <div className="space-y-1.5">
-            <span className="text-[10px] font-mono font-bold uppercase text-amber-300 tracking-wider">
+            <span className="text-[10px] font-mono font-bold uppercase text-lime tracking-wider">
               SIGNATURE FLAGSHIP SIMULATOR
             </span>
-            <h2 className="text-xl sm:text-2xl font-black text-white font-display tracking-tightest">
+            <h2 className="text-xl sm:text-2xl font-extrabold text-white font-display tracking-tight">
               Qualification Lab
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300 max-w-xl font-normal leading-relaxed">
-              Model complex tournament outcomes, points distributions, and NRR tie-breaks under official MCC playing condition all-out rules.
+            <p className="text-xs sm:text-sm text-slate-200 dark:text-slate-300 max-w-xl font-normal leading-relaxed">
+              Model complex tournament outcomes, points distributions, and NRR tie-breaks under official playing conditions and all-out rules.
             </p>
           </div>
           <Link
             href="/qualification"
-            className="bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-xl transition shadow-xs flex items-center gap-2 self-start sm:self-auto shrink-0 btn-tactile"
+            className="bg-lime hover:bg-lime-hover text-canvas font-extrabold text-xs sm:text-sm px-6 py-3 rounded-xl transition-all shadow-md hover:shadow-lg hover:scale-[1.02] flex items-center gap-2 self-start sm:self-auto shrink-0 btn-tactile"
           >
             <span>Launch Lab</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 stroke-[2.5]" />
           </Link>
         </div>
       </main>
       <PublicFooter />
-    </>
+    </div>
   );
 }

@@ -13,14 +13,13 @@ import {
   ChevronRight,
   Radio,
   Calendar,
-  Wrench,
   Trophy,
   User,
   Home,
   BarChart3,
-  Users,
   Building2,
   Newspaper,
+  Compass,
 } from 'lucide-react';
 
 interface PublicHeaderProps {
@@ -33,49 +32,43 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
   const [toolsOpen, setToolsOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
 
-  const navLinks = [
-    { href: '/', label: 'Home', icon: Home },
-    { href: '/matches', label: 'Live Scores', icon: Radio },
-    { href: '/matches', label: 'Matches', icon: Calendar },
-    { href: '/tools', label: 'Tools', hasDropdown: true },
-    { href: '/qualification', label: 'Qualification Lab', icon: Trophy },
-    { href: '/tournaments', label: 'Tournaments' },
-    { href: '/news', label: 'News' },
-  ];
-
   const toolsDropdownItems = [
-    { href: '/tools/net-run-rate', name: 'Net Run Rate Calculator' },
-    { href: '/tools/required-run-rate', name: 'Required Run Rate' },
-    { href: '/tools/run-rate', name: 'Run Rate (RPO)' },
+    { href: '/tools/net-run-rate', name: 'Net Run Rate (NRR) Calculator' },
+    { href: '/tools/required-run-rate', name: 'Required Run Rate (RRR)' },
+    { href: '/tools/run-rate', name: 'Current Run Rate (RPO)' },
     { href: '/tools/batting-average', name: 'Batting Average' },
     { href: '/tools/batting-strike-rate', name: 'Batting Strike Rate' },
     { href: '/tools/overs-converter', name: 'Overs to Balls Converter' },
+    { href: '/tools/target-score', name: 'Target Score (DLS Baseline)' },
+    { href: '/tools/partnership', name: 'Partnership Calculator' },
     { href: '/tools', name: 'View All 12 Calculators →' },
   ];
 
   const moreDropdownItems = [
-    { href: '/players', name: 'Player Directory & Records', icon: User },
+    { href: '/tournaments', name: 'PSL & Global Tournaments', icon: Trophy },
+    { href: '/news', name: 'Cricket News & Editorial', icon: Newspaper },
+    { href: '/players', name: 'Player Directory & Profiles', icon: User },
     { href: '/compare', name: 'Player Comparison Lab', icon: BarChart3 },
     { href: '/stats', name: 'Stats & Records Explorer', icon: BarChart3 },
     { href: '/local', name: 'Local Cricket Network', icon: Building2 },
-    { href: '/organizer', name: 'Tournament Organizer Workspace', icon: Trophy },
+    { href: '/organizer', name: 'Organizer Workspace', icon: Trophy },
   ];
 
   return (
     <header className="sticky top-0 z-40 bg-surface/95 dark:bg-surface/95 backdrop-blur-md border-b border-line shadow-xs transition-colors duration-200">
       {/* Spacious container with ample padding above and below */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4.5 flex items-center justify-between gap-4 sm:gap-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-5.5 min-h-[82px] sm:min-h-[88px] flex items-center justify-between gap-4 sm:gap-6">
         {/* Left: Brand Logo */}
         <BrandLogo />
 
-        {/* Center: Desktop Navigation Bar with generous link padding */}
-        <nav className="hidden lg:flex items-center gap-1 xl:gap-2" aria-label="Main Navigation">
-          {/* Home Link */}
+        {/* Center: Desktop Navigation Bar matching Image 2 */}
+        <nav className="hidden lg:flex items-center gap-1.5 xl:gap-2.5" aria-label="Main Navigation">
+          {/* 1. Home Link (Active pill style matching Image 2) */}
           <Link
             href="/"
-            className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight transition flex items-center gap-2 ${
+            className={`px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-bold tracking-tight transition flex items-center gap-2 ${
               pathname === '/'
-                ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold shadow-xs'
+                ? 'bg-brand text-white dark:bg-lime dark:text-canvas shadow-xs'
                 : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
             }`}
           >
@@ -83,20 +76,23 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
             <span>Home</span>
           </Link>
 
-          {/* Live Scores */}
+          {/* 2. Live Scores */}
           <Link
             href="/matches"
             className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight transition flex items-center gap-2 ${
               pathname === '/matches'
-                ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold'
+                ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold shadow-xs'
                 : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
             }`}
           >
-            <Radio className="w-4 h-4 text-alert animate-pulse" />
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-alert opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-alert" />
+            </span>
             <span>Live Scores</span>
           </Link>
 
-          {/* Matches */}
+          {/* 3. Matches */}
           <Link
             href="/matches"
             className="px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight text-ink-muted hover:text-ink hover:bg-surface-alt transition flex items-center gap-2"
@@ -105,7 +101,7 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
             <span>Matches</span>
           </Link>
 
-          {/* Tools with Dropdown */}
+          {/* 4. Tools with Dropdown */}
           <div
             className="relative"
             onMouseEnter={() => setToolsOpen(true)}
@@ -115,7 +111,7 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
               href="/tools"
               className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight transition flex items-center gap-1.5 ${
                 pathname.startsWith('/tools')
-                  ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold'
+                  ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold shadow-xs'
                   : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
               }`}
             >
@@ -139,7 +135,7 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
             )}
           </div>
 
-          {/* Qualification Lab */}
+          {/* 5. Qualification Lab */}
           <Link
             href="/qualification"
             className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight transition flex items-center gap-2 ${
@@ -152,31 +148,7 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
             <span>Qualification Lab</span>
           </Link>
 
-          {/* Tournaments */}
-          <Link
-            href="/tournaments"
-            className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight transition ${
-              pathname === '/tournaments'
-                ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold'
-                : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
-            }`}
-          >
-            Tournaments
-          </Link>
-
-          {/* News */}
-          <Link
-            href="/news"
-            className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight transition ${
-              pathname.startsWith('/news')
-                ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold'
-                : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
-            }`}
-          >
-            News
-          </Link>
-
-          {/* More Dropdown */}
+          {/* 6. More Dropdown (Includes Tournaments, News, Players, Organizer) */}
           <div
             className="relative"
             onMouseEnter={() => setMoreOpen(true)}
@@ -211,41 +183,32 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
           </div>
         </nav>
 
-        {/* Right: Actions (Search, Theme, Profile, Sign In) with balanced spacing */}
-        <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
-          {/* Search Icon Button */}
+        {/* Right: Exactly 3 Action Circle Buttons matching Image 2 (Search, Theme, Profile) */}
+        <div className="flex items-center gap-2.5 sm:gap-3.5 shrink-0">
+          {/* Search Icon Button (Circle) */}
           <button
             onClick={onOpenSearch}
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-ink-muted hover:text-ink bg-surface dark:bg-surface-alt border border-line hover:border-accent transition shadow-2xs btn-tactile"
+            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-ink-muted hover:text-ink bg-surface dark:bg-surface-alt border border-line hover:border-tealAccent transition shadow-2xs btn-tactile"
             aria-label="Search"
             title="Search (⌘K)"
           >
-            <Search className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+            <Search className="w-4.5 h-4.5" />
           </button>
 
-          {/* Theme Toggle (Sun ☀️ / Moon 🌙) */}
+          {/* Theme Toggle (Sun ☀️ / Moon 🌙 Circle) */}
           <ThemeToggle />
 
-          {/* Profile Avatar Icon Only (No Text) */}
+          {/* Profile Avatar Icon Only (No Text, Circle) */}
           <Link
             href="/me"
-            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-surface dark:bg-surface-alt border border-line hover:border-lime flex items-center justify-center text-ink-muted hover:text-ink transition shadow-2xs btn-tactile"
+            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-surface dark:bg-surface-alt border border-line hover:border-lime flex items-center justify-center text-ink-muted hover:text-ink transition shadow-2xs btn-tactile"
             title="My Profile & Followed Cricket"
             aria-label="Profile"
           >
-            <User className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+            <User className="w-4.5 h-4.5" />
           </Link>
 
-          {/* Sign In / Organizer Button */}
-          <Link
-            href="/organizer"
-            className="hidden sm:inline-flex items-center justify-center px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold bg-brand text-white hover:bg-brand-hover dark:bg-lime dark:text-canvas dark:hover:bg-lime-hover transition shadow-xs btn-tactile"
-            title="Sign In / Organizer Workspace"
-          >
-            Sign In
-          </Link>
-
-          {/* Mobile Hamburger Toggle */}
+          {/* Mobile Hamburger Drawer Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="lg:hidden p-2 rounded-xl text-ink-muted hover:bg-surface-alt transition"
@@ -258,34 +221,35 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
 
       {/* Mobile Navigation Drawer */}
       {mobileOpen && (
-        <div className="lg:hidden border-t border-line bg-surface/95 dark:bg-surface/95 backdrop-blur-xl px-4 py-5 space-y-1.5 shadow-xl animate-fade-in">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-between px-3.5 py-3 rounded-xl text-xs sm:text-sm font-semibold text-ink-muted hover:bg-surface-alt hover:text-ink transition"
-            >
-              <span>{link.label}</span>
-              <ChevronRight className="w-4 h-4 opacity-40" />
-            </Link>
-          ))}
-          <Link
-            href="/players"
-            onClick={() => setMobileOpen(false)}
-            className="flex items-center justify-between px-3.5 py-3 rounded-xl text-xs sm:text-sm font-semibold text-ink-muted hover:bg-surface-alt hover:text-ink transition"
-          >
-            <span>Players &amp; Records</span>
-            <ChevronRight className="w-4 h-4 opacity-40" />
-          </Link>
-          <Link
-            href="/local"
-            onClick={() => setMobileOpen(false)}
-            className="flex items-center justify-between px-3.5 py-3 rounded-xl text-xs sm:text-sm font-semibold text-ink-muted hover:bg-surface-alt hover:text-ink transition"
-          >
-            <span>Local Cricket Network</span>
-            <ChevronRight className="w-4 h-4 opacity-40" />
-          </Link>
+        <div className="lg:hidden border-t border-line bg-surface/98 dark:bg-surface/98 backdrop-blur-xl px-4 py-5 space-y-1.5 shadow-xl animate-fade-in">
+          {[
+            { href: '/', label: 'Home', icon: Home },
+            { href: '/matches', label: 'Live Scores', icon: Radio },
+            { href: '/matches', label: 'Matches', icon: Calendar },
+            { href: '/tools', label: 'Cricket Calculators', icon: Trophy },
+            { href: '/qualification', label: 'Qualification Lab', icon: Trophy },
+            { href: '/tournaments', label: 'Tournaments', icon: Trophy },
+            { href: '/news', label: 'News & Editorial', icon: Newspaper },
+            { href: '/players', label: 'Players & Records', icon: User },
+            { href: '/compare', label: 'Player Comparison', icon: BarChart3 },
+            { href: '/local', label: 'Local Cricket Network', icon: Building2 },
+          ].map((link) => {
+            const Icon = link.icon;
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-between px-3.5 py-3 rounded-xl text-xs sm:text-sm font-semibold text-ink-muted hover:bg-surface-alt hover:text-ink transition"
+              >
+                <div className="flex items-center gap-2.5">
+                  <Icon className="w-4 h-4 text-tealAccent" />
+                  <span>{link.label}</span>
+                </div>
+                <ChevronRight className="w-4 h-4 opacity-40" />
+              </Link>
+            );
+          })}
 
           <div className="pt-4 mt-2 border-t border-line flex flex-col gap-2.5">
             <Link

@@ -23,6 +23,7 @@ interface LiveMatchItem {
     overs?: string;
   };
   statusText: string;
+  highlightStatus?: boolean;
 }
 
 const MATCHES: LiveMatchItem[] = [
@@ -44,6 +45,7 @@ const MATCHES: LiveMatchItem[] = [
       overs: '(19.0 ov)',
     },
     statusText: 'Pakistan won the toss and elected to bowl',
+    highlightStatus: true,
   },
   {
     id: 'ind-aus-t20',
@@ -63,6 +65,7 @@ const MATCHES: LiveMatchItem[] = [
       overs: '(20.0 ov)',
     },
     statusText: 'India need 30 runs in 22 balls',
+    highlightStatus: true,
   },
   {
     id: 'eng-sa-t20-1',
@@ -87,7 +90,7 @@ export default function LiveMatchRibbon() {
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollContainerRef.current) {
-      const offset = direction === 'left' ? -320 : 320;
+      const offset = direction === 'left' ? -340 : 340;
       scrollContainerRef.current.scrollBy({ left: offset, behavior: 'smooth' });
     }
   };
@@ -101,22 +104,22 @@ export default function LiveMatchRibbon() {
   });
 
   return (
-    <section className="w-full mb-8 sm:mb-10">
+    <section className="w-full">
       {/* Top Header Bar with Filter Tabs and Navigation */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3.5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
         <div className="flex items-center gap-3 flex-wrap">
           {/* Live Indicator Heading */}
           <div className="flex items-center gap-2">
             <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-alert opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-alert"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-alert opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-alert" />
             </span>
-            <span className="text-sm font-black font-display text-ink tracking-tight">
+            <span className="text-sm font-extrabold font-display text-ink tracking-tight">
               Live Cricket Matches
             </span>
           </div>
 
-          {/* Filter Pills */}
+          {/* Filter Pills matching Image 2 */}
           <div className="flex items-center gap-1.5 p-1 rounded-full bg-surface-alt border border-line">
             {[
               { id: 'all', label: 'All (3)' },
@@ -152,18 +155,18 @@ export default function LiveMatchRibbon() {
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition" />
           </Link>
 
-          {/* Prev/Next Buttons */}
+          {/* Prev/Next Navigation Controls */}
           <div className="hidden sm:flex items-center gap-1.5">
             <button
               onClick={() => scroll('left')}
-              className="w-7 h-7 rounded-full bg-surface border border-line flex items-center justify-center text-ink-muted hover:text-ink hover:border-tealAccent transition shadow-2xs btn-tactile"
+              className="w-8 h-8 rounded-full bg-surface border border-line flex items-center justify-center text-ink-muted hover:text-ink hover:border-tealAccent transition shadow-2xs btn-tactile"
               aria-label="Previous match"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={() => scroll('right')}
-              className="w-7 h-7 rounded-full bg-surface border border-line flex items-center justify-center text-ink-muted hover:text-ink hover:border-tealAccent transition shadow-2xs btn-tactile"
+              className="w-8 h-8 rounded-full bg-surface border border-line flex items-center justify-center text-ink-muted hover:text-ink hover:border-tealAccent transition shadow-2xs btn-tactile"
               aria-label="Next match"
             >
               <ChevronRight className="w-4 h-4" />
@@ -175,7 +178,7 @@ export default function LiveMatchRibbon() {
       {/* Carousel Match Cards */}
       <div
         ref={scrollContainerRef}
-        className="flex items-stretch gap-3.5 overflow-x-auto pb-1 scrollbar-none snap-x snap-mandatory"
+        className="flex items-stretch gap-4 overflow-x-auto pb-1 scrollbar-none snap-x snap-mandatory"
       >
         {filteredMatches.map((match) => {
           const isLive = match.badgeType === 'live';
@@ -185,13 +188,13 @@ export default function LiveMatchRibbon() {
             <Link
               key={match.id}
               href={`/matches/${match.slug}`}
-              className="snap-start shrink-0 w-[310px] sm:w-[350px] lg:w-[370px] bg-surface dark:bg-surface rounded-2xl p-4 border border-line hover:border-tealAccent/60 shadow-xs hover:shadow-md transition-all duration-200 group flex flex-col justify-between"
+              className="snap-start shrink-0 w-[310px] sm:w-[350px] lg:w-[370px] bg-surface dark:bg-surface rounded-2xl p-4 sm:p-5 border border-line hover:border-tealAccent/60 shadow-xs hover:shadow-cardHover transition-all duration-200 group flex flex-col justify-between interactive-card"
             >
               {/* Card Top Row: Badge + Series */}
               <div className="flex items-center justify-between gap-2 mb-3">
                 <div className="flex items-center gap-2 min-w-0">
                   <span
-                    className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono font-black uppercase tracking-wider shrink-0 ${
+                    className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-black uppercase tracking-wider shrink-0 ${
                       isLive
                         ? 'bg-alert text-white shadow-2xs'
                         : isUpcoming
@@ -211,15 +214,15 @@ export default function LiveMatchRibbon() {
               {/* Card Center: Team Scores / Matchup */}
               {isUpcoming ? (
                 /* Upcoming Match Layout */
-                <div className="py-2 flex items-center justify-around gap-4 border-y border-line/60 my-1">
-                  <div className="flex items-center gap-2">
+                <div className="py-2.5 flex items-center justify-around gap-4 border-y border-line/60 my-1">
+                  <div className="flex items-center gap-2.5">
                     <TeamFlag code={match.teamA.code} size={28} />
                     <span className="text-sm font-bold font-display text-ink tracking-tight">
                       {match.teamA.code}
                     </span>
                   </div>
                   <span className="text-xs font-mono font-bold text-ink-muted uppercase">vs</span>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2.5">
                     <span className="text-sm font-bold font-display text-ink tracking-tight">
                       {match.teamB.code}
                     </span>
@@ -228,10 +231,10 @@ export default function LiveMatchRibbon() {
                 </div>
               ) : (
                 /* Live / Completed Match Layout */
-                <div className="grid grid-cols-2 gap-3 py-2 border-y border-line/60 my-1">
+                <div className="grid grid-cols-2 gap-3 py-2.5 border-y border-line/60 my-1">
                   {/* Team A */}
-                  <div className="flex items-center gap-2 min-w-0">
-                    <TeamFlag code={match.teamA.code} size={26} />
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <TeamFlag code={match.teamA.code} size={28} />
                     <div className="min-w-0">
                       <div className="text-xs font-bold font-display text-ink truncate">
                         {match.teamA.code}
@@ -246,8 +249,8 @@ export default function LiveMatchRibbon() {
                   </div>
 
                   {/* Team B */}
-                  <div className="flex items-center gap-2 min-w-0">
-                    <TeamFlag code={match.teamB.code} size={26} />
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <TeamFlag code={match.teamB.code} size={28} />
                     <div className="min-w-0">
                       <div className="text-xs font-bold font-display text-ink truncate">
                         {match.teamB.code}
@@ -263,11 +266,16 @@ export default function LiveMatchRibbon() {
                 </div>
               )}
 
-              {/* Card Bottom: Match Status Note */}
+              {/* Card Bottom: Match Status Note with Left Accent Bar */}
               <div className="pt-2 flex items-center justify-between text-[11px] text-ink-muted">
-                <span className="truncate group-hover:text-ink transition font-medium">
-                  {match.statusText}
-                </span>
+                <div className="flex items-center gap-2 min-w-0">
+                  {match.highlightStatus && (
+                    <span className="w-1 h-3 rounded-full bg-emerald-500 shrink-0" />
+                  )}
+                  <span className="truncate group-hover:text-ink transition font-medium">
+                    {match.statusText}
+                  </span>
+                </div>
               </div>
             </Link>
           );
@@ -276,4 +284,3 @@ export default function LiveMatchRibbon() {
     </section>
   );
 }
-

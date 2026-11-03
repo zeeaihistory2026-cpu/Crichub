@@ -10,7 +10,6 @@ import {
   Heart,
   Bookmark,
   CalendarDays,
-  Award,
   Bell,
   ArrowRight,
   Calculator,
@@ -18,11 +17,7 @@ import {
   Plus,
   Sparkles,
   ChevronRight,
-  Trophy,
-  GitCompare,
   CheckCircle2,
-  Clock,
-  Radio,
 } from 'lucide-react';
 
 export default function FanDashboardPage() {
@@ -59,14 +54,14 @@ export default function FanDashboardPage() {
         <>
           <button
             onClick={() => triggerToast('Feed preferences customized.')}
-            className="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 transition flex items-center gap-1.5 shadow-xs btn-tactile"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold text-ink bg-surface border border-line hover:bg-surface-alt transition flex items-center gap-1.5 shadow-xs btn-tactile"
           >
             <SlidersHorizontal className="w-3.5 h-3.5" />
             <span>Customize feed</span>
           </button>
           <Link
             href="/tournaments"
-            className="px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-brand-600 hover:bg-brand-700 transition flex items-center gap-1.5 shadow-xs btn-tactile"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-brand hover:bg-brand-hover dark:bg-lime dark:text-canvas transition flex items-center gap-1.5 shadow-xs btn-tactile"
           >
             <Plus className="w-4 h-4" />
             <span>Follow a team</span>
@@ -76,24 +71,24 @@ export default function FanDashboardPage() {
     >
       {/* Toast Alert */}
       {toast && (
-        <div className="fixed bottom-6 right-6 z-50 bg-navy text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold flex items-center gap-2 border border-slate-700 animate-fade-in">
+        <div className="fixed bottom-6 right-6 z-50 bg-surface dark:bg-surface-alt text-ink px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold flex items-center gap-2 border border-line animate-fade-in">
           <CheckCircle2 className="w-4 h-4 text-emerald-400" />
           {toast}
         </div>
       )}
 
       {/* Followed Match Hero Card */}
-      <section className="bg-gradient-to-r from-navy via-navy-deep to-brand-900 rounded-3xl p-6 sm:p-8 text-white shadow-2xl border border-navy-border mb-6 space-y-5">
+      <section className="bg-gradient-to-r from-brand via-[#0B513E] to-[#06392C] dark:from-[#122B34] dark:via-[#0E232B] dark:to-[#0A1A22] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-line mb-6 space-y-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <span className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 text-[10px] font-mono font-bold uppercase tracking-wider">
-              <span className="w-2 h-2 rounded-full bg-rose-500 live-pulse-glow"></span>
+              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
               <span>LIVE TELEMETRY TRACKER</span>
             </span>
             <h2 className="text-xl sm:text-2xl font-extrabold text-white mt-1 font-display">
               Pakistan vs New Zealand
             </h2>
-            <p className="text-xs text-slate-300 font-normal">
+            <p className="text-xs text-slate-200 font-normal">
               3rd T20 · Gaddafi Stadium, Lahore · Final Overs Thriller
             </p>
           </div>
@@ -105,8 +100,8 @@ export default function FanDashboardPage() {
             }}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 border shadow-xs btn-tactile ${
               isFollowingMatch
-                ? 'bg-brand-600 text-white border-brand-500'
-                : 'bg-white/10 text-slate-300 border-white/20 hover:bg-white/20'
+                ? 'bg-lime text-canvas border-lime'
+                : 'bg-white/10 text-slate-200 border-white/20 hover:bg-white/20'
             }`}
           >
             <Bell className="w-3.5 h-3.5" />
@@ -119,20 +114,20 @@ export default function FanDashboardPage() {
           <div className="flex items-center gap-3">
             <span className="text-3xl">🇵🇰</span>
             <div>
-              <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">
+              <div className="text-[10px] font-mono font-bold text-slate-300 uppercase tracking-wider">
                 PAKISTAN (CHASING)
               </div>
               <div className="text-2xl sm:text-3xl font-black text-white tabular-nums font-mono">
-                142/4 <span className="text-sm text-slate-400 font-normal">(16.2 ov)</span>
+                142/4 <span className="text-sm text-slate-300 font-normal">(16.2 ov)</span>
               </div>
             </div>
           </div>
 
-          <div className="text-center bg-white/5 p-3.5 rounded-2xl border border-white/10 backdrop-blur-xs space-y-1">
-            <div className="text-xs font-mono font-extrabold text-amber-400">
+          <div className="text-center bg-black/20 p-3.5 rounded-2xl border border-white/10 backdrop-blur-xs space-y-1">
+            <div className="text-xs font-mono font-extrabold text-lime">
               Need 35 runs from 22 legal balls
             </div>
-            <div className="text-[11px] text-slate-300 flex items-center justify-center gap-2 font-mono">
+            <div className="text-[11px] text-slate-200 flex items-center justify-center gap-2 font-mono">
               <span>Required: <strong>9.55 RPO</strong></span>
               <span>·</span>
               <span>Current: <strong>8.69 RPO</strong></span>
@@ -141,25 +136,25 @@ export default function FanDashboardPage() {
 
           <div className="flex items-center justify-end gap-3 text-right">
             <div>
-              <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">
+              <div className="text-[10px] font-mono font-bold text-slate-300 uppercase tracking-wider">
                 NEW ZEALAND (1ST INN)
               </div>
               <div className="text-2xl sm:text-3xl font-black text-white tabular-nums font-mono">
-                176/6 <span className="text-sm text-slate-400 font-normal">(20.0 ov)</span>
+                176/6 <span className="text-sm text-slate-300 font-normal">(20.0 ov)</span>
               </div>
             </div>
             <span className="text-3xl">🇳🇿</span>
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-xs text-slate-300 pt-1">
+        <div className="flex items-center justify-between text-xs text-slate-200 pt-1">
           <span className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 green-pulse-glow"></span>
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             <span className="font-mono text-[11px]">Real-time legal deliveries synced</span>
           </span>
           <Link
             href="/matches/pak-vs-nz-3rd-t20"
-            className="text-brand-300 hover:text-white font-bold flex items-center gap-1 transition"
+            className="text-lime hover:underline font-bold flex items-center gap-1 transition"
           >
             <span>Open Match Centre</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -203,15 +198,15 @@ export default function FanDashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Column: Personalized News Feed (7 Cols) */}
         <div className="lg:col-span-7 space-y-6">
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+          <div className="bg-surface rounded-3xl p-6 border border-line shadow-xs space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-line">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-brand-600" />
-                <h2 className="text-base font-extrabold text-navy font-display">Curated Stories</h2>
+                <Sparkles className="w-4 h-4 text-tealAccent" />
+                <h2 className="text-base font-extrabold text-ink font-display">Curated Stories</h2>
               </div>
 
               {/* News Tabs */}
-              <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
+              <div className="flex items-center gap-1 bg-surface-alt p-1 rounded-xl border border-line">
                 {[
                   { id: 'for-you', label: 'For You' },
                   { id: 'latest', label: 'Latest' },
@@ -220,10 +215,10 @@ export default function FanDashboardPage() {
                   <button
                     key={tab.id}
                     onClick={() => setNewsTab(tab.id as any)}
-                    className={`px-3 py-1 rounded-lg text-xs font-bold transition ${
+                    className={`px-3 py-1 rounded-lg text-xs font-bold transition btn-tactile ${
                       newsTab === tab.id
-                        ? 'bg-white text-navy shadow-2xs'
-                        : 'text-slate-500 hover:text-navy'
+                        ? 'bg-brand text-white dark:bg-lime dark:text-canvas shadow-xs'
+                        : 'text-ink-muted hover:text-ink'
                     }`}
                   >
                     {tab.label}
@@ -236,25 +231,25 @@ export default function FanDashboardPage() {
               {filteredNews.map((article) => (
                 <div
                   key={article.id}
-                  className="p-4 rounded-2xl bg-slate-50/80 hover:bg-brand-50/40 border border-slate-100 transition flex items-start justify-between gap-3 group interactive-card"
+                  className="p-4 rounded-2xl bg-surface-alt border border-line transition flex items-start justify-between gap-3 group interactive-card"
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-mono font-bold uppercase text-brand-600 bg-white px-2 py-0.5 rounded border border-slate-200">
+                      <span className="text-[10px] font-mono font-bold uppercase text-tealAccent dark:text-lime bg-surface px-2 py-0.5 rounded border border-line">
                         {article.category}
                       </span>
-                      <span className="text-[10px] font-mono text-slate-400">
+                      <span className="text-[10px] font-mono text-ink-muted">
                         {article.stamp} · {article.minutes} min
                       </span>
                     </div>
-                    <h3 className="font-bold text-xs sm:text-sm text-navy font-display group-hover:text-brand-600 transition leading-snug">
+                    <h3 className="font-bold text-xs sm:text-sm text-ink font-display group-hover:text-tealAccent transition leading-snug">
                       <Link href={`/news/${article.id}`}>{article.title}</Link>
                     </h3>
-                    <p className="text-xs text-slate-500 line-clamp-1 font-normal">
+                    <p className="text-xs text-ink-muted line-clamp-1 font-normal">
                       {article.summary}
                     </p>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-brand-600 shrink-0 mt-2 transition" />
+                  <ChevronRight className="w-4 h-4 text-ink-muted group-hover:text-tealAccent shrink-0 mt-2 transition" />
                 </div>
               ))}
             </div>
@@ -264,10 +259,10 @@ export default function FanDashboardPage() {
         {/* Right Column: Followed Teams & Quick Tools (5 Cols) */}
         <div className="lg:col-span-5 space-y-6">
           {/* Followed Teams Widget */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card space-y-4">
+          <div className="bg-surface rounded-3xl p-6 border border-line shadow-xs space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-base font-extrabold text-navy font-display">Teams You Follow</h2>
-              <Link href="/tournaments" className="text-xs font-bold text-brand-600 hover:underline">
+              <h2 className="text-base font-extrabold text-ink font-display">Teams You Follow</h2>
+              <Link href="/tournaments" className="text-xs font-bold text-tealAccent dark:text-lime hover:underline">
                 Explore all →
               </Link>
             </div>
@@ -280,16 +275,16 @@ export default function FanDashboardPage() {
               ].map((team) => (
                 <div
                   key={team.name}
-                  className="flex items-center justify-between p-3 rounded-2xl bg-slate-50/80 border border-slate-100"
+                  className="flex items-center justify-between p-3 rounded-2xl bg-surface-alt border border-line"
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{team.flag}</span>
                     <div>
-                      <div className="text-xs font-bold text-navy font-display">{team.name}</div>
-                      <div className="text-[10px] text-slate-400 font-mono">{team.rank}</div>
+                      <div className="text-xs font-bold text-ink font-display">{team.name}</div>
+                      <div className="text-[10px] text-ink-muted font-mono">{team.rank}</div>
                     </div>
                   </div>
-                  <span className="text-[10px] font-mono font-bold text-slate-600 bg-white px-2 py-0.5 rounded-lg border border-slate-200">
+                  <span className="text-[10px] font-mono font-bold text-ink bg-surface px-2 py-0.5 rounded-lg border border-line">
                     {team.next}
                   </span>
                 </div>
@@ -298,25 +293,25 @@ export default function FanDashboardPage() {
           </div>
 
           {/* Player of Interest Spotlight */}
-          <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card space-y-3">
+          <div className="bg-surface rounded-3xl p-6 border border-line shadow-xs space-y-3">
             <div className="flex items-center justify-between">
-              <h2 className="text-base font-extrabold text-navy font-display">Player Watchlist</h2>
-              <span className="text-[10px] font-mono font-bold uppercase text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+              <h2 className="text-base font-extrabold text-ink font-display">Player Watchlist</h2>
+              <span className="text-[10px] font-mono font-bold uppercase text-emerald-500 bg-surface-alt px-2 py-0.5 rounded-full border border-line">
                 ACTIVE
               </span>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-between">
+            <div className="p-3.5 rounded-2xl bg-surface-alt border border-line flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <span className="text-2xl">🏏</span>
                 <div>
-                  <div className="text-xs font-bold text-navy font-display">Babar Azam</div>
-                  <div className="text-[10px] text-slate-400 font-mono">T20I Avg: 40.48 · SR: 129.1</div>
+                  <div className="text-xs font-bold text-ink font-display">Babar Azam</div>
+                  <div className="text-[10px] text-ink-muted font-mono">T20I Avg: 40.48 · SR: 129.1</div>
                 </div>
               </div>
               <Link
                 href="/players"
-                className="text-xs font-bold text-brand-600 hover:underline flex items-center gap-1"
+                className="text-xs font-bold text-tealAccent dark:text-lime hover:underline flex items-center gap-1"
               >
                 <span>Stats</span>
                 <ChevronRight className="w-3.5 h-3.5" />

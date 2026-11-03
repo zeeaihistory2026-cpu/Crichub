@@ -21,21 +21,21 @@ export default function SectionHeader({
     <div className="flex items-end justify-between mb-4">
       <div>
         <div className="flex items-center gap-2">
-          <h2 className="text-lg sm:text-xl font-extrabold text-navy font-display tracking-tightest">
+          <h2 className="text-lg sm:text-xl font-extrabold text-ink font-display tracking-tight">
             {title}
           </h2>
           {badge && (
-            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-brand-600 bg-brand-50 border border-brand-200/80 px-2 py-0.5 rounded-full">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-tealAccent bg-surface-alt border border-line px-2 py-0.5 rounded-full">
               {badge}
             </span>
           )}
         </div>
-        {subtitle && <p className="text-xs text-slate-500 mt-0.5 font-normal">{subtitle}</p>}
+        {subtitle && <p className="text-xs text-ink-muted mt-0.5 font-normal">{subtitle}</p>}
       </div>
       {href && (
         <Link
           href={href}
-          className="text-xs font-bold text-brand-600 hover:text-brand-700 flex items-center gap-1 group transition shrink-0"
+          className="text-xs font-bold text-tealAccent hover:underline flex items-center gap-1 group transition shrink-0"
         >
           <span>{linkLabel}</span>
           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition" />

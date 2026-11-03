@@ -6,7 +6,7 @@ import PublicHeader from '@/components/layout/PublicHeader';
 import PublicFooter from '@/components/layout/PublicFooter';
 import { SEED_ARTICLES } from '@/data/seed-data';
 import { getLocalState, saveLocalState } from '@/lib/supabase';
-import { Share2, Bookmark, CheckCircle2, ArrowLeft, ArrowRight, Calendar, User, Clock, Check } from 'lucide-react';
+import { Share2, Bookmark, CheckCircle2, ArrowLeft, ArrowRight } from 'lucide-react';
 
 interface ArticlePageProps {
   params: {
@@ -63,52 +63,52 @@ export default function ArticlePage({ params }: ArticlePageProps) {
   const relatedArticles = SEED_ARTICLES.filter((a) => a.id !== article.id).slice(0, 3);
 
   return (
-    <>
+    <div className="min-h-screen bg-canvas text-ink flex flex-col font-body transition-colors duration-200">
       <PublicHeader />
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         {/* Toast Alert */}
         {toastMsg && (
-          <div className="fixed bottom-6 right-6 z-50 bg-navy text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold flex items-center gap-2 border border-slate-700 animate-fade-in">
+          <div className="fixed bottom-6 right-6 z-50 bg-surface dark:bg-surface-alt text-ink px-4 py-2.5 rounded-xl shadow-xl text-xs font-semibold flex items-center gap-2 border border-line animate-fade-in">
             <CheckCircle2 className="w-4 h-4 text-emerald-400" />
             {toastMsg}
           </div>
         )}
 
         {/* Breadcrumb */}
-        <div className="text-xs text-slate-500 flex items-center gap-1.5 font-medium">
-          <Link href="/" className="hover:text-brand-600">Home</Link>
+        <div className="text-xs text-ink-muted flex items-center gap-1.5 font-medium">
+          <Link href="/" className="hover:text-tealAccent">Home</Link>
           <span>/</span>
-          <Link href="/news" className="hover:text-brand-600">News</Link>
+          <Link href="/news" className="hover:text-tealAccent">News</Link>
           <span>/</span>
-          <span className="font-bold text-navy font-display truncate max-w-xs">{article.title}</span>
+          <span className="font-bold text-ink font-display truncate max-w-xs">{article.title}</span>
         </div>
 
         {/* Article Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Main Reading Column (8 Cols) */}
-          <article className="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-card space-y-6">
+          <article className="lg:col-span-8 bg-surface rounded-3xl p-6 sm:p-10 border border-line shadow-xs space-y-6">
             <div className="space-y-3">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-brand-600 bg-brand-50 px-2.5 py-0.5 rounded-full border border-brand-200">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-tealAccent dark:text-lime bg-surface-alt px-2.5 py-0.5 rounded-full border border-line">
                 {article.category} · EDITORIAL
               </span>
 
-              <h1 className="text-2xl sm:text-4xl font-black text-navy font-display tracking-tightest leading-[1.12]">
+              <h1 className="text-2xl sm:text-4xl font-black text-ink font-display tracking-tightest leading-[1.12]">
                 {article.title}
               </h1>
 
-              <p className="text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
+              <p className="text-sm sm:text-base text-ink-muted font-medium leading-relaxed">
                 {article.summary}
               </p>
 
               {/* Byline & Actions Bar */}
-              <div className="flex flex-wrap items-center justify-between gap-3 pt-4 pb-4 border-y border-slate-100 text-xs text-slate-500">
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-4 pb-4 border-y border-line text-xs text-ink-muted">
                 <div className="flex items-center gap-2.5">
-                  <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-brand-600 to-navy text-white font-mono font-bold text-xs flex items-center justify-center shadow-2xs">
+                  <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-brand to-canvas text-white font-mono font-bold text-xs flex items-center justify-center shadow-2xs">
                     CG
                   </span>
                   <div>
-                    <div className="font-bold text-navy font-display">{article.author}</div>
-                    <div className="text-[10px] text-slate-400 font-mono">
+                    <div className="font-bold text-ink font-display">{article.author}</div>
+                    <div className="text-[10px] text-ink-muted font-mono">
                       {article.date} · {article.minutes} min read
                     </div>
                   </div>
@@ -117,7 +117,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={handleShare}
-                    className="px-3.5 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs flex items-center gap-1.5 transition btn-tactile shadow-2xs"
+                    className="px-3.5 py-1.5 rounded-xl border border-line hover:bg-surface-alt text-ink font-bold text-xs flex items-center gap-1.5 transition btn-tactile shadow-2xs"
                   >
                     <Share2 className="w-3.5 h-3.5" />
                     <span>{copied ? 'Link Copied!' : 'Share'}</span>
@@ -127,11 +127,11 @@ export default function ArticlePage({ params }: ArticlePageProps) {
                     onClick={toggleSave}
                     className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 border shadow-2xs btn-tactile ${
                       isSaved
-                        ? 'bg-brand-50 text-brand-600 border-brand-200'
-                        : 'border-slate-200 hover:bg-slate-50 text-slate-700'
+                        ? 'bg-surface-alt text-tealAccent dark:text-lime border-tealAccent/30'
+                        : 'border-line hover:bg-surface-alt text-ink'
                     }`}
                   >
-                    <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-brand-600' : ''}`} />
+                    <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-tealAccent dark:fill-lime' : ''}`} />
                     <span>{isSaved ? 'Saved in Library' : 'Save Story'}</span>
                   </button>
                 </div>
@@ -140,15 +140,15 @@ export default function ArticlePage({ params }: ArticlePageProps) {
 
             {/* Key Highlights Card */}
             {article.highlights && article.highlights.length > 0 && (
-              <div className="bg-slate-50/80 rounded-2xl p-5 border border-slate-100 space-y-3">
-                <div className="text-xs font-mono font-bold uppercase text-brand-600 tracking-wider flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-brand-600" />
+              <div className="bg-surface-alt rounded-2xl p-5 border border-line space-y-3">
+                <div className="text-xs font-mono font-bold uppercase text-tealAccent dark:text-lime tracking-wider flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                   <span>KEY STRATEGIC TAKEAWAYS</span>
                 </div>
-                <ul className="space-y-2 text-xs sm:text-sm text-slate-700 font-medium">
+                <ul className="space-y-2 text-xs sm:text-sm text-ink font-medium">
                   {article.highlights.map((h, i) => (
                     <li key={i} className="flex items-start gap-2.5">
-                      <span className="text-brand-600 font-bold mt-0.5">•</span>
+                      <span className="text-tealAccent dark:text-lime font-bold mt-0.5">•</span>
                       <span>{h}</span>
                     </li>
                   ))}
@@ -157,28 +157,28 @@ export default function ArticlePage({ params }: ArticlePageProps) {
             )}
 
             {/* Body Content */}
-            <div className="space-y-4 text-sm sm:text-base text-slate-700 leading-relaxed font-normal">
+            <div className="space-y-4 text-sm sm:text-base text-ink/90 leading-relaxed font-normal">
               {article.body.map((para, i) => (
                 <p key={i}>{para}</p>
               ))}
 
-              <h2 className="text-lg sm:text-xl font-extrabold text-navy font-display pt-4">What happens next?</h2>
+              <h2 className="text-lg sm:text-xl font-extrabold text-ink font-display pt-4">What happens next?</h2>
               <p>
                 CreaseGrid connects every editorial insight with the underlying match telemetry, player records, and qualification scenario models. Readers can follow players to receive tactical alerts or explore how this announcement affects team standing paths.
               </p>
             </div>
 
             {/* Bottom Actions */}
-            <div className="pt-6 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+            <div className="pt-6 border-t border-line flex flex-wrap items-center justify-between gap-3">
               <Link
                 href="/news"
-                className="text-xs font-bold text-slate-600 hover:text-navy flex items-center gap-1 btn-tactile"
+                className="text-xs font-bold text-ink-muted hover:text-ink flex items-center gap-1 btn-tactile"
               >
                 <ArrowLeft className="w-3.5 h-3.5" /> <span>Back to News Index</span>
               </Link>
               <Link
                 href="/qualification"
-                className="text-xs font-bold text-brand-600 hover:underline flex items-center gap-1 btn-tactile"
+                className="text-xs font-bold text-tealAccent dark:text-lime hover:underline flex items-center gap-1 btn-tactile"
               >
                 <span>Explore Qualification Lab</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -188,15 +188,15 @@ export default function ArticlePage({ params }: ArticlePageProps) {
 
           {/* Right Sidebar (4 Cols) */}
           <aside className="lg:col-span-4 space-y-6">
-            <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card space-y-3.5">
-              <h3 className="text-sm font-extrabold text-navy font-display">Related Analysis</h3>
+            <div className="bg-surface rounded-3xl p-6 border border-line shadow-xs space-y-3.5">
+              <h3 className="text-sm font-extrabold text-ink font-display">Related Analysis</h3>
               <div className="space-y-3">
                 {relatedArticles.map((rel) => (
-                  <div key={rel.id} className="pb-3 border-b border-slate-100 last:border-b-0 last:pb-0">
-                    <span className="text-[10px] font-mono font-bold uppercase text-brand-600 bg-brand-50 px-2 py-0.5 rounded">
+                  <div key={rel.id} className="pb-3 border-b border-line last:border-b-0 last:pb-0">
+                    <span className="text-[10px] font-mono font-bold uppercase text-tealAccent dark:text-lime bg-surface-alt px-2 py-0.5 rounded border border-line">
                       {rel.category}
                     </span>
-                    <h4 className="text-xs font-bold text-navy font-display hover:text-brand-600 transition mt-1.5 leading-snug">
+                    <h4 className="text-xs font-bold text-ink font-display hover:text-tealAccent transition mt-1.5 leading-snug">
                       <Link href={`/news/${rel.id}`}>{rel.title}</Link>
                     </h4>
                   </div>
@@ -204,18 +204,18 @@ export default function ArticlePage({ params }: ArticlePageProps) {
               </div>
             </div>
 
-            <div className="bg-white rounded-3xl p-6 border border-slate-200/80 shadow-card space-y-3">
-              <h3 className="text-sm font-extrabold text-navy font-display">Useful Tools For This Story</h3>
+            <div className="bg-surface rounded-3xl p-6 border border-line shadow-xs space-y-3">
+              <h3 className="text-sm font-extrabold text-ink font-display">Useful Tools For This Story</h3>
               <div className="space-y-2">
                 <Link
                   href="/tools/net-run-rate"
-                  className="block p-3.5 rounded-2xl bg-slate-50/80 hover:bg-brand-50 text-xs font-bold text-navy border border-slate-100 interactive-card font-display"
+                  className="block p-3.5 rounded-2xl bg-surface-alt hover:bg-surface text-xs font-bold text-ink border border-line interactive-card font-display"
                 >
                   Net Run Rate (NRR) Calculator
                 </Link>
                 <Link
                   href="/qualification"
-                  className="block p-3.5 rounded-2xl bg-slate-50/80 hover:bg-brand-50 text-xs font-bold text-navy border border-slate-100 interactive-card font-display"
+                  className="block p-3.5 rounded-2xl bg-surface-alt hover:bg-surface text-xs font-bold text-ink border border-line interactive-card font-display"
                 >
                   Qualification Scenario Lab
                 </Link>
@@ -225,6 +225,6 @@ export default function ArticlePage({ params }: ArticlePageProps) {
         </div>
       </main>
       <PublicFooter />
-    </>
+    </div>
   );
 }
