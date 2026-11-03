@@ -1,10 +1,10 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import PublicHeader from '@/components/layout/PublicHeader';
 import PublicFooter from '@/components/layout/PublicFooter';
 import PlayerProfile from '@/components/PlayerProfile';
-import { getPlayerBySlug, getPlayerStats, getCountries, countryName } from '@/lib/data';
+import { getPlayerBySlug, resolvePlayerSlug, getPlayerStats, getCountries, countryName } from '@/lib/data';
 
 export const revalidate = 3600;
 
@@ -25,7 +25,11 @@ export async function generateMetadata({
 
 export default async function PlayerSlugPage({ params }: { params: { slug: string } }) {
   const player = await getPlayerBySlug(params.slug);
-  if (!player) notFound();
+  if (!player) {
+    const resolved = await resolvePlayerSlug(params.slug);
+    if (resolved) redirect(`/players/${resolved}`);
+    notFound();
+  }
   const [stats, countries] = await Promise.all([getPlayerStats(player.id), getCountries()]);
 
   return (

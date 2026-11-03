@@ -103,6 +103,18 @@ export async function getPlayerBySlug(slug: string): Promise<DbPlayer | null> {
   return rows && rows.length ? rows[0] : null;
 }
 
+export async function resolvePlayerSlug(slug: string): Promise<string | null> {
+  // Legacy short links (e.g. /players/babar-azam) resolve to the canonical
+  // full-name slug (e.g. mohammad-babar-azam-pakistan) when unambiguous.
+  const like = encodeURIComponent(`%-${slug}-%`);
+  const rows = await sbGet<{ id: string }[]>(`players?select=id&id=like.${like}&limit=2`);
+  if (rows && rows.length === 1) return rows[0].id;
+  const likeStart = encodeURIComponent(`${slug}-%`);
+  const rows2 = await sbGet<{ id: string }[]>(`players?select=id&id=like.${likeStart}&limit=2`);
+  if (rows2 && rows2.length === 1) return rows2[0].id;
+  return null;
+}
+
 export async function getPlayerStats(playerId: string) {
   const [batting, bowling, fielding] = await Promise.all([
     sbGet<BattingRow[]>(`batting_stats?player_id=eq.${encodeURIComponent(playerId)}&select=category,matches:mat,innings:inns,not_outs:not_out,runs,high_score:hs,high_score_not_out:hs_not_out,average:ave,balls_faced,strike_rate:sr,hundreds,fifties,ducks,fours,sixes`),
