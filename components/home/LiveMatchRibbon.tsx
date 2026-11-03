@@ -101,7 +101,7 @@ export default function LiveMatchRibbon() {
   });
 
   return (
-    <section className="w-full mb-6">
+    <section className="w-full mb-8 sm:mb-10">
       {/* Top Header Bar with Filter Tabs and Navigation */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3.5">
         <div className="flex items-center gap-3 flex-wrap">

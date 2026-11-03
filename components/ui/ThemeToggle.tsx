@@ -29,23 +29,22 @@ export default function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-surface-alt border border-line" />
+      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-slate-100 dark:bg-surface-alt border border-line" />
     );
   }
 
   return (
     <button
       onClick={toggleTheme}
-      className="w-8 h-8 rounded-full flex items-center justify-center text-ink-muted hover:text-ink bg-surface dark:bg-surface-alt border border-line hover:border-accent transition shadow-2xs btn-tactile"
+      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-ink-muted hover:text-ink bg-surface dark:bg-surface-alt border border-line hover:border-accent transition shadow-2xs btn-tactile"
       aria-label={isDark ? 'Switch to Bright Mode' : 'Switch to Dark Mode'}
       title={isDark ? 'Switch to Bright Mode' : 'Switch to Dark Mode'}
     >
       {isDark ? (
-        <Moon className="w-4 h-4 text-lime fill-lime/20" />
+        <Moon className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-lime fill-lime/20" />
       ) : (
-        <Sun className="w-4 h-4 text-amber-500 fill-amber-500/20" />
+        <Sun className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-amber-500 fill-amber-500/20" />
       )}
     </button>
   );
 }
-

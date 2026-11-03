@@ -72,7 +72,7 @@ export default function HomePage() {
       <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
 
       {/* Main Content Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-7">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-9 pb-16 space-y-8 sm:space-y-10">
         
         {/* 2. Top-of-Page Live Cricket Matches Ribbon (P0 Requirement: Directly BELOW Header, ABOVE Hero) */}
         <LiveMatchRibbon />
