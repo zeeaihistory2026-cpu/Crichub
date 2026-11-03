@@ -86,9 +86,20 @@ function mapMatch(m: any): FeedMatch {
 }
 
 export async function getCurrentMatches(): Promise<FeedMatch[]> {
-  const data = await fetchApi('currentMatches?offset=0', 120);
-  if (!Array.isArray(data)) return [];
-  return data.map(mapMatch);
+  // The feed's first page is dominated by just-finished matches; live and
+  // upcoming fixtures can sit on later pages (25 rows per page, ~57 total).
+  // Page through up to 3 pages, stopping early once a live match is found
+  // or a short page marks the end of the list.
+  const all: FeedMatch[] = [];
+  for (const offset of [0, 25, 50]) {
+    const data = await fetchApi(`currentMatches?offset=${offset}`, 180);
+    if (!Array.isArray(data) || data.length === 0) break;
+    const mapped = data.map(mapMatch);
+    all.push(...mapped);
+    if (data.length < 25) break;
+    if (mapped.some((m) => m.state === 'live')) break;
+  }
+  return all;
 }
 
 function teamScore(m: FeedMatch, idx: number): { score?: string; overs?: string } {
