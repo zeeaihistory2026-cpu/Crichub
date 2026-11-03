@@ -213,6 +213,45 @@ export async function topBowling(category: string, limit = 10): Promise<LeaderRo
   return rows || [];
 }
 
+async function countRows(path: string): Promise<number> {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+      headers: {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        Prefer: 'count=exact',
+      },
+      next: { revalidate: 600 },
+    } as RequestInit);
+    if (!res.ok) return 0;
+    const range = res.headers.get('content-range') || '';
+    return parseInt(range.split('/')[1] || '0', 10) || 0;
+  } catch {
+    return 0;
+  }
+}
+
+export interface DbCounts {
+  players: number;
+  withStats: number;
+  statRows: number;
+  countries: number;
+  teams: number;
+}
+
+export async function getDbCounts(): Promise<DbCounts> {
+  const [players, withStats, batting, bowling, fielding, countries, teams] = await Promise.all([
+    countRows('players?select=id&limit=1'),
+    countRows('players?select=id&has_stats=eq.true&limit=1'),
+    countRows('batting_stats?select=player_id&limit=1'),
+    countRows('bowling_stats?select=player_id&limit=1'),
+    countRows('fielding_stats?select=player_id&limit=1'),
+    countRows('countries?select=id&limit=1'),
+    countRows('teams?select=id&limit=1'),
+  ]);
+  return { players, withStats, statRows: batting + bowling + fielding, countries, teams };
+}
+
 export const CATEGORY_LABELS: Record<string, string> = {
   test: 'Test',
   odi: 'ODI',
