@@ -3,7 +3,25 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Search, Menu, X, Trophy, User, ChevronRight } from 'lucide-react';
+import BrandLogo from '@/components/ui/BrandLogo';
+import ThemeToggle from '@/components/ui/ThemeToggle';
+import {
+  Search,
+  Menu,
+  X,
+  ChevronDown,
+  ChevronRight,
+  Radio,
+  Calendar,
+  Wrench,
+  Trophy,
+  User,
+  Home,
+  BarChart3,
+  Users,
+  Building2,
+  Newspaper,
+} from 'lucide-react';
 
 interface PublicHeaderProps {
   onOpenSearch?: () => void;
@@ -12,90 +30,224 @@ interface PublicHeaderProps {
 export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [toolsOpen, setToolsOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
 
-  // Clean, perfectly spaced primary navigation
   const navLinks = [
-    { href: '/matches', label: 'Matches' },
+    { href: '/', label: 'Home', icon: Home },
+    { href: '/matches', label: 'Live Scores', icon: Radio },
+    { href: '/matches', label: 'Matches', icon: Calendar },
+    { href: '/tools', label: 'Tools', hasDropdown: true },
+    { href: '/qualification', label: 'Qualification Lab', icon: Trophy },
     { href: '/tournaments', label: 'Tournaments' },
-    { href: '/qualification', label: 'Qualification' },
-    { href: '/stats', label: 'Stats' },
-    { href: '/tools', label: 'Tools' },
     { href: '/news', label: 'News' },
-    { href: '/local', label: 'Local' },
+  ];
+
+  const toolsDropdownItems = [
+    { href: '/tools/net-run-rate', name: 'Net Run Rate Calculator' },
+    { href: '/tools/required-run-rate', name: 'Required Run Rate' },
+    { href: '/tools/run-rate', name: 'Run Rate (RPO)' },
+    { href: '/tools/batting-average', name: 'Batting Average' },
+    { href: '/tools/batting-strike-rate', name: 'Batting Strike Rate' },
+    { href: '/tools/overs-converter', name: 'Overs to Balls Converter' },
+    { href: '/tools', name: 'View All 12 Calculators →' },
+  ];
+
+  const moreDropdownItems = [
+    { href: '/players', name: 'Player Directory & Records', icon: User },
+    { href: '/compare', name: 'Player Comparison Lab', icon: BarChart3 },
+    { href: '/stats', name: 'Stats & Records Explorer', icon: BarChart3 },
+    { href: '/local', name: 'Local Cricket Network', icon: Building2 },
+    { href: '/organizer', name: 'Tournament Organizer Workspace', icon: Trophy },
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-        {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-          <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-brand-600 to-navy flex items-center justify-center text-white font-mono font-black text-sm shadow-sm shadow-brand-500/20 group-hover:shadow-glow transition-all duration-300">
-            C
-          </span>
-          <span className="font-display font-black text-xl tracking-tightest text-navy">
-            Crease<span className="text-brand-600">Grid</span>
-          </span>
-        </Link>
+    <header className="sticky top-0 z-40 bg-surface/95 dark:bg-surface/95 backdrop-blur-md border-b border-line shadow-xs transition-colors duration-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-17 flex items-center justify-between gap-4">
+        {/* Left: Brand Logo */}
+        <BrandLogo />
 
-        {/* Clean Center Navigation */}
-        <nav className="hidden lg:flex items-center gap-1 xl:gap-2" aria-label="Main Navigation">
-          {navLinks.map((link) => {
-            const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`px-3 py-1.5 rounded-xl text-xs font-semibold tracking-tight transition relative ${
-                  isActive
-                    ? 'text-brand-600 bg-brand-50 font-bold'
-                    : 'text-slate-600 hover:text-navy hover:bg-slate-100/70'
-                }`}
-              >
-                {link.label}
-                {isActive && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-brand-600 rounded-full" />
-                )}
-              </Link>
-            );
-          })}
+        {/* Center: Desktop Navigation Bar */}
+        <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5" aria-label="Main Navigation">
+          {/* Home Link */}
+          <Link
+            href="/"
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold tracking-tight transition flex items-center gap-1.5 ${
+              pathname === '/'
+                ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold shadow-2xs'
+                : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
+            }`}
+          >
+            <Home className="w-3.5 h-3.5" />
+            <span>Home</span>
+          </Link>
+
+          {/* Live Scores */}
+          <Link
+            href="/matches"
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold tracking-tight transition flex items-center gap-1.5 ${
+              pathname === '/matches'
+                ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold'
+                : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
+            }`}
+          >
+            <Radio className="w-3.5 h-3.5 text-alert animate-pulse" />
+            <span>Live Scores</span>
+          </Link>
+
+          {/* Matches */}
+          <Link
+            href="/matches"
+            className="px-3 py-1.5 rounded-full text-xs font-semibold tracking-tight text-ink-muted hover:text-ink hover:bg-surface-alt transition flex items-center gap-1.5"
+          >
+            <Calendar className="w-3.5 h-3.5" />
+            <span>Matches</span>
+          </Link>
+
+          {/* Tools with Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setToolsOpen(true)}
+            onMouseLeave={() => setToolsOpen(false)}
+          >
+            <Link
+              href="/tools"
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold tracking-tight transition flex items-center gap-1 ${
+                pathname.startsWith('/tools')
+                  ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold'
+                  : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
+              }`}
+            >
+              <span>Tools</span>
+              <ChevronDown className="w-3 h-3 opacity-70" />
+            </Link>
+
+            {toolsOpen && (
+              <div className="absolute top-full left-0 mt-1 w-60 bg-surface dark:bg-surface border border-line rounded-2xl shadow-xl py-2 z-50 animate-fade-in">
+                {toolsDropdownItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setToolsOpen(false)}
+                    className="block px-3.5 py-1.5 text-xs text-ink-muted hover:text-ink hover:bg-surface-alt transition font-medium"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Qualification Lab */}
+          <Link
+            href="/qualification"
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold tracking-tight transition flex items-center gap-1.5 ${
+              pathname === '/qualification'
+                ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold shadow-2xs'
+                : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
+            }`}
+          >
+            <Trophy className="w-3.5 h-3.5 text-amber-500" />
+            <span>Qualification Lab</span>
+          </Link>
+
+          {/* Tournaments */}
+          <Link
+            href="/tournaments"
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold tracking-tight transition ${
+              pathname === '/tournaments'
+                ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold'
+                : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
+            }`}
+          >
+            Tournaments
+          </Link>
+
+          {/* News */}
+          <Link
+            href="/news"
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold tracking-tight transition ${
+              pathname.startsWith('/news')
+                ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold'
+                : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
+            }`}
+          >
+            News
+          </Link>
+
+          {/* More Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setMoreOpen(true)}
+            onMouseLeave={() => setMoreOpen(false)}
+          >
+            <button
+              className="px-3 py-1.5 rounded-full text-xs font-semibold tracking-tight text-ink-muted hover:text-ink hover:bg-surface-alt transition flex items-center gap-1"
+              aria-label="More navigation options"
+            >
+              <span>More</span>
+              <ChevronDown className="w-3 h-3 opacity-70" />
+            </button>
+
+            {moreOpen && (
+              <div className="absolute top-full right-0 mt-1 w-64 bg-surface dark:bg-surface border border-line rounded-2xl shadow-xl py-2 z-50 animate-fade-in">
+                {moreDropdownItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      onClick={() => setMoreOpen(false)}
+                      className="flex items-center gap-2.5 px-3.5 py-2 text-xs text-ink-muted hover:text-ink hover:bg-surface-alt transition font-medium"
+                    >
+                      <Icon className="w-4 h-4 text-tealAccent" />
+                      <span>{item.name}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         </nav>
 
-        {/* Right Action Utilities */}
+        {/* Right: Actions (Search, Theme, Profile, Sign In / Organizer) */}
         <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
           {/* Search Icon Button */}
           <button
             onClick={onOpenSearch}
-            className="w-8 h-8 rounded-full flex items-center justify-center text-slate-500 hover:text-navy hover:bg-slate-100 transition btn-tactile"
+            className="w-8 h-8 rounded-full flex items-center justify-center text-ink-muted hover:text-ink bg-surface dark:bg-surface-alt border border-line hover:border-accent transition shadow-2xs btn-tactile"
             aria-label="Search"
             title="Search (⌘K)"
           >
             <Search className="w-4 h-4" />
           </button>
 
-          {/* Organizer Console Action */}
-          <Link
-            href="/organizer"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-brand-600 text-white hover:bg-brand-700 transition shadow-xs shadow-brand-500/20 btn-tactile"
-            title="Organizer Workspace"
-          >
-            <Trophy className="w-3.5 h-3.5" />
-            <span>Organizer</span>
-          </Link>
+          {/* Theme Toggle (Sun ☀️ / Moon 🌙) */}
+          <ThemeToggle />
 
-          {/* Profile Icon Only (No Text) */}
+          {/* Profile Avatar Icon Only (No Text) */}
           <Link
             href="/me"
-            className="w-8 h-8 rounded-full bg-slate-100 hover:bg-brand-50 hover:text-brand-600 border border-slate-200/90 flex items-center justify-center text-slate-700 transition shadow-2xs btn-tactile"
-            title="Profile & My Cricket"
+            className="w-8 h-8 rounded-full bg-surface dark:bg-surface-alt border border-line hover:border-lime flex items-center justify-center text-ink-muted hover:text-ink transition shadow-2xs btn-tactile"
+            title="My Profile & Followed Cricket"
             aria-label="Profile"
           >
             <User className="w-4 h-4" />
           </Link>
 
-          {/* Mobile Menu Hamburger */}
+          {/* Sign In / Organizer Button */}
+          <Link
+            href="/organizer"
+            className="hidden sm:inline-flex items-center justify-center px-4 py-1.5 rounded-full text-xs font-bold bg-brand text-white hover:bg-brand-hover dark:bg-lime dark:text-canvas dark:hover:bg-lime-hover transition shadow-xs btn-tactile"
+            title="Sign In / Organizer Workspace"
+          >
+            Sign In
+          </Link>
+
+          {/* Mobile Hamburger Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-1.5 rounded-xl text-slate-600 hover:bg-slate-100 transition"
+            className="lg:hidden p-1.5 rounded-xl text-ink-muted hover:bg-surface-alt transition"
             aria-label="Toggle navigation drawer"
           >
             {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -105,32 +257,40 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
 
       {/* Mobile Navigation Drawer */}
       {mobileOpen && (
-        <div className="lg:hidden border-t border-slate-200 bg-white/95 backdrop-blur-xl px-4 py-4 space-y-1 shadow-xl">
-          <Link
-            href="/"
-            onClick={() => setMobileOpen(false)}
-            className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:text-brand-600 transition"
-          >
-            <span>Home</span>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-          </Link>
+        <div className="lg:hidden border-t border-line bg-surface/95 dark:bg-surface/95 backdrop-blur-xl px-4 py-4 space-y-1 shadow-xl">
           {navLinks.map((link) => (
             <Link
-              key={link.href}
+              key={link.label}
               href={link.href}
               onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:text-brand-600 transition"
+              className="flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold text-ink-muted hover:bg-surface-alt hover:text-ink transition"
             >
               <span>{link.label}</span>
-              <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+              <ChevronRight className="w-3.5 h-3.5 opacity-40" />
             </Link>
           ))}
+          <Link
+            href="/players"
+            onClick={() => setMobileOpen(false)}
+            className="flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold text-ink-muted hover:bg-surface-alt hover:text-ink transition"
+          >
+            <span>Players & Records</span>
+            <ChevronRight className="w-3.5 h-3.5 opacity-40" />
+          </Link>
+          <Link
+            href="/local"
+            onClick={() => setMobileOpen(false)}
+            className="flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold text-ink-muted hover:bg-surface-alt hover:text-ink transition"
+          >
+            <span>Local Cricket Network</span>
+            <ChevronRight className="w-3.5 h-3.5 opacity-40" />
+          </Link>
 
-          <div className="pt-3 border-t border-slate-200 flex flex-col gap-2">
+          <div className="pt-3 border-t border-line flex flex-col gap-2">
             <Link
               href="/organizer"
               onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-brand-600 text-white text-xs font-bold shadow-xs"
+              className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-brand text-white dark:bg-lime dark:text-canvas text-xs font-bold shadow-xs"
             >
               <Trophy className="w-4 h-4" />
               <span>Organizer Workspace</span>
@@ -138,9 +298,9 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
             <Link
               href="/me"
               onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-slate-100 text-xs font-bold text-navy"
+              className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-surface-alt text-xs font-bold text-ink"
             >
-              <User className="w-4 h-4 text-brand-600" />
+              <User className="w-4 h-4 text-tealAccent" />
               <span>Profile (My Cricket)</span>
             </Link>
           </div>

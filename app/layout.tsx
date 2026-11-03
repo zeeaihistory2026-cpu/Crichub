@@ -1,32 +1,26 @@
 import type { Metadata } from 'next';
-import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google';
+import { Manrope, Inter } from 'next/font/google';
 import './globals.css';
 import ThemeRegistry from '@/components/theme/ThemeRegistry';
+
+const manrope = Manrope({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-display',
+  weight: ['500', '600', '700', '800'],
+});
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-sans',
-});
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-display',
-  weight: ['400', '500', '600', '700', '800'],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-mono',
+  variable: '--font-body',
   weight: ['400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
-  title: 'CreaseGrid — Global Cricket Intelligence & Local Network',
+  title: 'CreaseGrid — Cricket Intelligence Beyond the Score',
   description:
-    'Accurate cricket calculators, deterministic tournament qualification, editorial analysis, and local tournament operations from Pakistan.',
+    'Live scores, smart calculators, qualification scenarios, player stats and local tournaments — all in one place.',
   icons: {
     icon: '/assets/favicon.svg',
   },
@@ -40,13 +34,31 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${plusJakarta.variable} ${jetbrainsMono.variable}`}
+      className={`${manrope.variable} ${inter.variable}`}
+      suppressHydrationWarning
     >
       <head>
         <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
-        <meta name="theme-color" content="#0f1d38" />
+        <meta name="theme-color" content="#0B513E" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const storedTheme = localStorage.getItem('creasegrid-theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+                  document.documentElement.classList.add('dark');
+                  document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                  document.documentElement.classList.remove('dark');
+                  document.documentElement.setAttribute('data-theme', 'light');
+                }
+              } catch (_) {}
+            `,
+          }}
+        />
       </head>
-      <body className="min-h-screen bg-[#f8fafc] text-[#0f172a] font-sans antialiased selection:bg-brand-600 selection:text-white">
+      <body className="min-h-screen bg-canvas text-ink font-body antialiased selection:bg-brand-500 selection:text-white transition-colors duration-200">
         <ThemeRegistry>
           {children}
         </ThemeRegistry>
