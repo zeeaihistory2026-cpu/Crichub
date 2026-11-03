@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Search, Menu, X, Shield, Trophy, User, Sparkles, ChevronRight, Activity } from 'lucide-react';
+import { Search, Menu, X, Trophy, User, ChevronRight } from 'lucide-react';
 
 interface PublicHeaderProps {
   onOpenSearch?: () => void;
@@ -12,13 +12,6 @@ interface PublicHeaderProps {
 export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isMac, setIsMac] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setIsMac(navigator.platform.toUpperCase().indexOf('MAC') >= 0);
-    }
-  }, []);
 
   const navLinks = [
     { href: '/', label: 'Home' },
@@ -89,21 +82,18 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
 
           {/* Action Utilities */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Search Quick Button with Keyboard Shortcut Pill */}
+            {/* Search Icon Button Only */}
             <button
               onClick={onOpenSearch}
-              className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-100/90 hover:bg-slate-200/80 border border-slate-200 text-slate-500 hover:text-navy text-xs font-medium transition shadow-2xs group"
-              aria-label="Global search"
+              className="p-2 rounded-xl text-slate-500 hover:text-navy hover:bg-slate-100/80 border border-transparent hover:border-slate-200 transition shadow-2xs group btn-tactile"
+              aria-label="Search"
+              title="Search (⌘K)"
             >
-              <Search className="w-3.5 h-3.5 text-slate-400 group-hover:text-brand-600 transition" />
-              <span className="hidden md:inline text-slate-400">Search...</span>
-              <kbd className="hidden md:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono text-slate-500 bg-white border border-slate-200 rounded shadow-2xs">
-                {isMac ? '⌘K' : 'Ctrl+K'}
-              </kbd>
+              <Search className="w-4 h-4 text-slate-500 group-hover:text-brand-600 transition" />
             </button>
 
             {/* Quick Role Dashboard Selectors */}
-            <div className="hidden sm:flex items-center gap-1 pl-1 border-l border-slate-200">
+            <div className="hidden sm:flex items-center gap-1.5 pl-1 border-l border-slate-200">
               <Link
                 href="/me"
                 className="px-2.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-brand-600 hover:bg-slate-100 transition flex items-center gap-1.5"
@@ -119,13 +109,6 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
               >
                 <Trophy className="w-3.5 h-3.5" />
                 <span>Organizer</span>
-              </Link>
-              <Link
-                href="/admin"
-                className="p-1.5 rounded-xl text-slate-400 hover:text-navy hover:bg-slate-100 transition"
-                title="Super Admin Dashboard"
-              >
-                <Shield className="w-4 h-4" />
               </Link>
             </div>
 
@@ -171,14 +154,6 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
               >
                 <Trophy className="w-4 h-4" />
                 <span>Tournament Organizer</span>
-              </Link>
-              <Link
-                href="/admin"
-                onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-center gap-2 p-2 rounded-xl bg-purple-50 text-purple-700 text-xs font-bold"
-              >
-                <Shield className="w-4 h-4 text-purple-600" />
-                <span>Super Admin Console</span>
               </Link>
             </div>
           </div>
