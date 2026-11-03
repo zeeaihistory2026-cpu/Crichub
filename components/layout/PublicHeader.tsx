@@ -19,7 +19,6 @@ import {
   BarChart3,
   Building2,
   Newspaper,
-  Compass,
 } from 'lucide-react';
 
 interface PublicHeaderProps {
@@ -55,31 +54,30 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-surface/95 dark:bg-surface/95 backdrop-blur-md border-b border-line shadow-xs transition-colors duration-200">
-      {/* Spacious container with ample padding above and below */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-5.5 min-h-[82px] sm:min-h-[88px] flex items-center justify-between gap-4 sm:gap-6">
+    <header className="sticky top-0 z-40 bg-surface/90 dark:bg-surface/90 backdrop-blur-md border-b border-line shadow-xs transition-colors duration-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-[72px] flex items-center justify-between gap-4">
         {/* Left: Brand Logo */}
         <BrandLogo />
 
         {/* Center: Desktop Navigation Bar matching Image 2 */}
-        <nav className="hidden lg:flex items-center gap-1.5 xl:gap-2.5" aria-label="Main Navigation">
-          {/* 1. Home Link (Active pill style matching Image 2) */}
+        <nav className="hidden lg:flex items-center gap-1.5 xl:gap-2" aria-label="Main Navigation">
+          {/* 1. Home Link (Active pill matching Image 2) */}
           <Link
             href="/"
-            className={`px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-bold tracking-tight transition flex items-center gap-2 ${
+            className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-bold tracking-tight transition flex items-center gap-1.5 ${
               pathname === '/'
                 ? 'bg-brand text-white dark:bg-lime dark:text-canvas shadow-xs'
                 : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
             }`}
           >
-            <Home className="w-4 h-4" />
+            <Home className="w-3.5 h-3.5" />
             <span>Home</span>
           </Link>
 
           {/* 2. Live Scores */}
           <Link
             href="/matches"
-            className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight transition flex items-center gap-2 ${
+            className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight transition flex items-center gap-1.5 ${
               pathname === '/matches'
                 ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold shadow-xs'
                 : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
@@ -95,9 +93,9 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
           {/* 3. Matches */}
           <Link
             href="/matches"
-            className="px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight text-ink-muted hover:text-ink hover:bg-surface-alt transition flex items-center gap-2"
+            className="px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight text-ink-muted hover:text-ink hover:bg-surface-alt transition flex items-center gap-1.5"
           >
-            <Calendar className="w-4 h-4" />
+            <Calendar className="w-3.5 h-3.5 opacity-70" />
             <span>Matches</span>
           </Link>
 
@@ -109,18 +107,18 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
           >
             <Link
               href="/tools"
-              className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight transition flex items-center gap-1.5 ${
+              className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight transition flex items-center gap-1 ${
                 pathname.startsWith('/tools')
                   ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold shadow-xs'
                   : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
               }`}
             >
               <span>Tools</span>
-              <ChevronDown className="w-3.5 h-3.5 opacity-70" />
+              <ChevronDown className="w-3 h-3 opacity-60" />
             </Link>
 
             {toolsOpen && (
-              <div className="absolute top-full left-0 mt-2 w-64 bg-surface dark:bg-surface border border-line rounded-2xl shadow-xl py-2.5 z-50 animate-fade-in">
+              <div className="absolute top-full left-0 mt-1 w-64 bg-surface border border-line rounded-2xl shadow-xl py-2 z-50 animate-fade-in">
                 {toolsDropdownItems.map((item) => (
                   <Link
                     key={item.name}
@@ -138,32 +136,32 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
           {/* 5. Qualification Lab */}
           <Link
             href="/qualification"
-            className={`px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight transition flex items-center gap-2 ${
+            className={`px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight transition flex items-center gap-1.5 ${
               pathname === '/qualification'
                 ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold shadow-xs'
                 : 'text-ink-muted hover:text-ink hover:bg-surface-alt'
             }`}
           >
-            <Trophy className="w-4 h-4 text-amber-500" />
+            <Trophy className="w-3.5 h-3.5 text-amber-500" />
             <span>Qualification Lab</span>
           </Link>
 
-          {/* 6. More Dropdown (Includes Tournaments, News, Players, Organizer) */}
+          {/* 6. More Dropdown */}
           <div
             className="relative"
             onMouseEnter={() => setMoreOpen(true)}
             onMouseLeave={() => setMoreOpen(false)}
           >
             <button
-              className="px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight text-ink-muted hover:text-ink hover:bg-surface-alt transition flex items-center gap-1.5"
+              className="px-3.5 py-1.5 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight text-ink-muted hover:text-ink hover:bg-surface-alt transition flex items-center gap-1"
               aria-label="More navigation options"
             >
               <span>More</span>
-              <ChevronDown className="w-3.5 h-3.5 opacity-70" />
+              <ChevronDown className="w-3 h-3 opacity-60" />
             </button>
 
             {moreOpen && (
-              <div className="absolute top-full right-0 mt-2 w-68 bg-surface dark:bg-surface border border-line rounded-2xl shadow-xl py-2.5 z-50 animate-fade-in">
+              <div className="absolute top-full right-0 mt-1 w-68 bg-surface border border-line rounded-2xl shadow-xl py-2 z-50 animate-fade-in">
                 {moreDropdownItems.map((item) => {
                   const Icon = item.icon;
                   return (
@@ -183,29 +181,29 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
           </div>
         </nav>
 
-        {/* Right: Exactly 3 Action Circle Buttons matching Image 2 (Search, Theme, Profile) */}
-        <div className="flex items-center gap-2.5 sm:gap-3.5 shrink-0">
-          {/* Search Icon Button (Circle) */}
+        {/* Right: Exactly 3 Action Circle Buttons matching Image 2 */}
+        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          {/* Search Icon Button */}
           <button
             onClick={onOpenSearch}
-            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-ink-muted hover:text-ink bg-surface dark:bg-surface-alt border border-line hover:border-tealAccent transition shadow-2xs btn-tactile"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-ink-muted hover:text-ink bg-surface dark:bg-surface-alt border border-line hover:border-tealAccent transition shadow-2xs btn-tactile"
             aria-label="Search"
             title="Search (⌘K)"
           >
-            <Search className="w-4.5 h-4.5" />
+            <Search className="w-4 h-4" />
           </button>
 
-          {/* Theme Toggle (Sun ☀️ / Moon 🌙 Circle) */}
+          {/* Theme Toggle */}
           <ThemeToggle />
 
-          {/* Profile Avatar Icon Only (No Text, Circle) */}
+          {/* Profile Avatar Icon Only */}
           <Link
             href="/me"
-            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-surface dark:bg-surface-alt border border-line hover:border-lime flex items-center justify-center text-ink-muted hover:text-ink transition shadow-2xs btn-tactile"
+            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-surface dark:bg-surface-alt border border-line hover:border-lime flex items-center justify-center text-ink-muted hover:text-ink transition shadow-2xs btn-tactile"
             title="My Profile & Followed Cricket"
             aria-label="Profile"
           >
-            <User className="w-4.5 h-4.5" />
+            <User className="w-4 h-4" />
           </Link>
 
           {/* Mobile Hamburger Drawer Toggle */}
@@ -214,14 +212,14 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
             className="lg:hidden p-2 rounded-xl text-ink-muted hover:bg-surface-alt transition"
             aria-label="Toggle navigation drawer"
           >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Navigation Drawer */}
       {mobileOpen && (
-        <div className="lg:hidden border-t border-line bg-surface/98 dark:bg-surface/98 backdrop-blur-xl px-4 py-5 space-y-1.5 shadow-xl animate-fade-in">
+        <div className="lg:hidden border-t border-line bg-surface/98 dark:bg-surface/98 backdrop-blur-xl px-4 py-4 space-y-1 shadow-xl animate-fade-in">
           {[
             { href: '/', label: 'Home', icon: Home },
             { href: '/matches', label: 'Live Scores', icon: Radio },
@@ -240,7 +238,7 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="flex items-center justify-between px-3.5 py-3 rounded-xl text-xs sm:text-sm font-semibold text-ink-muted hover:bg-surface-alt hover:text-ink transition"
+                className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-ink-muted hover:bg-surface-alt hover:text-ink transition"
               >
                 <div className="flex items-center gap-2.5">
                   <Icon className="w-4 h-4 text-tealAccent" />
@@ -251,11 +249,11 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
             );
           })}
 
-          <div className="pt-4 mt-2 border-t border-line flex flex-col gap-2.5">
+          <div className="pt-3 mt-2 border-t border-line flex flex-col gap-2">
             <Link
               href="/organizer"
               onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-center gap-2 p-3 rounded-xl bg-brand text-white dark:bg-lime dark:text-canvas text-xs sm:text-sm font-bold shadow-xs"
+              className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-brand text-white dark:bg-lime dark:text-canvas text-xs sm:text-sm font-bold shadow-xs"
             >
               <Trophy className="w-4 h-4" />
               <span>Organizer Workspace</span>
@@ -263,7 +261,7 @@ export default function PublicHeader({ onOpenSearch }: PublicHeaderProps) {
             <Link
               href="/me"
               onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-center gap-2 p-3 rounded-xl bg-surface-alt text-xs sm:text-sm font-bold text-ink"
+              className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-surface-alt text-xs sm:text-sm font-bold text-ink border border-line"
             >
               <User className="w-4 h-4 text-tealAccent" />
               <span>Profile (My Cricket)</span>
