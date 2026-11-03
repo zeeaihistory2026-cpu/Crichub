@@ -81,7 +81,6 @@ export default function LiveMatchRibbon() {
             <span className="text-sm sm:text-base font-extrabold font-display text-ink tracking-tight">
               Live Cricket Matches
             </span>
-            </span>
           </div>
 
           {/* Filter Pills matching Image 2 */}

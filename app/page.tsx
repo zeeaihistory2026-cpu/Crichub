@@ -580,8 +580,6 @@ export default function HomePage() {
                       <span>{m.teamBCode}</span>
                     </div>
                   </div>
-                    </div>
-                  </div>
                   <div className="text-[11px] font-semibold text-tealAccent">{m.result}</div>
                 </div>
 
