@@ -67,7 +67,8 @@ export default function PlayerProfile({ player, country, batting, bowling, field
         ? `from ${player.active_from}`
         : null;
 
-  const headline = bat
+  const hasBat = !!bat && (bat.innings ?? 0) > 0;
+  const headline = hasBat && bat
     ? [
         { label: 'Matches', val: fmt(bat.matches) },
         { label: 'Total Runs', val: fmt(bat.runs) },

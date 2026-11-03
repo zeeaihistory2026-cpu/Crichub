@@ -72,7 +72,7 @@ export interface DbCountry {
 }
 
 const PLAYER_COLS =
-  'id,full_name,display_name,country_id,gender,dob,birthplace,batting_style,bowling_style,playing_role,active_from,active_to,has_stats';
+  'id,full_name,display_name:short_name,country_id,dob,birthplace,batting_style,bowling_style,playing_role:role,active_from,active_to,has_stats';
 
 async function sbGet<T>(path: string, client = false): Promise<T | null> {
   try {
@@ -105,9 +105,9 @@ export async function getPlayerBySlug(slug: string): Promise<DbPlayer | null> {
 
 export async function getPlayerStats(playerId: string) {
   const [batting, bowling, fielding] = await Promise.all([
-    sbGet<BattingRow[]>(`batting_stats?player_id=eq.${encodeURIComponent(playerId)}&select=*`),
-    sbGet<BowlingRow[]>(`bowling_stats?player_id=eq.${encodeURIComponent(playerId)}&select=*`),
-    sbGet<FieldingRow[]>(`fielding_stats?player_id=eq.${encodeURIComponent(playerId)}&select=*`),
+    sbGet<BattingRow[]>(`batting_stats?player_id=eq.${encodeURIComponent(playerId)}&select=category,matches:mat,innings:inns,not_outs:not_out,runs,high_score:hs,high_score_not_out:hs_not_out,average:ave,balls_faced,strike_rate:sr,hundreds,fifties,ducks,fours,sixes`),
+    sbGet<BowlingRow[]>(`bowling_stats?player_id=eq.${encodeURIComponent(playerId)}&select=category,matches:mat,innings:inns,balls,runs,wkts,best_innings:bbi,best_match:bbm,average:ave,economy:econ,strike_rate:sr,four_w,five_w,ten_w`),
+    sbGet<FieldingRow[]>(`fielding_stats?player_id=eq.${encodeURIComponent(playerId)}&select=category,matches:mat,catches,stumpings`),
   ]);
   return { batting: batting || [], bowling: bowling || [], fielding: fielding || [] };
 }
@@ -132,7 +132,7 @@ export async function listPlayers(opts: {
   if (opts.statsOnly) path += `&has_stats=eq.true`;
   if (opts.q) {
     const q = encodeURIComponent(`%${opts.q}%`);
-    path += `&or=(full_name.ilike.${q},display_name.ilike.${q})`;
+    path += `&or=(full_name.ilike.${q},short_name.ilike.${q})`;
   }
   try {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
@@ -157,7 +157,7 @@ export async function searchPlayers(q: string, limit = 8, client = false): Promi
   if (!q || q.trim().length < 2) return [];
   const enc = encodeURIComponent(`%${q.trim()}%`);
   const rows = await sbGet<DbPlayer[]>(
-    `players?select=${PLAYER_COLS}&or=(full_name.ilike.${enc},display_name.ilike.${enc})&order=has_stats.desc,full_name.asc&limit=${limit}`,
+    `players?select=${PLAYER_COLS}&or=(full_name.ilike.${enc},short_name.ilike.${enc})&order=has_stats.desc,full_name.asc&limit=${limit}`,
     client
   );
   return rows || [];
@@ -173,8 +173,8 @@ export async function getPlayerBySlugClient(slug: string): Promise<DbPlayer | nu
 
 export async function getPlayerStatsClient(playerId: string) {
   const [batting, bowling] = await Promise.all([
-    sbGet<BattingRow[]>(`batting_stats?player_id=eq.${encodeURIComponent(playerId)}&select=*`, true),
-    sbGet<BowlingRow[]>(`bowling_stats?player_id=eq.${encodeURIComponent(playerId)}&select=*`, true),
+    sbGet<BattingRow[]>(`batting_stats?player_id=eq.${encodeURIComponent(playerId)}&select=category,matches:mat,innings:inns,not_outs:not_out,runs,high_score:hs,high_score_not_out:hs_not_out,average:ave,balls_faced,strike_rate:sr,hundreds,fifties,ducks,fours,sixes`, true),
+    sbGet<BowlingRow[]>(`bowling_stats?player_id=eq.${encodeURIComponent(playerId)}&select=category,matches:mat,innings:inns,balls,runs,wkts,best_innings:bbi,best_match:bbm,average:ave,economy:econ,strike_rate:sr,four_w,five_w,ten_w`, true),
   ]);
   return { batting: batting || [], bowling: bowling || [] };
 }
@@ -189,14 +189,14 @@ export interface LeaderRow {
 
 export async function topBatting(category: string, limit = 10): Promise<LeaderRow[]> {
   const rows = await sbGet<LeaderRow[]>(
-    `batting_stats?select=runs,average,matches,players!inner(id,full_name,display_name,country_id)&category=eq.${category}&order=runs.desc&limit=${limit}`
+    `batting_stats?select=runs,average:ave,matches:mat,players!inner(id,full_name,display_name:short_name,country_id)&category=eq.${category}&runs=not.is.null&order=runs.desc&limit=${limit}`
   );
   return rows || [];
 }
 
 export async function topBowling(category: string, limit = 10): Promise<LeaderRow[]> {
   const rows = await sbGet<LeaderRow[]>(
-    `bowling_stats?select=wkts,average,matches,players!inner(id,full_name,display_name,country_id)&category=eq.${category}&order=wkts.desc&limit=${limit}`
+    `bowling_stats?select=wkts,average:ave,matches:mat,players!inner(id,full_name,display_name:short_name,country_id)&category=eq.${category}&wkts=not.is.null&order=wkts.desc&limit=${limit}`
   );
   return rows || [];
 }
