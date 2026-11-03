@@ -73,8 +73,11 @@ function mapMatch(m: any): FeedMatch {
     venue: m.venue || '',
     dateTimeGMT: m.dateTimeGMT || '',
     state,
-    teams: Array.isArray(m.teamInfo)
-      ? m.teamInfo.map((t: any) => ({ name: t.name || '', shortname: t.shortname || '' }))
+    teams: Array.isArray(m.teamInfo) && m.teamInfo.length > 0
+      ? m.teamInfo.map((t: any, i: number) => ({
+          name: t.name || (m.teams || [])[i] || '',
+          shortname: t.shortname || (m.teams || [])[i] || t.name || '',
+        }))
       : (m.teams || []).map((t: string) => ({ name: t, shortname: t })),
     score: Array.isArray(m.score)
       ? m.score.map((s: any) => ({ inning: s.inning || '', r: s.r ?? 0, w: s.w ?? 0, o: s.o ?? 0 }))
@@ -94,7 +97,14 @@ function teamScore(m: FeedMatch, idx: number): { score?: string; overs?: string 
   const innings = m.score.filter(
     (s) => s.inning.toLowerCase().startsWith(team.name.toLowerCase()) || s.inning.includes(team.shortname),
   );
-  const last = innings[innings.length - 1];
+  let last = innings[innings.length - 1];
+  if (!last && m.score[idx] && m.teams.length === 2) {
+    // Positional fallback for feed quirks like "TeamA,TeamB Inning 1".
+    const other = m.score.filter(
+      (x) => x.inning.toLowerCase().startsWith(m.teams[1 - idx].name.toLowerCase()),
+    );
+    if (!other.includes(m.score[idx])) last = m.score[idx];
+  }
   if (!last) return {};
   return { score: `${last.r}/${last.w}`, overs: `(${last.o} ov)` };
 }
