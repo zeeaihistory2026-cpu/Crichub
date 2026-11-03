@@ -234,7 +234,7 @@ export default function QualificationPage() {
           <div className="lg:col-span-5 bg-surface dark:bg-surface rounded-3xl p-6 sm:p-8 border border-line shadow-xs space-y-5">
             <div>
               <h2 className="text-base font-bold text-ink font-display">Configure Hypothetical Match</h2>
-              <p className="text-xs text-ink-muted mt-1">Group A Final Fixture Simulation</p>
+              <p className="text-xs text-ink-muted mt-1">Example group - hypothetical simulation</p>
             </div>
 
             <div className="space-y-4">

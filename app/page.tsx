@@ -7,6 +7,8 @@ import PublicHeader from '@/components/layout/PublicHeader';
 import PublicFooter from '@/components/layout/PublicFooter';
 import LiveMatchRibbon from '@/components/home/LiveMatchRibbon';
 import SearchModal from '@/components/ui/SearchModal';
+import { SEED_ARTICLES } from '@/data/seed-data';
+import { REAL_MATCHES } from '@/data/recent-matches';
 import TeamFlag from '@/components/ui/TeamFlag';
 import {
   Calculator,
@@ -27,41 +29,23 @@ import {
 
 export default function HomePage() {
   const [searchOpen, setSearchOpen] = useState(false);
-  const [newsFilter, setNewsFilter] = useState<'All' | 'Pakistan' | 'International' | 'Tournaments' | 'Analysis'>('All');
+  const [newsFilter, setNewsFilter] = useState<string>('All');
 
-  const newsArticles = [
-    {
-      id: 'pak-nz-squad',
-      category: 'Pakistan',
-      title: 'Pakistan Announces Squad for New Zealand ODI Series',
-      image: '/assets/pakistan-team.svg',
-      date: 'Nov 3, 2026',
-      readTime: '4 min read',
-      href: '/news/pakistan-squad-announcement',
-    },
-    {
-      id: 'icc-schedule-2027',
-      category: 'ICC',
-      title: 'ICC Confirms Schedule for T20 World Cup 2027',
-      image: '/assets/trophy-3d.svg',
-      date: 'Nov 2, 2026',
-      readTime: '5 min read',
-      href: '/news/world-cup-explained',
-    },
-    {
-      id: 'ind-aus-decider',
-      category: 'India',
-      title: 'India Eye Series Win in Decider Against Australia',
-      image: '/assets/cricket-match-action.svg',
-      date: 'Nov 2, 2026',
-      readTime: '6 min read',
-      href: '/news/india-sa',
-    },
-  ];
+  const ARTICLE_IMAGES = ['/assets/cricket-match-action.svg', '/assets/pakistan-team.svg', '/assets/trophy-3d.svg'];
+  const newsArticles = SEED_ARTICLES.slice(0, 6).map((a, i) => ({
+    id: a.id,
+    category: a.category,
+    title: a.title,
+    image: ARTICLE_IMAGES[i % ARTICLE_IMAGES.length],
+    date: a.stamp || a.date,
+    readTime: `${a.minutes} min read`,
+    href: `/news/${a.id}`,
+  }));
+  const newsTabs = ['All', ...Array.from(new Set(newsArticles.map((a) => a.category)))];
 
   const filteredNews = newsFilter === 'All'
     ? newsArticles
-    : newsArticles.filter((n) => n.category.toLowerCase() === newsFilter.toLowerCase() || newsFilter === 'Tournaments');
+    : newsArticles.filter((n) => n.category === newsFilter);
 
   return (
     <div className="min-h-screen bg-canvas text-ink flex flex-col font-body transition-colors duration-200">
@@ -145,9 +129,9 @@ export default function HomePage() {
 
                 {/* Floating Telemetry Badge */}
                 <div className="absolute bottom-2 left-2 z-20 bg-black/60 backdrop-blur-md border border-white/15 rounded-xl px-3 py-1.5 flex items-center gap-2 shadow-lg">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-400" />
                   <span className="text-[11px] font-mono font-bold text-white tracking-wide">
-                    PAK 152/3 (18.2 ov) · Live
+                    Latest: {REAL_MATCHES[0].teamBCode} {REAL_MATCHES[0].teamBScore} beat {REAL_MATCHES[0].teamACode} {REAL_MATCHES[0].teamAScore}
                   </span>
                 </div>
               </div>
@@ -288,10 +272,10 @@ export default function HomePage() {
               <div className="sm:col-span-8 bg-black/25 dark:bg-black/35 backdrop-blur-md rounded-2xl p-4 border border-white/10">
                 <div className="flex items-center justify-between pb-2.5 mb-2 border-b border-white/10">
                   <span className="text-xs font-bold font-display text-white">
-                    Group A — Live Scenario
+                    Qualification Lab — Example Scenario
                   </span>
                   <span className="text-[10px] font-mono text-lime font-bold uppercase tracking-wider">
-                    Active
+                    Example
                   </span>
                 </div>
 
@@ -401,7 +385,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <span className="text-[11px] font-bold text-center text-slate-200 mt-1 font-display">
-                  Qualification Chance (PAK)
+                  Example Qualification Chance
                 </span>
               </div>
             </div>
@@ -424,7 +408,7 @@ export default function HomePage() {
                 </div>
 
                 <div className="flex items-center gap-1.5 flex-wrap">
-                  {(['All', 'Pakistan', 'International', 'Tournaments', 'Analysis'] as const).map((tab) => (
+                  {newsTabs.map((tab) => (
                     <button
                       key={tab}
                       onClick={() => setNewsFilter(tab)}
@@ -555,13 +539,13 @@ export default function HomePage() {
           </section>
         </div>
 
-        {/* 7. Upcoming Matches Strip (matching Image 1) */}
+        {/* 7. Recent Results Strip (real verified results) */}
         <section className="bg-surface dark:bg-surface border border-line rounded-3xl p-5 sm:p-6 shadow-xs">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-tealAccent" />
               <h2 className="text-base font-bold font-display text-ink">
-                Upcoming Matches
+                Recent Results
               </h2>
             </div>
 
@@ -569,52 +553,34 @@ export default function HomePage() {
               href="/matches"
               className="text-xs font-bold text-tealAccent hover:underline flex items-center gap-1 group"
             >
-              <span>View Full Schedule</span>
+              <span>All Results</span>
               <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition" />
             </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-            {[
-              {
-                id: 'sl-ban',
-                format: 'T20I • Tomorrow, 7:00 PM',
-                teamA: 'SL',
-                teamB: 'BAN',
-              },
-              {
-                id: 'eng-aus',
-                format: 'ODI • Nov 5, 2:00 PM',
-                teamA: 'ENG',
-                teamB: 'AUS',
-              },
-              {
-                id: 'ind-nz',
-                format: 'T20 • Nov 6, 7:30 PM',
-                teamA: 'IND',
-                teamB: 'NZ',
-              },
-            ].map((fixture) => (
+            {REAL_MATCHES.slice(0, 3).map((m) => (
               <Link
-                key={fixture.id}
-                href="/matches"
+                key={m.id}
+                href={`/matches/${m.slug}`}
                 className="p-3.5 rounded-2xl bg-surface dark:bg-surface-alt/80 border border-line hover:border-tealAccent/60 flex items-center justify-between group transition interactive-card"
               >
                 <div className="space-y-1.5">
                   <div className="text-[10px] font-mono font-medium text-ink-muted">
-                    {fixture.format}
+                    {m.format} - {m.dateLabel}
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-1.5 font-bold font-display text-xs text-ink">
-                      <TeamFlag code={fixture.teamA} size={20} />
-                      <span>{fixture.teamA}</span>
+                      <TeamFlag code={m.teamACode} size={20} />
+                      <span>{m.teamACode}</span>
                     </div>
                     <span className="text-[10px] font-mono text-ink-muted uppercase">vs</span>
                     <div className="flex items-center gap-1.5 font-bold font-display text-xs text-ink">
-                      <TeamFlag code={fixture.teamB} size={20} />
-                      <span>{fixture.teamB}</span>
+                      <TeamFlag code={m.teamBCode} size={20} />
+                      <span>{m.teamBCode}</span>
                     </div>
                   </div>
+                  <div className="text-[11px] font-semibold text-tealAccent">{m.result}</div>
                 </div>
 
                 <div className="w-7 h-7 rounded-xl bg-surface border border-line flex items-center justify-center text-ink-muted group-hover:text-tealAccent transition shrink-0">

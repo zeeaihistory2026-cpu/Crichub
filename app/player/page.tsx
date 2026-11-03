@@ -1,2 +1,5 @@
-export { default } from '../players/page';
+import { redirect } from 'next/navigation';
 
+export default function PlayerIndexRedirect() {
+  redirect('/players');
+}

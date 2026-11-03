@@ -1,4 +1,4 @@
-export type MatchStatus = 'LIVE · DEMO' | 'IN PROGRESS · DEMO' | 'UPCOMING · DEMO' | 'FINAL · DEMO';
+export type MatchStatus = 'LIVE' | 'IN PROGRESS' | 'UPCOMING' | 'FINAL';
 
 export interface MatchSummary {
   id: string;
@@ -22,6 +22,10 @@ export interface MatchSummary {
   currentRate?: number;
   venue?: string;
   format?: 'T20' | 'ODI' | 'Test';
+  series?: string;
+  dateLabel?: string;
+  result?: string;
+  note?: string;
 }
 
 export interface BallDeliveryEvent {

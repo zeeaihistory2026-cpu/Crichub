@@ -12,12 +12,9 @@ import {
   ArrowRight,
   Trophy,
 } from 'lucide-react';
-import {
-  SEED_TOOLS,
-  SEED_ARTICLES,
-  SEED_MATCHES,
-  SEED_BABAR_AZAM,
-} from '@/data/seed-data';
+import { SEED_TOOLS, SEED_ARTICLES } from '@/data/seed-data';
+import { REAL_MATCHES } from '@/data/recent-matches';
+import { searchPlayers, initials, DbPlayer } from '@/lib/data';
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -26,6 +23,24 @@ interface SearchModalProps {
 
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [query, setQuery] = useState('');
+  const [playerResults, setPlayerResults] = useState<DbPlayer[]>([]);
+
+  useEffect(() => {
+    const term = query.trim();
+    if (term.length < 2) {
+      setPlayerResults([]);
+      return;
+    }
+    let cancelled = false;
+    const t = setTimeout(async () => {
+      const rows = await searchPlayers(term, 6, true);
+      if (!cancelled) setPlayerResults(rows);
+    }, 220);
+    return () => {
+      cancelled = true;
+      clearTimeout(t);
+    };
+  }, [query]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -56,11 +71,9 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     (a) => a.title.toLowerCase().includes(q) || a.summary.toLowerCase().includes(q)
   ).slice(0, 4);
 
-  const matchingMatches = SEED_MATCHES.filter(
+  const matchingMatches = REAL_MATCHES.filter(
     (m) => m.name.toLowerCase().includes(q) || m.detail.toLowerCase().includes(q)
   );
-
-  const isBabarMatch = q && 'babar azam pakistan batter'.includes(q);
 
   return (
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-start justify-center p-4 pt-16 sm:pt-24 animate-fade-in">
@@ -118,7 +131,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   onClick={onClose}
                   className="p-3 rounded-xl bg-surface-alt hover:border-tealAccent transition flex items-center gap-2 border border-line font-medium text-ink"
                 >
-                  <Radio className="w-4 h-4 text-alert" /> Live Match Centre
+                  <Radio className="w-4 h-4 text-alert" /> Match Centre
                 </Link>
               </div>
             </div>
@@ -222,36 +235,44 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 </div>
               )}
 
-              {/* Player Profile Match */}
-              {isBabarMatch && (
+              {/* Players - live from the CreaseGrid database */}
+              {playerResults.length > 0 && (
                 <div>
                   <div className="text-xs font-bold text-ink-muted uppercase tracking-wider mb-2">
                     PLAYERS
                   </div>
-                  <Link
-                    href="/players/babar-azam"
-                    onClick={onClose}
-                    className="flex items-center justify-between p-2.5 rounded-xl bg-surface-alt hover:border-tealAccent group transition border border-line"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="w-8 h-8 rounded-full bg-brand text-white dark:bg-lime dark:text-canvas font-bold text-xs flex items-center justify-center">
-                        BA
-                      </span>
-                      <div>
-                        <div className="text-xs font-bold text-ink group-hover:text-tealAccent transition flex items-center gap-1">
-                          {SEED_BABAR_AZAM.name} <span className="text-tealAccent">✓</span>
+                  <div className="space-y-1.5">
+                    {playerResults.map((p) => (
+                      <Link
+                        key={p.id}
+                        href={`/players/${p.id}`}
+                        onClick={onClose}
+                        className="flex items-center justify-between p-2.5 rounded-xl hover:bg-surface-alt group transition"
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="w-8 h-8 rounded-full bg-brand text-white dark:bg-lime dark:text-canvas font-bold text-[10px] flex items-center justify-center">
+                            {initials(p.full_name)}
+                          </span>
+                          <div>
+                            <div className="text-xs font-bold text-ink group-hover:text-tealAccent transition">
+                              {p.full_name}
+                            </div>
+                            <div className="text-[11px] text-ink-muted capitalize">
+                              {p.country_id.replace(/-/g, ' ')}
+                              {p.playing_role ? ` - ${p.playing_role}` : ''}
+                            </div>
+                          </div>
                         </div>
-                        <div className="text-[11px] text-ink-muted">
-                          {SEED_BABAR_AZAM.country} · {SEED_BABAR_AZAM.role}
-                        </div>
-                      </div>
-                    </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-ink-muted group-hover:text-tealAccent group-hover:translate-x-0.5 transition" />
-                  </Link>
+                        <span className="text-[9px] font-mono font-bold text-ink-muted">
+                          {p.has_stats ? 'STATS' : 'PROFILE'}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               )}
 
-              {matchingTools.length === 0 && matchingArticles.length === 0 && matchingMatches.length === 0 && !isBabarMatch && (
+              {matchingTools.length === 0 && matchingArticles.length === 0 && matchingMatches.length === 0 && playerResults.length === 0 && (
                 <div className="text-center py-8 text-ink-muted text-xs">
                   No matching results found for &ldquo;{query}&rdquo;.
                 </div>

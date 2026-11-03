@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import DashboardShell from '@/components/layout/DashboardShell';
+import { REAL_MATCHES, RESULTS_UPDATED_LABEL } from '@/data/recent-matches';
 import StatCard from '@/components/ui/StatCard';
 import { getLocalState, saveLocalState } from '@/lib/supabase';
 import { SEED_ARTICLES } from '@/data/seed-data';
@@ -48,7 +49,7 @@ export default function FanDashboardPage() {
     <DashboardShell
       role="user"
       eyebrow="YOUR CRICKET SPACE"
-      title="Good morning, Ayaan ✳"
+      title="Your cricket home"
       subtitle="All the cricket you follow, with less noise and more of what matters."
       actions={
         <>
@@ -77,83 +78,61 @@ export default function FanDashboardPage() {
         </div>
       )}
 
-      {/* Followed Match Hero Card */}
+      {/* Latest Result Hero Card (real verified result) */}
       <section className="bg-gradient-to-r from-brand via-[#0B513E] to-[#06392C] dark:from-[#122B34] dark:via-[#0E232B] dark:to-[#0A1A22] rounded-3xl p-6 sm:p-8 text-white shadow-xl border border-line mb-6 space-y-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <span className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 text-[10px] font-mono font-bold uppercase tracking-wider">
-              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
-              <span>LIVE TELEMETRY TRACKER</span>
+            <span className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-white/10 text-slate-200 border border-white/20 text-[10px] font-mono font-bold uppercase tracking-wider">
+              <span>Latest Result</span>
             </span>
             <h2 className="text-xl sm:text-2xl font-extrabold text-white mt-1 font-display">
-              Pakistan vs New Zealand
+              {REAL_MATCHES[0].name}
             </h2>
             <p className="text-xs text-slate-200 font-normal">
-              3rd T20 · Gaddafi Stadium, Lahore · Final Overs Thriller
+              {REAL_MATCHES[0].detail} - {REAL_MATCHES[0].dateLabel}
             </p>
           </div>
-
-          <button
-            onClick={() => {
-              setIsFollowingMatch(!isFollowingMatch);
-              triggerToast(isFollowingMatch ? 'Match unfollowed from dashboard' : 'Match pinned to dashboard alerts!');
-            }}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 border shadow-xs btn-tactile ${
-              isFollowingMatch
-                ? 'bg-lime text-canvas border-lime'
-                : 'bg-white/10 text-slate-200 border-white/20 hover:bg-white/20'
-            }`}
-          >
-            <Bell className="w-3.5 h-3.5" />
-            <span>{isFollowingMatch ? 'Following Live' : 'Follow Match'}</span>
-          </button>
         </div>
 
-        {/* Scores Bar */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center py-4 border-y border-white/10">
           <div className="flex items-center gap-3">
-            <span className="text-3xl">🇵🇰</span>
+            <span className="text-3xl">{REAL_MATCHES[0].teamAFlag}</span>
             <div>
               <div className="text-[10px] font-mono font-bold text-slate-300 uppercase tracking-wider">
-                PAKISTAN (CHASING)
+                {REAL_MATCHES[0].teamA}
               </div>
               <div className="text-2xl sm:text-3xl font-black text-white tabular-nums font-mono">
-                142/4 <span className="text-sm text-slate-300 font-normal">(16.2 ov)</span>
+                {REAL_MATCHES[0].teamAScore}
               </div>
             </div>
           </div>
 
           <div className="text-center bg-black/20 p-3.5 rounded-2xl border border-white/10 backdrop-blur-xs space-y-1">
             <div className="text-xs font-mono font-extrabold text-lime">
-              Need 35 runs from 22 legal balls
+              {REAL_MATCHES[0].result}
             </div>
-            <div className="text-[11px] text-slate-200 flex items-center justify-center gap-2 font-mono">
-              <span>Required: <strong>9.55 RPO</strong></span>
-              <span>·</span>
-              <span>Current: <strong>8.69 RPO</strong></span>
+            <div className="text-[11px] text-slate-200 font-mono">
+              {REAL_MATCHES[0].series}
             </div>
           </div>
 
           <div className="flex items-center justify-end gap-3 text-right">
             <div>
               <div className="text-[10px] font-mono font-bold text-slate-300 uppercase tracking-wider">
-                NEW ZEALAND (1ST INN)
+                {REAL_MATCHES[0].teamB}
               </div>
               <div className="text-2xl sm:text-3xl font-black text-white tabular-nums font-mono">
-                176/6 <span className="text-sm text-slate-300 font-normal">(20.0 ov)</span>
+                {REAL_MATCHES[0].teamBScore}
               </div>
             </div>
-            <span className="text-3xl">🇳🇿</span>
+            <span className="text-3xl">{REAL_MATCHES[0].teamBFlag}</span>
           </div>
         </div>
 
         <div className="flex items-center justify-between text-xs text-slate-200 pt-1">
-          <span className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span className="font-mono text-[11px]">Real-time legal deliveries synced</span>
-          </span>
+          <span className="font-mono text-[11px]">Verified from published reports - updated {RESULTS_UPDATED_LABEL}</span>
           <Link
-            href="/matches/pak-vs-nz-3rd-t20"
+            href={`/matches/${REAL_MATCHES[0].slug}`}
             className="text-lime hover:underline font-bold flex items-center gap-1 transition"
           >
             <span>Open Match Centre</span>

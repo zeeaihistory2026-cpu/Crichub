@@ -6,7 +6,8 @@ import { useSearchParams } from 'next/navigation';
 import PublicHeader from '@/components/layout/PublicHeader';
 import PublicFooter from '@/components/layout/PublicFooter';
 import SectionHeader from '@/components/ui/SectionHeader';
-import { SEED_ARTICLES, SEED_TOOLS, SEED_MATCHES } from '@/data/seed-data';
+import { SEED_ARTICLES, SEED_TOOLS } from '@/data/seed-data';
+import { REAL_MATCHES } from '@/data/recent-matches';
 import { Search, ArrowRight, Calculator, Newspaper, Radio } from 'lucide-react';
 
 function SearchResultsContent() {
@@ -28,7 +29,7 @@ function SearchResultsContent() {
     (t) => t.name.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q)
   );
 
-  const foundMatches = SEED_MATCHES.filter(
+  const foundMatches = REAL_MATCHES.filter(
     (m) => m.name.toLowerCase().includes(q) || m.detail.toLowerCase().includes(q)
   );
 

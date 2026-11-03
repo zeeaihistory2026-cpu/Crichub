@@ -5,7 +5,8 @@ import Link from 'next/link';
 import PublicHeader from '@/components/layout/PublicHeader';
 import PublicFooter from '@/components/layout/PublicFooter';
 import SectionHeader from '@/components/ui/SectionHeader';
-import { SEED_PSL_STANDINGS, SEED_MATCHES, SEED_ARTICLES } from '@/data/seed-data';
+import { SEED_ARTICLES } from '@/data/seed-data';
+import { REAL_MATCHES } from '@/data/recent-matches';
 import { Trophy, ArrowRight } from 'lucide-react';
 
 export default function TournamentsPage() {
@@ -106,40 +107,11 @@ export default function TournamentsPage() {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-line/60">
-                      {SEED_PSL_STANDINGS.map((row, idx) => {
-                        const isPlayoffs = idx < 4;
-                        return (
-                          <tr
-                            key={row.name}
-                            className={`${isPlayoffs ? 'bg-lime/5' : ''} hover:bg-surface-alt transition`}
-                          >
-                            <td className="py-3 pl-2 font-bold text-ink-muted">
-                              <span
-                                className={`w-5 h-5 rounded-full text-[10px] font-mono inline-flex items-center justify-center ${
-                                  isPlayoffs ? 'bg-brand text-white dark:bg-lime dark:text-canvas font-bold' : 'text-ink-muted'
-                                }`}
-                              >
-                                {idx + 1}
-                              </span>
-                            </td>
-                            <td className="py-3 font-bold text-ink flex items-center gap-2 font-display">
-                              <span>🏏</span>
-                              <span>{row.name}</span>
-                            </td>
-                            <td className="py-3 text-center text-ink-muted font-mono tabular-nums">{row.p}</td>
-                            <td className="py-3 text-center text-emerald-600 dark:text-lime font-bold font-mono tabular-nums">{row.w}</td>
-                            <td className="py-3 text-center text-alert font-mono tabular-nums">{row.l}</td>
-                            <td className="py-3 text-center font-black text-ink text-sm font-mono tabular-nums">{row.pts}</td>
-                            <td
-                              className={`py-3 text-right pr-2 tabular-nums font-mono text-[11px] ${
-                                row.nrr.startsWith('+') ? 'text-emerald-600 dark:text-lime font-bold' : 'text-alert'
-                              }`}
-                            >
-                              {row.nrr}
-                            </td>
-                          </tr>
-                        );
-                      })}
+                      <tr>
+                        <td colSpan={7} className="py-8 text-center text-xs text-ink-muted">
+                          Standings publish here once the tournament begins and results are verified. No placeholder table is shown.
+                        </td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -148,19 +120,19 @@ export default function TournamentsPage() {
 
             {activeTab === 'fixtures' && (
               <div className="bg-surface dark:bg-surface rounded-2xl p-5 border border-line shadow-xs space-y-3">
-                <SectionHeader title="PSL Fixtures & Results" />
+                <SectionHeader title="Latest International Results" />
                 <div className="space-y-3">
-                  {SEED_MATCHES.map((m) => (
+                  {REAL_MATCHES.map((m) => (
                     <div key={m.id} className="p-3.5 rounded-xl bg-surface-alt border border-line flex items-center justify-between">
                       <div>
                         <div className="text-xs font-bold text-ink">{m.name}</div>
-                        <div className="text-[10px] text-ink-muted">{m.detail}</div>
+                        <div className="text-[10px] text-ink-muted">{m.detail} - {m.result}</div>
                       </div>
                       <Link
                         href={`/matches/${m.slug}`}
                         className="text-xs font-bold text-tealAccent hover:underline flex items-center gap-1"
                       >
-                        Scorecard <ArrowRight className="w-3 h-3" />
+                        Match Centre <ArrowRight className="w-3 h-3" />
                       </Link>
                     </div>
                   ))}
@@ -178,8 +150,8 @@ export default function TournamentsPage() {
                         <span className="text-2xl">🏏</span>
                         <div className="font-bold text-xs sm:text-sm text-ink">{team}</div>
                       </div>
-                      <Link href="/players/babar-azam" className="text-xs font-bold text-tealAccent hover:underline">
-                        Squad
+                      <Link href="/players" className="text-xs font-bold text-tealAccent hover:underline">
+                        Players
                       </Link>
                     </div>
                   ))}
@@ -190,26 +162,17 @@ export default function TournamentsPage() {
             {activeTab === 'stats' && (
               <div className="bg-surface dark:bg-surface rounded-2xl p-5 border border-line shadow-xs space-y-4">
                 <SectionHeader title="Tournament Leaderboards" />
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  {[
-                    { label: 'Total Runs', val: '9,240' },
-                    { label: 'Total Wickets', val: '301' },
-                    { label: 'Sixes Hit', val: '412' },
-                    { label: 'Highest Score', val: '241/3' },
-                  ].map((s) => (
-                    <div key={s.label} className="p-4 rounded-xl bg-surface-alt text-center border border-line">
-                      <div className="text-xl font-black text-ink tabular-nums font-mono">{s.val}</div>
-                      <div className="text-[10px] text-ink-muted uppercase font-semibold mt-1">{s.label}</div>
-                    </div>
-                  ))}
-                </div>
+                <p className="text-xs text-ink-muted">Tournament leaderboards publish with the verified PSL statistics batch, currently in preparation. All-time international leaderboards are live on the Stats page.</p>
+                <Link href="/stats" className="inline-flex text-xs font-bold text-tealAccent hover:underline">
+                  View all-time leaderboards
+                </Link>
               </div>
             )}
 
             {activeTab === 'news' && (
               <div className="bg-surface dark:bg-surface rounded-2xl p-5 border border-line shadow-xs space-y-3">
                 <SectionHeader title="League News & Updates" href="/news" />
-                {SEED_ARTICLES.filter((a) => a.category === 'PSL' || a.category === 'Breaking').map((art) => (
+                {SEED_ARTICLES.filter((a) => a.id === 'psl-update').map((art) => (
                   <div key={art.id} className="p-3.5 rounded-xl bg-surface-alt border border-line">
                     <h4 className="text-xs font-bold text-ink">
                       <Link href={`/news/${art.id}`} className="hover:text-tealAccent">{art.title}</Link>

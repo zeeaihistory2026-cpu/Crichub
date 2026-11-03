@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import TeamFlag from '@/components/ui/TeamFlag';
+import { REAL_MATCHES } from '@/data/recent-matches';
 
 interface LiveMatchItem {
   id: string;
@@ -26,63 +27,26 @@ interface LiveMatchItem {
   highlightStatus?: boolean;
 }
 
-const MATCHES: LiveMatchItem[] = [
-  {
-    id: 'pak-nz-odi-2',
-    slug: 'pakistan-new-zealand',
-    type: 'live',
-    badge: 'LIVE',
-    badgeType: 'live',
-    series: '2nd ODI • Pakistan Tour of NZ',
-    teamA: {
-      code: 'NZ',
-      score: '142/3',
-      overs: '(32.0 ov)',
-    },
-    teamB: {
-      code: 'PAK',
-      score: '149/5',
-      overs: '(19.0 ov)',
-    },
-    statusText: 'Pakistan won the toss and elected to bowl',
-    highlightStatus: true,
-  },
-  {
-    id: 'ind-aus-t20',
-    slug: 'india-south-africa',
-    type: 'live',
-    badge: 'LIVE',
-    badgeType: 'live',
-    series: 'T20 • India vs Australia',
-    teamA: {
-      code: 'IND',
-      score: '142/3',
-      overs: '(16.2 ov)',
-    },
-    teamB: {
-      code: 'AUS',
-      score: '171/6',
-      overs: '(20.0 ov)',
-    },
-    statusText: 'India need 30 runs in 22 balls',
-    highlightStatus: true,
-  },
-  {
-    id: 'eng-sa-t20-1',
-    slug: 'australia-england',
-    type: 'upcoming',
-    badge: 'UPCOMING',
-    badgeType: 'upcoming',
-    series: '1st T20I • ENG vs SA',
-    teamA: {
-      code: 'ENG',
-    },
-    teamB: {
-      code: 'SA',
-    },
-    statusText: 'Today, 09:00 PM (PKT)',
-  },
-];
+const MATCHES: LiveMatchItem[] = REAL_MATCHES.map((m) => {
+  const split = (raw: string) => {
+    const mm = raw.match(/^(.*?)\s*(\(.*\))?$/);
+    return { score: mm?.[1], overs: mm?.[2] };
+  };
+  const a = split(m.teamAScore);
+  const b = split(m.teamBScore);
+  return {
+    id: m.id,
+    slug: m.slug,
+    type: 'completed' as const,
+    badge: 'RESULT',
+    badgeType: 'completed' as const,
+    series: `${m.format} - ${m.detail}`,
+    teamA: { code: m.teamACode, score: a.score, overs: a.overs },
+    teamB: { code: m.teamBCode, score: b.score, overs: b.overs },
+    statusText: m.result ?? '',
+    highlightStatus: false,
+  };
+});
 
 export default function LiveMatchRibbon() {
   const [filter, setFilter] = useState<'all' | 'live' | 'upcoming' | 'results'>('all');
@@ -110,21 +74,16 @@ export default function LiveMatchRibbon() {
         <div className="flex items-center gap-3 flex-wrap">
           {/* Live Indicator Heading */}
           <div className="flex items-center gap-2">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-alert opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-alert" />
-            </span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-tealAccent" />
             <span className="text-sm font-extrabold font-display text-ink tracking-tight">
-              Live Cricket Matches
+              Latest Results
             </span>
           </div>
 
           {/* Filter Pills matching Image 2 */}
           <div className="flex items-center gap-1.5 p-1 rounded-full bg-surface-alt border border-line">
             {[
-              { id: 'all', label: 'All (3)' },
-              { id: 'live', label: 'Live (2)' },
-              { id: 'upcoming', label: 'Upcoming (5)' },
+              { id: 'all', label: `All (${REAL_MATCHES.length})` },
               { id: 'results', label: 'Results' },
             ].map((tab) => {
               const active = filter === tab.id;
