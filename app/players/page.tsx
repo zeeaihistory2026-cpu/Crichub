@@ -80,11 +80,10 @@ export default function PlayerProfilePage() {
             <div className="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-3">
               <button
                 onClick={toggleFollow}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-xs btn-tactile ${
-                  isFollowing
-                    ? 'bg-rose-500/10 text-rose-500 border border-rose-500/30'
-                    : 'bg-brand text-white hover:bg-brand-hover dark:bg-lime dark:text-canvas'
-                }`}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-xs btn-tactile ${isFollowing
+                  ? 'bg-rose-500/10 text-rose-500 border border-rose-500/30'
+                  : 'bg-brand text-white hover:bg-brand-hover dark:bg-lime dark:text-canvas'
+                  }`}
               >
                 <Heart className={`w-3.5 h-3.5 ${isFollowing ? 'fill-rose-500' : ''}`} />
                 <span>{isFollowing ? 'Following Player' : 'Follow Player'}</span>
@@ -108,11 +107,10 @@ export default function PlayerProfilePage() {
               <button
                 key={fmt}
                 onClick={() => setSelectedFormat(fmt)}
-                className={`px-4 py-1.5 rounded-xl text-xs font-black transition btn-tactile ${
-                  selectedFormat === fmt
-                    ? 'bg-brand text-white dark:bg-lime dark:text-canvas shadow-xs font-bold'
-                    : 'bg-surface text-ink-muted hover:text-ink hover:bg-surface-alt border border-line'
-                }`}
+                className={`px-4 py-1.5 rounded-xl text-xs font-black transition btn-tactile ${selectedFormat === fmt
+                  ? 'bg-brand text-white dark:bg-lime dark:text-canvas shadow-xs font-bold'
+                  : 'bg-surface text-ink-muted hover:text-ink hover:bg-surface-alt border border-line'
+                  }`}
               >
                 {fmt}
               </button>
