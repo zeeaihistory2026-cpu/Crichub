@@ -33,7 +33,7 @@ export default function MobileScoringPage() {
     setLegalBalls(state.scorecard.legalBalls);
     setEvents(state.scorecard.events);
     setOversLimit(state.tournament.overs);
-    setTeamName(state.tournament.teams[0] || 'Lahore Strikers');
+    setTeamName(state.tournament.teams[0] || 'Team A');
   }, []);
 
   const triggerToast = (msg: string) => {

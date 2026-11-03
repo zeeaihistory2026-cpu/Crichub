@@ -53,7 +53,7 @@ export default function FanDashboardPage() {
     <DashboardShell
       role="user"
       eyebrow="YOUR CRICKET SPACE"
-      title="Good morning, Ayaan ✳"
+      title="Your cricket home"
       subtitle="All the cricket you follow, with less noise and more of what matters."
       actions={
         <>
@@ -82,89 +82,25 @@ export default function FanDashboardPage() {
         </div>
       )}
 
-      {/* Followed Match Hero Card */}
-      <section className="bg-gradient-to-r from-navy via-navy-deep to-brand-900 rounded-3xl p-6 sm:p-8 text-white shadow-2xl border border-navy-border mb-6 space-y-5">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <span className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 text-[10px] font-mono font-bold uppercase tracking-wider">
-              <span className="w-2 h-2 rounded-full bg-rose-500 live-pulse-glow"></span>
-              <span>LIVE TELEMETRY TRACKER</span>
-            </span>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-white mt-1 font-display">
-              Pakistan vs New Zealand
-            </h2>
-            <p className="text-xs text-slate-300 font-normal">
-              3rd T20 · Gaddafi Stadium, Lahore · Final Overs Thriller
-            </p>
-          </div>
-
-          <button
-            onClick={() => {
-              setIsFollowingMatch(!isFollowingMatch);
-              triggerToast(isFollowingMatch ? 'Match unfollowed from dashboard' : 'Match pinned to dashboard alerts!');
-            }}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 border shadow-xs btn-tactile ${
-              isFollowingMatch
-                ? 'bg-brand-600 text-white border-brand-500'
-                : 'bg-white/10 text-slate-300 border-white/20 hover:bg-white/20'
-            }`}
-          >
-            <Bell className="w-3.5 h-3.5" />
-            <span>{isFollowingMatch ? 'Following Live' : 'Follow Match'}</span>
-          </button>
-        </div>
-
-        {/* Scores Bar */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center py-4 border-y border-white/10">
-          <div className="flex items-center gap-3">
-            <span className="text-3xl">🇵🇰</span>
-            <div>
-              <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">
-                PAKISTAN (CHASING)
-              </div>
-              <div className="text-2xl sm:text-3xl font-black text-white tabular-nums font-mono">
-                142/4 <span className="text-sm text-slate-400 font-normal">(16.2 ov)</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center bg-white/5 p-3.5 rounded-2xl border border-white/10 backdrop-blur-xs space-y-1">
-            <div className="text-xs font-mono font-extrabold text-amber-400">
-              Need 35 runs from 22 legal balls
-            </div>
-            <div className="text-[11px] text-slate-300 flex items-center justify-center gap-2 font-mono">
-              <span>Required: <strong>9.55 RPO</strong></span>
-              <span>·</span>
-              <span>Current: <strong>8.69 RPO</strong></span>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-end gap-3 text-right">
-            <div>
-              <div className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">
-                NEW ZEALAND (1ST INN)
-              </div>
-              <div className="text-2xl sm:text-3xl font-black text-white tabular-nums font-mono">
-                176/6 <span className="text-sm text-slate-400 font-normal">(20.0 ov)</span>
-              </div>
-            </div>
-            <span className="text-3xl">🇳🇿</span>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between text-xs text-slate-300 pt-1">
-          <span className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 green-pulse-glow"></span>
-            <span className="font-mono text-[11px]">Real-time legal deliveries synced</span>
-          </span>
-          <Link
-            href="/matches/pak-vs-nz-3rd-t20"
-            className="text-brand-300 hover:text-white font-bold flex items-center gap-1 transition"
-          >
-            <span>Open Match Centre</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
+      {/* Followed Match Hero — honest empty state until a live feed is connected */}
+      <section className="bg-gradient-to-r from-navy via-navy-deep to-brand-900 rounded-3xl p-6 sm:p-8 text-white shadow-2xl border border-navy-border mb-6 space-y-3">
+        <span className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-white/10 text-slate-200 border border-white/20 text-[10px] font-mono font-bold uppercase tracking-wider">
+          Live Match
+        </span>
+        <h2 className="text-xl sm:text-2xl font-extrabold text-white font-display">
+          No live match pinned yet
+        </h2>
+        <p className="text-xs sm:text-sm text-slate-300 max-w-lg leading-relaxed">
+          When a live scores feed is connected, matches you follow will appear here with real
+          scores as they happen. Until then this space stays empty — no demo scores.
+        </p>
+        <Link
+          href="/players"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-brand-300 hover:text-white transition"
+        >
+          <span>Browse player profiles meanwhile</span>
+          <ArrowRight className="w-3.5 h-3.5" />
+        </Link>
       </section>
 
       {/* 4 Fan KPI Widgets */}
@@ -174,14 +110,14 @@ export default function FanDashboardPage() {
           iconColor="red"
           title="Followed Teams"
           value={followingTeams.length}
-          context="Pakistan, India, Qalandars"
+          context="Teams you follow"
         />
         <StatCard
           icon={Bookmark}
           iconColor="violet"
           title="Saved Articles"
-          value="7"
-          context="Read offline anytime"
+          value={favoriteArticles.length}
+          context="Saved from the newsroom"
         />
         <StatCard
           icon={CalendarDays}

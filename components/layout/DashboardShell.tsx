@@ -140,8 +140,8 @@ export default function DashboardShell({
       ? 'Organizer Workspace'
       : 'My Cricket';
 
-  const userAvatar = role === 'admin' ? 'AD' : role === 'organizer' ? 'HA' : 'AK';
-  const userName = role === 'admin' ? 'Platform Admin' : role === 'organizer' ? 'Hassan Ali' : 'Ayaan Khan';
+  const userAvatar = role === 'admin' ? 'AD' : role === 'organizer' ? 'OR' : 'MC';
+  const userName = role === 'admin' ? 'Platform Admin' : role === 'organizer' ? 'Tournament Organizer' : 'My Cricket';
   const userSub = role === 'admin' ? 'Super administrator' : role === 'organizer' ? 'League organizer' : 'Cricket fan';
 
   return (

@@ -17,7 +17,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey);
  * Allows full local tournaments, team creation, ball-by-ball scoring,
  * bookmarking, following, and offline operation.
  */
-const STORAGE_KEY = 'creasegrid_app_state_v2';
+const STORAGE_KEY = 'creasegrid_app_state_v3';
 
 interface AppStorageState {
   tournament: LocalTournament;
@@ -34,37 +34,30 @@ interface AppStorageState {
 
 const DEFAULT_STORAGE: AppStorageState = {
   tournament: {
-    id: 'demo-tournament-1',
-    name: 'City Champions Cup 2026',
+    id: 'my-tournament',
+    name: '',
     format: 'T20',
     overs: 20,
-    teams: ['Lahore Strikers', 'City Warriors', 'Royal Falcons', 'Tigers XI'],
-    matchesCount: 24,
-    status: 'In Progress',
-    location: 'Lahore, Pakistan',
-    startDate: '2–16 Nov 2026',
+    teams: [],
+    matchesCount: 0,
+    status: 'Draft',
+    location: '',
+    startDate: '',
   },
-  teams: ['Lahore Strikers', 'City Warriors', 'Royal Falcons', 'Tigers XI'],
+  teams: [],
   scorecard: {
-    runs: 142,
-    wickets: 4,
-    legalBalls: 98, // 16.2 overs
-    events: [
-      { id: '1', sequence: 1, legal: true, kind: '1', runs: 1, wicket: 0, label: 'Single', overNumber: 15, ballInOver: 5, timestamp: '1h ago' },
-      { id: '2', sequence: 2, legal: true, kind: '4', runs: 4, wicket: 0, label: 'Four runs', overNumber: 15, ballInOver: 6, timestamp: '1h ago' },
-      { id: '3', sequence: 3, legal: true, kind: '0', runs: 0, wicket: 0, label: 'Dot ball', overNumber: 16, ballInOver: 1, timestamp: '45m ago' },
-      { id: '4', sequence: 4, legal: true, kind: '6', runs: 6, wicket: 0, label: 'Six runs', overNumber: 16, ballInOver: 2, timestamp: '40m ago' },
-    ],
+    runs: 0,
+    wickets: 0,
+    legalBalls: 0,
+    events: [],
   },
-  savedResults: [
-    { teamA: 'North Stars', teamB: 'Metro Kings', runsA: 165, runsB: 158, date: 'Nov 2, 2026' }
-  ],
+  savedResults: [],
   userPreferences: {
-    favoriteArticles: ['pakistan-squad'],
-    followingTeams: ['Pakistan', 'India', 'Lahore Qalandars'],
-    followingPlayers: ['babar'],
+    favoriteArticles: [],
+    followingTeams: [],
+    followingPlayers: [],
     darkMode: false,
-    displayName: 'Ayaan Khan',
+    displayName: '',
   },
 };
 
