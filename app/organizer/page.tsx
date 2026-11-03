@@ -25,7 +25,7 @@ export default function OrganizerDashboardPage() {
   const [teamModalOpen, setTeamModalOpen] = useState(false);
   const [newTeamName, setNewTeamName] = useState('');
   const [teams, setTeams] = useState<string[]>([]);
-  const [tournamentName, setTournamentName] = useState('City Champions Cup 2026');
+  const [tournamentName, setTournamentName] = useState('');
   const [toastMsg, setToastMsg] = useState<string | null>(null);
 
   useEffect(() => {

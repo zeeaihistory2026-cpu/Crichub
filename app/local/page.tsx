@@ -100,13 +100,13 @@ export default function LocalCricketPage() {
         <div className="bg-surface dark:bg-surface rounded-3xl p-6 sm:p-8 border border-line shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div className="space-y-1.5">
             <span className="text-[10px] font-mono font-bold uppercase text-brand dark:text-lime bg-surface-alt px-3 py-1 rounded-full border border-line">
-              ACTIVE DEMO TOURNAMENT
+              LOCAL TOURNAMENTS
             </span>
             <h2 className="text-xl sm:text-2xl font-extrabold text-ink font-display mt-2">
-              City Champions Cup 2026
+              Run your own local tournament
             </h2>
             <p className="text-xs sm:text-sm text-ink-muted font-normal">
-              12 Registered Teams · T20 Format · 20 Overs · Lahore, Pakistan
+              Create a tournament, add your teams and score matches ball by ball - everything saves on this device.
             </p>
           </div>
 
