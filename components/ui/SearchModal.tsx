@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Search, X, Calculator, Newspaper, Radio, Trophy, User, ArrowRight } from 'lucide-react';
-import { SEED_ARTICLES, SEED_MATCHES, SEED_TOOLS, SEED_BABAR_AZAM } from '@/data/seed-data';
+import { SEED_ARTICLES, SEED_MATCHES, SEED_TOOLS } from '@/data/seed-data';
+import { searchPlayers, initials, DbPlayer } from '@/lib/data';
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -12,6 +13,19 @@ interface SearchModalProps {
 
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [query, setQuery] = useState('');
+  const [playerResults, setPlayerResults] = useState<DbPlayer[]>([]);
+
+  useEffect(() => {
+    const term = query.trim();
+    if (term.length < 2) {
+      setPlayerResults([]);
+      return;
+    }
+    const t = setTimeout(async () => {
+      setPlayerResults(await searchPlayers(term, 6, true));
+    }, 250);
+    return () => clearTimeout(t);
+  }, [query]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -41,7 +55,6 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     (m) => m.name.toLowerCase().includes(q) || m.detail.toLowerCase().includes(q)
   );
 
-  const isBabarMatch = q && 'babar azam pakistan batter'.includes(q);
 
   return (
     <div className="fixed inset-0 z-50 bg-navy/60 backdrop-blur-xs flex items-start justify-center p-4 pt-16 sm:pt-24 animate-fade-in">
@@ -203,36 +216,44 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                 </div>
               )}
 
-              {/* Player Profile Match */}
-              {isBabarMatch && (
+              {/* Players — live database */}
+              {playerResults.length > 0 && (
                 <div>
                   <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
                     PLAYERS
                   </div>
-                  <Link
-                    href="/players/babar-azam"
-                    onClick={onClose}
-                    className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 hover:bg-brand-50 group transition border border-slate-100"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="w-8 h-8 rounded-full bg-brand-600 text-white font-bold text-xs flex items-center justify-center">
-                        BA
-                      </span>
-                      <div>
-                        <div className="text-xs font-bold text-navy group-hover:text-brand-600 transition flex items-center gap-1">
-                          {SEED_BABAR_AZAM.name} <span className="text-brand-600">✓</span>
+                  <div className="space-y-1.5">
+                    {playerResults.map((p) => (
+                      <Link
+                        key={p.id}
+                        href={`/players/${p.id}`}
+                        onClick={onClose}
+                        className="flex items-center justify-between p-2.5 rounded-xl hover:bg-brand-50 group transition"
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="w-8 h-8 rounded-full bg-navy text-white font-bold text-[10px] flex items-center justify-center">
+                            {initials(p.full_name)}
+                          </span>
+                          <div>
+                            <div className="text-xs font-bold text-navy group-hover:text-brand-600 transition">
+                              {p.full_name}
+                            </div>
+                            <div className="text-[11px] text-slate-400 capitalize">
+                              {p.country_id.replace(/-/g, ' ')}
+                              {p.playing_role ? ` · ${p.playing_role}` : ''}
+                            </div>
+                          </div>
                         </div>
-                        <div className="text-[11px] text-slate-400">
-                          {SEED_BABAR_AZAM.country} · {SEED_BABAR_AZAM.role}
-                        </div>
-                      </div>
-                    </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-brand-600 group-hover:translate-x-0.5 transition" />
-                  </Link>
+                        <span className="text-[9px] font-mono font-bold text-slate-400">
+                          {p.has_stats ? 'STATS' : 'PROFILE'}
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               )}
 
-              {matchingTools.length === 0 && matchingArticles.length === 0 && matchingMatches.length === 0 && !isBabarMatch && (
+              {matchingTools.length === 0 && matchingArticles.length === 0 && matchingMatches.length === 0 && playerResults.length === 0 && (
                 <div className="text-center py-8 text-slate-400 text-xs">
                   No matching results found for &ldquo;{query}&rdquo;.
                 </div>
