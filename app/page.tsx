@@ -10,11 +10,11 @@ import MatchTile from '@/components/ui/MatchTile';
 import SectionHeader from '@/components/ui/SectionHeader';
 import SearchModal from '@/components/ui/SearchModal';
 import {
-  SEED_MATCHES,
   SEED_ARTICLES,
   SEED_TOOLS,
   SEED_GROUP_A_TEAMS,
 } from '@/data/seed-data';
+import { REAL_MATCHES } from '@/data/recent-matches';
 import { calculateNetRunRate } from '@/lib/cricket-math';
 import {
   Search,
@@ -156,12 +156,12 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Live Match Rail */}
+        {/* Latest Results Rail */}
         <section className="space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-xs font-mono font-bold text-navy uppercase tracking-wider">
-              <span className="w-2 h-2 rounded-full bg-rose-500 live-pulse-glow"></span>
-              <span>MATCH TELEMETRY & SCORES</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span>LATEST RESULTS</span>
             </div>
             <Link
               href="/matches"
@@ -173,7 +173,7 @@ export default function HomePage() {
           </div>
 
           <div className="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none">
-            {SEED_MATCHES.map((match) => (
+            {REAL_MATCHES.map((match) => (
               <MatchTile key={match.id} match={match} />
             ))}
           </div>

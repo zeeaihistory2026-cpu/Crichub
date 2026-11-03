@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Search, X, Calculator, Newspaper, Radio, Trophy, User, ArrowRight } from 'lucide-react';
-import { SEED_ARTICLES, SEED_MATCHES, SEED_TOOLS } from '@/data/seed-data';
+import { SEED_ARTICLES, SEED_TOOLS } from '@/data/seed-data';
+import { REAL_MATCHES } from '@/data/recent-matches';
 import { searchPlayers, initials, DbPlayer } from '@/lib/data';
 
 interface SearchModalProps {
@@ -51,7 +52,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     (a) => a.title.toLowerCase().includes(q) || a.summary.toLowerCase().includes(q)
   ).slice(0, 4);
 
-  const matchingMatches = SEED_MATCHES.filter(
+  const matchingMatches = REAL_MATCHES.filter(
     (m) => m.name.toLowerCase().includes(q) || m.detail.toLowerCase().includes(q)
   );
 
