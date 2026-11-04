@@ -5,6 +5,8 @@ import { notFound } from 'next/navigation';
 import PublicHeader from '@/components/layout/PublicHeader';
 import PublicFooter from '@/components/layout/PublicFooter';
 import { getRecentMatch, REAL_MATCHES } from '@/data/recent-matches';
+import { findFeedMatch, getMatchScorecard } from '@/lib/live';
+import ScorecardView from '@/components/ScorecardView';
 import { Trophy, MapPin, CalendarDays, Layers } from 'lucide-react';
 
 export async function generateMetadata({
@@ -20,9 +22,12 @@ export async function generateMetadata({
   };
 }
 
-export default function MatchDetailPage({ params }: { params: { slug: string } }) {
+export default async function MatchDetailPage({ params }: { params: { slug: string } }) {
   const match = getRecentMatch(params.slug);
   if (!match) notFound();
+
+  const feedMatch = await findFeedMatch(match.teamA, match.teamB);
+  const scorecard = feedMatch ? await getMatchScorecard(feedMatch.id) : null;
 
   const others = REAL_MATCHES.filter((m) => m.slug !== match.slug).slice(0, 3);
 
@@ -86,10 +91,24 @@ export default function MatchDetailPage({ params }: { params: { slug: string } }
           )}
 
           <p className="text-[11px] text-slate-400 font-mono">
-            Result recorded from published reports. CreaseGrid does not publish ball-by-ball
-            commentary or full scorecards for international matches.
+            {scorecard
+              ? 'Result recorded from published reports; full scorecard below from the connected live feed (CricAPI).'
+              : 'Result recorded from published reports.'}
           </p>
         </div>
+
+        {scorecard ? (
+          <div className="space-y-3">
+            <h2 className="text-sm font-extrabold text-navy font-display">Full Scorecard</h2>
+            <ScorecardView data={scorecard} />
+          </div>
+        ) : (
+          <p className="text-[11px] text-slate-400 font-mono">
+            The full scorecard for this match is not available in the connected feed's recent
+            window - the feed only carries recent matches. The verified summary above is from
+            published reports.
+          </p>
+        )}
 
         {others.length > 0 && (
           <div className="space-y-3">

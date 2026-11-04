@@ -138,7 +138,7 @@ export function toRibbonItem(m: FeedMatch): RibbonItem {
 }
 
 export async function getLiveRibbonItems(): Promise<RibbonItem[]> {
-  const matches = await getCurrentMatches();
+  const matches = await getFeaturedMatches();
   return matches.filter((m) => m.state !== 'completed').map(toRibbonItem);
 }
 
@@ -203,4 +203,98 @@ export async function getMatchScorecard(id: string): Promise<MatchScorecard | nu
       }))
     : [];
   return { match, innings };
+}
+
+// ---------- Editorial filter: internationals + major leagues only ----------
+// The site surfaces only (a) matches between national teams and
+// (b) the major franchise leagues in its scope. Domestic tournaments
+// (Ranji Trophy, county cricket, local leagues) stay out of the ribbon
+// and the Match Centre.
+
+const NATIONAL_TEAMS = new Set(
+  [
+    'Afghanistan', 'Argentina', 'Australia', 'Austria', 'Bahamas', 'Bahrain', 'Bangladesh',
+    'Belgium', 'Belize', 'Bermuda', 'Bhutan', 'Botswana', 'Brazil', 'Bulgaria', 'Cambodia',
+    'Cameroon', 'Canada', 'Cayman Islands', 'Chile', 'China', 'Cook Islands', 'Costa Rica',
+    'Croatia', 'Cyprus', 'Czech Republic', 'Denmark', 'Egypt', 'England', 'Estonia', 'Eswatini',
+    'Fiji', 'Finland', 'France', 'Gambia', 'Germany', 'Ghana', 'Gibraltar', 'Greece', 'Guernsey',
+    'Hong Kong', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Iran', 'Ireland', 'Isle of Man',
+    'Israel', 'Italy', 'Ivory Coast', 'Japan', 'Jersey', 'Kenya', 'Kuwait', 'Lesotho',
+    'Luxembourg', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta', 'Mexico', 'Mongolia',
+    'Mozambique', 'Myanmar', 'Namibia', 'Nepal', 'Netherlands', 'New Zealand', 'Nigeria',
+    'Norway', 'Oman', 'Pakistan', 'Panama', 'Papua New Guinea', 'Philippines', 'Portugal',
+    'Qatar', 'Romania', 'Rwanda', 'Samoa', 'Saudi Arabia', 'Scotland', 'Serbia', 'Seychelles',
+    'Sierra Leone', 'Singapore', 'Slovenia', 'South Africa', 'South Korea', 'Spain',
+    'Sri Lanka', 'St Helena', 'Suriname', 'Sweden', 'Switzerland', 'Tanzania', 'Thailand',
+    'Turkey', 'Uganda', 'United Arab Emirates', 'United States of America', 'Vanuatu',
+    'West Indies', 'Zambia', 'Zimbabwe',
+  ].map((n) => n.toLowerCase()),
+);
+
+const TEAM_ALIASES: Record<string, string> = {
+  'united states': 'united states of america',
+  usa: 'united states of america',
+  uae: 'united arab emirates',
+  'hong kong, china': 'hong kong',
+  "cote d'ivoire": 'ivory coast',
+  "côte d'ivoire": 'ivory coast',
+  türkiye: 'turkey',
+  turkiye: 'turkey',
+  czechia: 'czech republic',
+  holland: 'netherlands',
+  korea: 'south korea',
+  'korea republic': 'south korea',
+};
+
+export function normalizeTeamName(name: string): string {
+  let n = (name || '').toLowerCase().trim().replace(/\s+/g, ' ');
+  n = n.replace(/ (women|woman)$/, '');
+  n = n.replace(/ (u19|u-19|under-19|under 19)$/, '');
+  return TEAM_ALIASES[n] || n;
+}
+
+export function isNationalTeam(name: string): boolean {
+  return NATIONAL_TEAMS.has(normalizeTeamName(name));
+}
+
+const LEAGUE_PATTERNS: RegExp[] = [
+  /indian premier league|ipl/,
+  /pakistan super league|psl/,
+  /big bash|bbl/,
+  /caribbean premier league|cpl/,
+  /sa20/,
+  /the hundred/,
+  /lanka premier league|lpl/,
+  /bangladesh premier league|bpl/,
+];
+
+export type MatchClass = 'international' | 'league' | 'other';
+
+export function classifyMatch(m: FeedMatch): MatchClass {
+  if (m.teams.length >= 2 && m.teams.every((t) => isNationalTeam(t.name))) {
+    return 'international';
+  }
+  const hay = m.name.toLowerCase();
+  if (LEAGUE_PATTERNS.some((re) => re.test(hay))) return 'league';
+  return 'other';
+}
+
+export async function getFeaturedMatches(): Promise<FeedMatch[]> {
+  const all = await getCurrentMatches();
+  return all.filter((m) => classifyMatch(m) !== 'other');
+}
+
+// Find a feed match (any state) between two teams - used to attach full
+// scorecards to curated result pages while the match is in the feed window.
+export async function findFeedMatch(teamA: string, teamB: string): Promise<FeedMatch | null> {
+  const a = normalizeTeamName(teamA);
+  const b = normalizeTeamName(teamB);
+  const all = await getCurrentMatches();
+  return (
+    all.find((m) => {
+      if (m.teams.length < 2) return false;
+      const names = m.teams.map((t) => normalizeTeamName(t.name));
+      return names.includes(a) && names.includes(b);
+    }) || null
+  );
 }

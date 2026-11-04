@@ -4,7 +4,7 @@ import Link from 'next/link';
 import PublicHeader from '@/components/layout/PublicHeader';
 import PublicFooter from '@/components/layout/PublicFooter';
 import { REAL_MATCHES, RESULTS_UPDATED_LABEL } from '@/data/recent-matches';
-import { getCurrentMatches, liveFeedConfigured } from '@/lib/live';
+import { getFeaturedMatches, liveFeedConfigured } from '@/lib/live';
 import { Target, Trophy } from 'lucide-react';
 
 export const revalidate = 120;
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 export default async function MatchesPage() {
-  const liveMatches = (await getCurrentMatches()).filter((m) => m.state === 'live');
+  const liveMatches = (await getFeaturedMatches()).filter((m) => m.state === 'live');
   const feedOn = liveFeedConfigured();
   return (
     <>
@@ -34,13 +34,13 @@ export default async function MatchesPage() {
               <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
               Latest Results · Updated {RESULTS_UPDATED_LABEL}
             </div>
-<h1 className="text-[30px] leading-[38px] sm:text-[40px] sm:leading-[48px] lg:text-[44px] lg:leading-[52px] font-extrabold text-ink font-display tracking-tight mt-1">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-navy tracking-tight mt-1">
               Match Centre
             </h1>
-<p className="text-sm sm:text-base text-ink-muted mt-1.5 font-normal leading-relaxed max-w-2xl">
+            <p className="text-xs sm:text-sm text-slate-500 mt-0.5 max-w-2xl">
               {feedOn
                 ? 'Live scores from the connected feed, plus recent international results verified from published reports.'
-                : 'Recent international results, verified from published reports. Real match trajectories, chase equations, and complete innings scorecards.'}
+                : 'Recent international results, verified from published reports. A live scores feed is not connected yet, so this page shows completed results only - never demo scores.'}
             </p>
           </div>
 
