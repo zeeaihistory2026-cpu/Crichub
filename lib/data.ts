@@ -268,6 +268,18 @@ export const CATEGORY_LABELS: Record<string, string> = {
   pak_domestic_u19: 'Pakistan U19 Domestic',
 };
 
+// How current each category's published aggregates are (audit 2026-11-04:
+// profiles and leaderboards must never present these as silently current).
+export const CATEGORY_COVERAGE: Record<string, string> = {
+  test: 'career figures to end of 2019',
+  odi: 'to March 2025 for Pakistan, India, Australia, England, New Zealand, South Africa, Bangladesh and Afghanistan; end of 2019 for other teams',
+  t20i: 'career figures to end of 2019',
+  first_class: 'career figures to end of 2019',
+  list_a: 'career figures to end of 2019',
+  t20: 'career figures to end of 2019',
+  ipl: 'complete through the 2026 season',
+};
+
 export const CATEGORY_ORDER = [
   'test',
   'odi',

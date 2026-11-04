@@ -108,7 +108,8 @@ export default async function StatsPage() {
             </h1>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
               All-time leaderboards from the live CreaseGrid database — published career aggregates,
-              refreshed in verified batches.
+              refreshed in verified batches. Coverage: Test figures to end of 2019; ODI figures to
+              March 2025 for the major teams (end of 2019 for the rest); IPL complete through 2026.
             </p>
           </div>
 

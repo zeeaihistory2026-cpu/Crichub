@@ -8,6 +8,7 @@ import {
   BowlingRow,
   FieldingRow,
   CATEGORY_LABELS,
+  CATEGORY_COVERAGE,
   CATEGORY_ORDER,
   initials,
 } from '@/lib/data';
@@ -192,6 +193,7 @@ export default function PlayerProfile({ player, country, batting, bowling, field
             </div>
             <div className="text-xs text-slate-400 font-mono">
               Career metrics · <b>{CATEGORY_LABELS[selected] || selected}</b>
+              {CATEGORY_COVERAGE[selected] ? <> · {CATEGORY_COVERAGE[selected]}</> : null}
             </div>
           </div>
 
