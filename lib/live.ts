@@ -158,7 +158,7 @@ export async function getCurrentMatches(full = false): Promise<FeedMatch[]> {
   // or a short page marks the end of the list.
   const all: FeedMatch[] = [];
   for (const offset of [0, 25, 50]) {
-    const data = await fetchApi(`currentMatches?offset=${offset}`, 300);
+    const data = await fetchApi(`currentMatches?offset=${offset}`, 600);
     if (!Array.isArray(data) || data.length === 0) break;
     const mapped = data.map(mapMatch);
     all.push(...mapped);
@@ -247,7 +247,7 @@ export interface MatchScorecard {
 export async function getMatchScorecard(id: string): Promise<MatchScorecard | null> {
   const archived = await readArchiveById(id);
   if (archived) return archived;
-  const data = await fetchApi(`match_scorecard?id=${encodeURIComponent(id)}`, 300);
+  const data = await fetchApi(`match_scorecard?id=${encodeURIComponent(id)}`, 600);
   if (!data) return null;
   const match = mapMatch(data);
   const innings: ScorecardInnings[] = Array.isArray(data.scorecard)

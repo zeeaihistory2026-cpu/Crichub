@@ -8,6 +8,6 @@ export async function GET() {
   const live = await getLiveRibbonItems();
   return NextResponse.json(
     { live },
-    { headers: { 'Cache-Control': 'public, s-maxage=120, stale-while-revalidate=60' } },
+    { headers: { 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=120' } },
   );
 }
