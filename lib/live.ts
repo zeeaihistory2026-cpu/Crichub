@@ -52,7 +52,7 @@ async function readArchiveById(id: string): Promise<MatchScorecard | null> {
   try {
     const res = await fetch(
       `${SUPABASE_URL}/rest/v1/feed_scorecards?match_id=eq.${encodeURIComponent(id)}&select=payload`,
-      { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` }, next: { revalidate: 3600 } },
+      { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` }, cache: 'no-store' },
     );
     if (!res.ok) return null;
     const rows = await res.json();
@@ -69,7 +69,7 @@ export async function findArchivedScorecard(teamA: string, teamB: string): Promi
   try {
     const res = await fetch(
       `${SUPABASE_URL}/rest/v1/feed_scorecards?${filter}&select=payload&order=captured_at.desc&limit=1`,
-      { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` }, next: { revalidate: 3600 } },
+      { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` }, cache: 'no-store' },
     );
     if (!res.ok) return null;
     const rows = await res.json();
