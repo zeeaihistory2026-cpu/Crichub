@@ -9,6 +9,10 @@ import { findFeedMatch, findArchivedScorecard, findSeriesScorecardId, getMatchSc
 import ScorecardView from '@/components/ScorecardView';
 import { Trophy, MapPin, CalendarDays, Layers } from 'lucide-react';
 
+// Result pages must regenerate periodically: their full scorecard can
+// arrive later via the feed archive, long after the summary was published.
+export const revalidate = 3600;
+
 export async function generateMetadata({
   params,
 }: {
