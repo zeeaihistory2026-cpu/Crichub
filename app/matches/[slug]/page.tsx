@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import PublicHeader from '@/components/layout/PublicHeader';
 import PublicFooter from '@/components/layout/PublicFooter';
 import { getRecentMatch, REAL_MATCHES } from '@/data/recent-matches';
-import { findFeedMatch, getMatchScorecard } from '@/lib/live';
+import { findFeedMatch, findArchivedScorecard, getMatchScorecard } from '@/lib/live';
 import ScorecardView from '@/components/ScorecardView';
 import { Trophy, MapPin, CalendarDays, Layers } from 'lucide-react';
 
@@ -27,7 +27,9 @@ export default async function MatchDetailPage({ params }: { params: { slug: stri
   if (!match) notFound();
 
   const feedMatch = await findFeedMatch(match.teamA, match.teamB);
-  const scorecard = feedMatch ? await getMatchScorecard(feedMatch.id) : null;
+  const scorecard =
+    (await findArchivedScorecard(match.teamA, match.teamB)) ??
+    (feedMatch ? await getMatchScorecard(feedMatch.id) : null);
 
   const others = REAL_MATCHES.filter((m) => m.slug !== match.slug).slice(0, 3);
 

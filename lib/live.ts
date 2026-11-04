@@ -39,6 +39,72 @@ export interface FeedMatch {
 
 const API_BASE = 'https://api.cricapi.com/v1';
 
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from './data';
+
+// ---------- Scorecard archive ----------
+// The feed only carries recent matches, and its free quota can run out.
+// Every completed scorecard the site loads is archived into our own
+// database (feed_scorecards), so a match page keeps its full scorecard
+// forever - readable with the public anon key, writable only from the
+// server via the service-role key.
+
+async function readArchiveById(id: string): Promise<MatchScorecard | null> {
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/feed_scorecards?match_id=eq.${encodeURIComponent(id)}&select=payload`,
+      { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` }, next: { revalidate: 3600 } },
+    );
+    if (!res.ok) return null;
+    const rows = await res.json();
+    return Array.isArray(rows) && rows[0]?.payload ? (rows[0].payload as MatchScorecard) : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function findArchivedScorecard(teamA: string, teamB: string): Promise<MatchScorecard | null> {
+  const a = normalizeTeamName(teamA);
+  const b = normalizeTeamName(teamB);
+  const filter = `or=(and(team_a.eq.${a},team_b.eq.${b}),and(team_a.eq.${b},team_b.eq.${a}))`;
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/feed_scorecards?${filter}&select=payload&order=captured_at.desc&limit=1`,
+      { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` }, next: { revalidate: 3600 } },
+    );
+    if (!res.ok) return null;
+    const rows = await res.json();
+    return Array.isArray(rows) && rows[0]?.payload ? (rows[0].payload as MatchScorecard) : null;
+  } catch {
+    return null;
+  }
+}
+
+async function writeArchive(sc: MatchScorecard): Promise<void> {
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!serviceKey || sc.match.teams.length < 2) return;
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/feed_scorecards`, {
+      method: 'POST',
+      headers: {
+        apikey: serviceKey,
+        Authorization: `Bearer ${serviceKey}`,
+        'Content-Type': 'application/json',
+        Prefer: 'resolution=merge-duplicates',
+      },
+      body: JSON.stringify({
+        match_id: sc.match.id,
+        name: sc.match.name,
+        team_a: normalizeTeamName(sc.match.teams[0].name),
+        team_b: normalizeTeamName(sc.match.teams[1].name),
+        payload: sc,
+      }),
+      cache: 'no-store',
+    });
+  } catch {
+    /* archive is best-effort */
+  }
+}
+
 export function liveFeedConfigured(): boolean {
   return Boolean(process.env.CRICAPI_KEY);
 }
@@ -85,19 +151,19 @@ function mapMatch(m: any): FeedMatch {
   };
 }
 
-export async function getCurrentMatches(): Promise<FeedMatch[]> {
+export async function getCurrentMatches(full = false): Promise<FeedMatch[]> {
   // The feed's first page is dominated by just-finished matches; live and
   // upcoming fixtures can sit on later pages (25 rows per page, ~57 total).
   // Page through up to 3 pages, stopping early once a live match is found
   // or a short page marks the end of the list.
   const all: FeedMatch[] = [];
   for (const offset of [0, 25, 50]) {
-    const data = await fetchApi(`currentMatches?offset=${offset}`, 180);
+    const data = await fetchApi(`currentMatches?offset=${offset}`, 300);
     if (!Array.isArray(data) || data.length === 0) break;
     const mapped = data.map(mapMatch);
     all.push(...mapped);
     if (data.length < 25) break;
-    if (mapped.some((m) => m.state === 'live')) break;
+    if (!full && mapped.some((m) => m.state === 'live')) break;
   }
   return all;
 }
@@ -176,7 +242,9 @@ export interface MatchScorecard {
 }
 
 export async function getMatchScorecard(id: string): Promise<MatchScorecard | null> {
-  const data = await fetchApi(`match_scorecard?id=${encodeURIComponent(id)}`, 60);
+  const archived = await readArchiveById(id);
+  if (archived) return archived;
+  const data = await fetchApi(`match_scorecard?id=${encodeURIComponent(id)}`, 300);
   if (!data) return null;
   const match = mapMatch(data);
   const innings: ScorecardInnings[] = Array.isArray(data.scorecard)
@@ -202,7 +270,11 @@ export async function getMatchScorecard(id: string): Promise<MatchScorecard | nu
         totalText: inn.totals ? `${inn.totals.r}/${inn.totals.w} (${inn.totals.o} ov)` : '',
       }))
     : [];
-  return { match, innings };
+  const result = { match, innings };
+  if (match.state === 'completed' && innings.length > 0) {
+    await writeArchive(result);
+  }
+  return result;
 }
 
 // ---------- Editorial filter: internationals + major leagues only ----------
@@ -289,7 +361,7 @@ export async function getFeaturedMatches(): Promise<FeedMatch[]> {
 export async function findFeedMatch(teamA: string, teamB: string): Promise<FeedMatch | null> {
   const a = normalizeTeamName(teamA);
   const b = normalizeTeamName(teamB);
-  const all = await getCurrentMatches();
+  const all = await getCurrentMatches(true);
   return (
     all.find((m) => {
       if (m.teams.length < 2) return false;
