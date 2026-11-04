@@ -239,6 +239,9 @@ export interface ScorecardInnings {
 export interface MatchScorecard {
   match: FeedMatch;
   innings: ScorecardInnings[];
+  // Set when the scorecard did not come from the live feed (e.g. compiled
+  // from a published scorecard into the archive).
+  source?: string;
 }
 
 export async function getMatchScorecard(id: string): Promise<MatchScorecard | null> {
@@ -358,6 +361,55 @@ export async function getFeaturedMatches(): Promise<FeedMatch[]> {
 
 // Find a feed match (any state) between two teams - used to attach full
 // scorecards to curated result pages while the match is in the feed window.
+// The recent-matches window only spans a few days. For older completed
+// matches, look the fixture up in the feed's series archive: find a series
+// whose name mentions one of the teams and whose dates cover the match
+// date, then pick the match with the same team pair on that date.
+export async function findSeriesScorecardId(
+  teamA: string,
+  teamB: string,
+  dateISO?: string,
+): Promise<string | null> {
+  const a = normalizeTeamName(teamA);
+  const b = normalizeTeamName(teamB);
+  const wantedDates = new Set<string>();
+  if (dateISO) {
+    const base = new Date(`${dateISO}T00:00:00Z`).getTime();
+    for (const delta of [-1, 0, 1]) {
+      wantedDates.add(new Date(base + delta * 86400000).toISOString().slice(0, 10));
+    }
+  }
+  for (const offset of [0, 25, 50, 75]) {
+    const data = await fetchApi(`series?offset=${offset}`, 86400);
+    if (!Array.isArray(data) || data.length === 0) break;
+    for (const series of data) {
+      const name = String(series?.name || '').toLowerCase();
+      if (!name.includes(a) && !name.includes(b)) continue;
+      if (dateISO && series?.startDate && series?.endDate) {
+        if (dateISO < String(series.startDate).slice(0, 10) || dateISO > String(series.endDate).slice(0, 10)) continue;
+      }
+      const info = await fetchApi(`series_info?id=${encodeURIComponent(series.id)}`, 86400);
+      const list = Array.isArray(info?.matchList) ? info.matchList : [];
+      for (const m of list) {
+        const names = (Array.isArray(m?.teams) ? m.teams : []).map((t: string) => normalizeTeamName(t));
+        const pairOk =
+          (names.includes(a) && names.includes(b)) ||
+          (Array.isArray(m?.teamInfo) &&
+            m.teamInfo.some((t: any) => normalizeTeamName(t?.name || '') === a) &&
+            m.teamInfo.some((t: any) => normalizeTeamName(t?.name || '') === b));
+        if (!pairOk) continue;
+        if (wantedDates.size > 0) {
+          const d = String(m?.dateTimeGMT || m?.date || '').slice(0, 10);
+          if (!wantedDates.has(d)) continue;
+        }
+        if (m?.id) return String(m.id);
+      }
+    }
+    if (data.length < 25) break;
+  }
+  return null;
+}
+
 export async function findFeedMatch(teamA: string, teamB: string): Promise<FeedMatch | null> {
   const a = normalizeTeamName(teamA);
   const b = normalizeTeamName(teamB);

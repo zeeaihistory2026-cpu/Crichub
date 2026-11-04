@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import PublicHeader from '@/components/layout/PublicHeader';
 import PublicFooter from '@/components/layout/PublicFooter';
 import { getRecentMatch, REAL_MATCHES } from '@/data/recent-matches';
-import { findFeedMatch, findArchivedScorecard, getMatchScorecard } from '@/lib/live';
+import { findFeedMatch, findArchivedScorecard, findSeriesScorecardId, getMatchScorecard } from '@/lib/live';
 import ScorecardView from '@/components/ScorecardView';
 import { Trophy, MapPin, CalendarDays, Layers } from 'lucide-react';
 
@@ -26,10 +26,17 @@ export default async function MatchDetailPage({ params }: { params: { slug: stri
   const match = getRecentMatch(params.slug);
   if (!match) notFound();
 
-  const feedMatch = await findFeedMatch(match.teamA, match.teamB);
-  const scorecard =
-    (await findArchivedScorecard(match.teamA, match.teamB)) ??
-    (feedMatch ? await getMatchScorecard(feedMatch.id) : null);
+  const parsed = match.dateLabel ? Date.parse(match.dateLabel) : NaN;
+  const dateISO = Number.isNaN(parsed) ? undefined : new Date(parsed).toISOString().slice(0, 10);
+  let scorecard = await findArchivedScorecard(match.teamA, match.teamB);
+  if (!scorecard) {
+    const feedMatch = await findFeedMatch(match.teamA, match.teamB);
+    if (feedMatch) scorecard = await getMatchScorecard(feedMatch.id);
+  }
+  if (!scorecard) {
+    const seriesId = await findSeriesScorecardId(match.teamA, match.teamB, dateISO);
+    if (seriesId) scorecard = await getMatchScorecard(seriesId);
+  }
 
   const others = REAL_MATCHES.filter((m) => m.slug !== match.slug).slice(0, 3);
 
@@ -94,7 +101,8 @@ export default async function MatchDetailPage({ params }: { params: { slug: stri
 
           <p className="text-[11px] text-slate-400 font-mono">
             {scorecard
-              ? 'Result recorded from published reports; full scorecard below from the connected live feed (CricAPI).'
+              ? scorecard.source ||
+                'Result recorded from published reports; full scorecard below from the connected live feed (CricAPI).'
               : 'Result recorded from published reports.'}
           </p>
         </div>
